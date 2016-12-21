@@ -1,0 +1,87 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Authentication Required</title>
+<!-- Start css code for forms -->
+<style type = "text/css">
+.label{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:11px;
+color:#000000;
+}
+.tableBorder{
+border:solid 1px #0066FF;
+margin-top:100px;
+}
+.message{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:14px;
+font-weight:bold;
+color:#000000;
+}
+</Style>
+<!-- End css code for forms -->
+<!-- Start javascript validation for forms -->
+<script type="text/javascript">
+function validateForm()
+{
+var user=document.login.username.value;
+var user=user.trim();
+var pass=document.login.password.value;
+if(user == '')
+{
+document.getElementById('error').innerHTML="Please Enter Username";
+return false;
+}
+if(pass == '')
+{
+document.getElementById('error').innerHTML="Please Enter Password";
+return false;
+}
+}
+</script>
+<!-- End javascript validation code for forms -->
+</head>
+
+<body>
+<p>
+<table cellpadding="2px" cellspacing="1px" bgcolor="#F4F5F7" width="400px" class="tableBorder" align="center">
+<tr>
+<td colspan="2" bgcolor="#F4F5F7">&nbsp;</td>
+</tr>
+<tr>
+<td colspan="2" class="label">&nbsp;</td>
+</tr>
+<tr>
+<td align="center" colspan="2">
+<span class="message">Authentication Required</span>&nbsp;
+<p>
+<span class="body">The server http://GatWa:80 requires a username</span>
+<br />
+<span class="body">and password. The server says: DT 845W</span>
+<br /><br />
+</td>
+</tr>
+<tr>
+<!--<td colspan="2" class="label">&nbsp;</td>-->
+<td colspan="2" class="label"><div id="error" align="center"></div></td>
+</tr>
+<form method="POST" action="login.html" name="login" onSubmit="return validateForm()">
+<tr>
+<td class="label" align="right" width="40%">Username:</td>
+<td align="left" width="60%"><input type="text" name="username" id="username" maxlength="20"/></td>
+</tr>
+<tr>
+<td class="label" align="right">Password:</td>
+<td align="left"><input type="password" name="password" id="password" maxlength="20" /></td>
+</tr>
+<tr>
+<td class="label" align="right">&nbsp;</td>
+<td align="left"><input type="submit" value="Login" /><input type="submit" value="Cancel" /></td>
+</tr>
+<tr>
+<td colspan="2" class="label">&nbsp;</td>
+</tr>
+</form>
+</table>
+</body>
+</html> 

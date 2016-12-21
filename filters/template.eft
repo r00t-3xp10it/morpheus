@@ -1,0 +1,47 @@
+############################################################################
+#                                                                          #
+#  HTTPS Request/Response Filter                                           #
+#  based on code from ALoR & NaGA                                          #
+#  template filter by: r00t-3xp10it                                        #
+#                                                                          #
+#  This program is free software; you can redistribute it and/or modify    #
+#  it under the terms of the GNU General Public License as published by    #
+#  the Free Software Foundation. either version 2 of the License, or       #
+#  (at your option) any later version.                                     #
+#                                                                          #
+#  Few examples                                                            #
+#  [syntax logic]       [description]                                      #
+#  ----------------------------------                                      #
+#  ip.src         <-->  ip.source                                          #
+#  ip.dst         <-->  ip.destination                                     #
+#  ip.proto       <-->  ip.protocol                                        #
+#  tcp.src        <-->  tcp.source                                         #
+#  udp.dst        <-->  udp.destination                                    #
+#  drop();        <-->  drops tcp/udp packet                               #
+#  kill();        <-->  kills the connection                               #
+#  msg("");       <-->  prints a mensage in terminal                       #
+#  udp.src == 80  <-->  udp.source that matchs port 80                     #
+#  tcp.src != 80  <-->  tcp.source that not matchs port 80                 #
+#                                                                          #
+#  More information about filters scripting can be found in                #
+#  /usr/share/ettercap/etter.filter.examples                               #
+#  /root/morpheus/filters/firewall.eft                                     #
+#                                                                          #
+############################################################################
+
+##
+#  This filter will ...
+##
+
+
+##########################
+## Zap Content Encoding ##
+##########################
+
+
+
+#####################
+## Replace Content ##
+#####################
+
+

