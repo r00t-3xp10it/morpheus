@@ -12,7 +12,7 @@
     Distros Supported : Linux Ubuntu, Kali, Mint, Parrot OS
     Suspicious-Shell-Activity (SSA) RedTeam develop @2016
 
-    WARNING: This project its not finished (under develop!)
+    WARNING: This project its not finished yet (under develop!)
 
 <br />
 
@@ -20,6 +20,12 @@
     The author does not hold any responsibility for the bad use
     of this tool, remember that attacking targets without prior
     consent it's illegal and punished by law.
+
+    This tool main objective it's not to provide an easy way to exploit/sniff targets..
+    but ratter a 'Call to attention' to tcp/udp manipulation technics (etter filters).
+    "To inspire people to script, thats the reason for the existence of option[W] in main menu"
+    I belive that the most funny step, it will be when you write your own filter and watch it run.
+
 
 # Framework description
     morpheus framework automates tcp/udp packet manipulation tasks by using etter filters
