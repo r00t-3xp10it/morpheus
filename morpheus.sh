@@ -996,7 +996,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
 if [ "$VeVul" \> "$nOn" ]; then
 echo "${GreenF}    Browser report:${RedF} not vulnerable...${BlueF}"
 sleep 3
-echo "${RedF}[x]${white} module cant verify browser version ${RedF}(${YellowF}running blind${RedF})!"
+echo "${RedF}[x]${white} module cant verify browser version${RedF}!"
 sleep 1
 else
 echo "${GreenF}    Browser report: vulnerable...${BlueF}"
@@ -1123,7 +1123,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   HoSt=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "Host:" | awk {'print'}` > /dev/null 2>&1
   AcLa=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "Accept-Language" | awk {'print'}` > /dev/null 2>&1
   DisP=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent:" | awk {'print'}` > /dev/null 2>&1
-  VeVul=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent:" | awk {'print $5'}` > /dev/null 2>&1 # user-agent == Android
+  VeVul=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent:" | grep -o "Android"` > /dev/null 2>&1 # user-agent == Android
   echo "${GreenF}    Host: $HoSt"
   sleep 1
   echo "${GreenF}    Accept-Language: $AcLa"
@@ -1139,7 +1139,7 @@ sleep 3
 else
 echo "${GreenF}    Browser report:${RedF} not vulnerable...${BlueF}"
 sleep 3
-echo "${RedF}[x]${white} module cant verify browser version ${RedF}(${YellowF}running blind${RedF})!"
+echo "${RedF}[x]${white} module cant verify browser version${RedF}!"
 sleep 1
 fi
 
@@ -1258,10 +1258,10 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
 
   # check if target system its vulnerable
   # User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
-  nOn="Windows" # only windows systems are affected...
+  nOn="Windows NT" # only windows systems are affected...
   HoSt=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "Host:" | awk {'print'}` > /dev/null 2>&1
   AcLa=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "Accept-Language" | awk {'print'}` > /dev/null 2>&1
-  VeVul=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent:" | awk {'print $3'} | cut -d '(' -f2` > /dev/null 2>&1
+  VeVul=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent:" | grep -o "Windows NT"` > /dev/null 2>&1
   DisP=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent:" | awk {'print'}` > /dev/null 2>&1
   echo "${GreenF}    Host: $HoSt"
   sleep 1
@@ -1274,7 +1274,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
 if [ "$VeVul" != "$nOn" ]; then
 echo "${GreenF}    System report:${RedF} not vulnerable...${BlueF}"
 sleep 3
-echo "${RedF}[x]${white} module cant verify system distro ${RedF}(${YellowF}running blind${RedF})!"
+echo "${RedF}[x]${white} module cant verify system distro${RedF}!"
 sleep 1
 else
 echo "${GreenF}    System report: vulnerable...${BlueF}"
