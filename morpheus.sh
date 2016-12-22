@@ -1475,6 +1475,13 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   echo ${BlueF}[☠]${white} Gather Info about modem webpage${RedF}! ${Reset};
   nmap -sV -PN -p 80 $GaTe > $IPATH/output/retrieve.log
   InjE=`cat $IPATH/output/retrieve.log | egrep -m 1 "open" | cut -d '(' -f2 | cut -d ')' -f1`
+  # check nmap have retrieved any
+  if [ -z "$InjE" ]; then
+  echo ${RedF}[x] Module cant gather Info about modem webpage! ${Reset};
+  echo "${RedF}[x]${white} Using:${GreenF} 'broadband router'${white} as server name${RedF}!"
+  InjE="broadband router"
+  fi
+
 
   # building cloned login modem webpage
   cd $IPATH/bin/phishing/router-modem
