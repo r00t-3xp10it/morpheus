@@ -15,17 +15,17 @@
 
 
 
-##########################################
-#    morpheus domain name redirection    #
-##########################################
+###########################################
+#    morpheus domain name redirections    #
+###########################################
 
 .com           A   TaRgEt
 *.com          A   TaRgEt
 .com           PTR TaRgEt     # Wildcards in PTR are not allowed
 
-.pt           A   TaRgEt
-*.pt          A   TaRgEt
-.pt           PTR TaRgEt      # Wildcards in PTR are not allowed
+.PrE           A   TaRgEt
+*.PrE          A   TaRgEt
+.PrE           PTR TaRgEt      # Wildcards in PTR are not allowed
 
 
 

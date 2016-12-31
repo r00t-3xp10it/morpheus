@@ -24,7 +24,7 @@
 ##########################
 # change target request to server
 if (ip.proto == TCP && tcp.dst == 80) {
-  msg("[morpheus] host:TaRONE   [ ⊶ ]  port:80 HTTP ☆");
+  msg("[morpheus] host:TaRONE   [ ⊶ ]  port:80 http ☆");
     if (search(DATA.data, "Accept-Encoding")) {  
       replace("Accept-Encoding", "Accept-Rubbishe"); # note: replacement string is same length as original string
       msg("[Morpheus] | Status: Encoding zapped from response ✔");

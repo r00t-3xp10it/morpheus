@@ -1,7 +1,7 @@
 ############################################################################
 #                                                                          #
 #  HTTPS Request/Response Filter                                           #
-#  based on code from ALoR & NaGA  (contains: 938 instructions/rules)      #
+#  based on code from ALoR & NaGA  (contains: 1121 instructions/rules)     #
 #                                                                          #
 #  This program is free software; you can redistribute it and/or modify    #
 #  it under the terms of the GNU General Public License as published by    #
@@ -17,7 +17,7 @@
 #  inside Local Lan (selected targets), Reports suspicious tcp activity In
 #  the targets selected And also dumps to a logfile logins captured under
 #  mitm + filter execution In services like: http,ssh,smb,telnet,ftp,pop3...
-#  Repors the existence of bootnet connections And reports DHCP requests. 
+#  Repors the existence of bootnet connections And reports DNS/DHCP requests. 
 ##
 
 
@@ -148,6 +148,9 @@ if (ip.src == 'TaRONE' && ip.proto == UDP && udp.dst == 137) {
 if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 139) {
   msg("[morpheus] host:TaRONE   [ -> ]  port:139 netbios ☠");
 }
+if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 443) {
+  msg("[morpheus] host:TaRONE   [ -> ]  port:443 https ☆");
+}
 if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 445) {
   msg("[morpheus] host:TaRONE   [ -> ]  port:445 netbios ☠");
 }
@@ -200,6 +203,13 @@ if (ip.src == 'TaRONE' && ip.proto == UDP && tcp.dst == 53) {
          msg("[morpheus] |  info : normal connection from source!");
          msg("[morpheus] |  hex  : 79 6f 75 74 75 62 65");
          msg("[morpheus] |_ decoded: youtube\n");
+       }else{
+       if (search(DATA.data, "skype")) {
+         msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+         msg("[morpheus] | status: DNS remote query found!");
+         msg("[morpheus] |  info : normal connection from source!");
+         msg("[morpheus] |  hex  : 73 6b 79 70 65 2e 63 6f 6d");
+         msg("[morpheus] |_ decoded: skype.com\n");
         }else{
         if (search(DATA.data, "arpa")) {
           msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
@@ -207,6 +217,7 @@ if (ip.src == 'TaRONE' && ip.proto == UDP && tcp.dst == 53) {
           msg("[morpheus] |  info : normal connection? scan-type? arp-poison?");
           msg("[morpheus] |  hex  : 64 64 62 04 61 72 70 61");
           msg("[morpheus] |_ decoded: ddr.arpa\n");
+       }
        }
        }
        }
@@ -619,6 +630,11 @@ if (ip.src == 'TaRTWO' && ip.proto == TCP && tcp.dst == 139) {
 }
 if (ip.src == 'TaRTWO' && ip.proto == TCP && tcp.dst == 443) {
   msg("[morpheus] host:TaRTWO   [ -> ]  port:443 https ☆");
+    if (search(DATA.data, "safebrowsing")) {
+      msg("\n[morpheus] host:TaRTWO  [ ⊶  ]  found...");
+      msg("[morpheus] | status: safebrowsing googleapis query found ☆");
+      msg("[morpheus] |_ info : ssl encrypted google traffic ✔\n");
+    }
 }
 if (ip.src == 'TaRTWO' && ip.proto == TCP && tcp.dst == 445) {
   msg("[morpheus] host:TaRTWO   [ -> ]  port:445 netbios ☠");
@@ -641,7 +657,7 @@ if (ip.src == 'TaRTWO' && ip.proto == UDP && udp.dst == 67) {
     msg("[morpheus] | status: DHCP request TO modem!");
     msg("[morpheus] |  port : 67/UDP(dst) bootp-DHCP ✔");
     msg("[morpheus] |  info : android smartphone detected ✔");
-    msg("[morpheus] |_ name : android-???\n");
+    msg("[morpheus] |_ name : android [unknown]\n");
   }
   }
 }
@@ -952,8 +968,8 @@ if (ip.src == '0.0.0.0' && ip.proto == UDP && udp.dst == 67) {
     msg("\n[morpheus] host:0.0.0.0        [ ⊶  ]  found...");
     msg("[morpheus] | status: DHCP request TO modem!");
     msg("[morpheus] |  port : 67/UDP(dst) bootp-DHCP ✔");
-    msg("[morpheus] |  info : android ??? Announces is presence ✔");
-    msg("[morpheus] |_ name : android-???\n");
+    msg("[morpheus] |  info : android Announces is presence ✔");
+    msg("[morpheus] |_ name : android [unknown]\n");
     }
     }
 }
@@ -974,12 +990,20 @@ if (ip.dst == 'MoDeM' && ip.proto == UDP && udp.dst == 53) {
           msg("[morpheus] |  hex  : 77 69 6c 73 6f 6e 69 75 73 6d 61 78 69 6d 75 73 2e 63 6f 6d");
           msg("[morpheus] |_ decoded: wilsoniusmaximus.com\n");
         }else{
+        if (search(DATA.data, "meusresultados")) {
+          msg("\n[morpheus] host:MoDeM  [ ⊶  ]  found...");
+          msg("[morpheus] | status: DNS possible query found!");
+          msg("[morpheus] |  port : 53/UDP(dst) remote DNS query ✔");
+          msg("[morpheus] |  hex  : 64 2e 6d 65 75 73 72 65 73 75 6c 74 61 64 6f 73 2e 63 6f 6d");
+          msg("[morpheus] |_ decoded: d.meusresultados.com\n");
+        }else{
         if (search(DATA.data, "shadows")) {
           msg("\n[morpheus] host:MoDeM  [ ⊶  ]  found...");
           msg("[morpheus] | status: DNS possible DarkComet query found!");
           msg("[morpheus] |  info : DarkComet RAT controller!");
           msg("[morpheus] |  hex  : 73 68 61 64 6f 77 73 2e 73 79 74 65 73 2e 6e 65 74");
           msg("[morpheus] |_ decoded: shadows.sytes.net\n");
+       }
        }
        }
        }

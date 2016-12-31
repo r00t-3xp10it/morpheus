@@ -23,7 +23,7 @@
 # And warn attacker that User-Agent has captured...
 #
 if (ip.proto == TCP && tcp.dst == 80 || tcp.src == 80) {
-  msg("[morpheus] host:TaRgEt   [ ⊶ ]  port:80 HTTP ☆");
+  msg("[morpheus] host:TaRgEt   [ ⊶ ]  port:80 http ☆");
     if (search(DATA.data, "User-Agent")) {
       msg("\n[morpheus] host:TaRgEt   [ ⊶ ]   found...");
       msg("[morpheus] | status: User-Agent detected ☆");
