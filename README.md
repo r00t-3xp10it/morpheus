@@ -1,12 +1,12 @@
 [![Version](https://img.shields.io/badge/MORPHEUS-2.0-brightgreen.svg?maxAge=259200)]()
-[![Stage](https://img.shields.io/badge/Release-developing-red.svg)]()
+[![Stage](https://img.shields.io/badge/Release-STABLE-red.svg)]()
 [![Build](https://img.shields.io/badge/Supported_OS-linux-orange.svg)]()
 [![AUR](https://img.shields.io/aur/license/yaourt.svg)]()
 
 # Morpheus - automated ettercap TCP/IP Hijacking tool
 ![morpheus v2.0-Alpha](https://dl.dropboxusercontent.com/u/21426454/morpheus-banner.png)
 
-    Version release: v2.0-Beta
+    Version release: v2.0-STABLE
     Author: pedro ubuntu  [ r00t-3xp10it ]
     Codename: oneiroi phobetor (The mithologic dream greek god)
     Distros Supported: Linux Ubuntu, Kali, Debian, BackBox, Parrot OS
@@ -23,6 +23,10 @@
     tcp/udp data using ettercap, urlsnarf, msgsnarf and tcpkill as backend applications.
     but this tool main objective its not to provide an easy way to exploit/sniff targets,
     but ratter a call of attemption to tcp/udp manipulations technics (etter filters)
+
+    HINT: morpheus allow you to improve filters in 2 diferent ways
+    1º - Edit filter before runing morpheus and the 'changes' will be permanent
+    2º - Edit filter using 'morpheus scripting console' and the changes are active only once
 
     Morpheus ships with some pre-configurated filters but it will allow users to improve them
     when launch the attack (morpheus scripting console). In the end of the attack morpheus will
