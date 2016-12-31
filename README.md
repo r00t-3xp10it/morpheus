@@ -1,5 +1,5 @@
 [![Version](https://img.shields.io/badge/MORPHEUS-2.0-brightgreen.svg?maxAge=259200)]()
-[![Stage](https://img.shields.io/badge/Release-STABLE-red.svg)]()
+[![Stage](https://img.shields.io/badge/Release-STABLE-green.svg)]()
 [![Build](https://img.shields.io/badge/Supported_OS-linux-orange.svg)]()
 [![AUR](https://img.shields.io/aur/license/yaourt.svg)]()
 
@@ -24,16 +24,15 @@
     but this tool main objective its not to provide an easy way to exploit/sniff targets,
     but ratter a call of attemption to tcp/udp manipulations technics (etter filters)
 
-    HINT: morpheus allow you to improve filters in 2 diferent ways
-    1º - Edit filter before runing morpheus and the 'changes' will be permanent
-    2º - Edit filter using 'morpheus scripting console' and the changes are active only once
-
     Morpheus ships with some pre-configurated filters but it will allow users to improve them
     when launch the attack (morpheus scripting console). In the end of the attack morpheus will
     revert the filter back to is default stage, this will allow users to improve filters at
     running time without the fear of messing with filter command syntax and spoil the filter.
-
     "Perfect for scripting fans to safely test new concepts"...
+
+    HINT: morpheus allow you to improve filters in 2 diferent ways
+    1º - Edit filter before runing morpheus and the 'changes' will be permanent
+    2º - Edit filter using 'morpheus scripting console' and the changes are active only once
 
 <br />
 
