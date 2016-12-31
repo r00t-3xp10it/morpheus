@@ -1,5 +1,5 @@
 [![Version](https://img.shields.io/badge/MORPHEUS-2.0-brightgreen.svg?maxAge=259200)]()
-[![Stage](https://img.shields.io/badge/Release-STABLE-green.svg)]()
+[![Stage](https://img.shields.io/badge/Release-STABLE-brightgreen.svg)]()
 [![Build](https://img.shields.io/badge/Supported_OS-linux-orange.svg)]()
 [![AUR](https://img.shields.io/aur/license/yaourt.svg)]()
 
@@ -59,7 +59,7 @@
     3º - many attacks described in morpheus may be dropped by the target HSTS detection sys.
 
 
-> 4º - morpheus needs ettercap to be executed with higth privileges (uid 0 | gid 0).
+> 4º - morpheus needs ettercap to be executed with higth privileges (uid 0 | gid 0). <br />
 > correct ettercap configuration display (running as Admin without ssl disectors active)
 ![morpheus v1.6-Alpha](https://dl.dropboxusercontent.com/u/21426454/morpheus-sslBug3.png)
 
