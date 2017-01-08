@@ -71,6 +71,7 @@ UsNar=`cat $IPATH/settings | egrep -m 1 "URL_SNARF" | cut -d '=' -f2` > /dev/nul
 MsGnA=`cat $IPATH/settings | egrep -m 1 "MSG_SNARF" | cut -d '=' -f2` > /dev/null 2>&1
 PrEfI=`cat $IPATH/settings | egrep -m 1 "PREFIX" | cut -d '=' -f2` > /dev/null 2>&1
 DrIn=`cat $IPATH/settings | egrep -m 1 "DRI_NET" | cut -d '=' -f2` > /dev/null 2>&1
+RbUdB=`cat $IPATH/settings | egrep -m 1 "REBUILD_DB" | cut -d '=' -f2` > /dev/null 2>&1
 
 
 
@@ -1612,8 +1613,10 @@ cLon=$(zenity --title="☠ WEBPAGE TO CLONE ☠" --text "example: www.facebook.c
     # start metasploit services
     echo ${BlueF}[☠]${white} Start metasploit services...${Reset};
     service postgresql start > /dev/null 2>&1
+    if [ "$RbUdB" = "YES" ]; then
     msfdb delete > /dev/null 2>&1
     msfdb init > /dev/null 2>&1
+    fi
 
 # start apache2 webserver...
 echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
@@ -1736,8 +1739,10 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
     # start metasploit services
     echo ${BlueF}[☠]${white} Start metasploit services...${Reset};
     service postgresql start > /dev/null 2>&1
+    if [ "$RbUdB" = "YES" ]; then
     msfdb delete > /dev/null 2>&1
     msfdb init > /dev/null 2>&1
+    fi
 
 # start apache2 webserver...
 echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};

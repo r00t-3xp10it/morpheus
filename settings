@@ -14,7 +14,7 @@
 
 
 ### prompt displays (morpheus) available
-# chose your own 'personalized prompt'.                                       
+# chose your own 'personalized prompt'.
 # -▷   -▶   '>'  ☭   ✿   ☯   ☠   ☆   ➽  ♛  ⊶ 
 ------------------
 PROMPT_DISPLAY=--▷ 
@@ -100,6 +100,19 @@ DRI_NET=/usr/bin/driftnet
 ------------------------
 LOG_MSF=/root/.msf4/loot
 ------------------------
+
+
+
+
+### METASPLOIT DATABASE LOAD
+# option [12] and [13] requires metasploit.
+# In some ocasions we need to rebuild msfdb
+# to allow msfdb to connect to postgresql.
+# set the next value to YES to force msfdb rebuild
+-------------
+REBUILD_DB=NO
+-------------
+
 
 
 
