@@ -957,12 +957,12 @@ if (ip.dst == 'MoDeM' && ip.proto == TCP && tcp.dst == 445) {
 # DHCP DISCOVER: what devices (smartphones) are anuncing is presence to modem.
 # Its writen to identify my phones, but it will report the connection of androids too.
 if (ip.src == '0.0.0.0' && ip.proto == UDP && udp.dst == 67) {
-  if (search(DATA.data, "android-7f926b4b94fd40c17")) {
+  if (search(DATA.data, "android-40c73261dcf55d937")) {
     msg("\n[morpheus] host:0.0.0.0        [ ⊶  ]  found...");
     msg("[morpheus] | status: DHCP request TO modem!");
     msg("[morpheus] |  port : 67/UDP(dst) bootp-DHCP ✔");
     msg("[morpheus] |  info : android_pedr0 Announces is presence ✔");
-    msg("[morpheus] |_ name : android-7f926b4b94fd40c17\n");
+    msg("[morpheus] |_ name : android-40c73261dcf55d937\n");
   }else{
   if (search(DATA.data, "android")) {
     msg("\n[morpheus] host:0.0.0.0        [ ⊶  ]  found...");
