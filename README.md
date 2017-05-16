@@ -1,6 +1,6 @@
 [![Version](https://img.shields.io/badge/MORPHEUS-2.0-brightgreen.svg?maxAge=259200)]()
-[![Stage](https://img.shields.io/badge/Release-STABLE-brightgreen.svg)]()
-[![Build](https://img.shields.io/badge/Supported_OS-linux-orange.svg)]()
+[![Stage](https://img.shields.io/badge/Release-Stable-brightgreen.svg)]()
+[![Build](https://img.shields.io/badge/Supported_OS-Linux-orange.svg)]()
 [![AUR](https://img.shields.io/aur/license/yaourt.svg)]()
 
 # Morpheus - automated ettercap TCP/IP Hijacking tool

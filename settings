@@ -39,9 +39,9 @@ WRITE_LOGFILES=NO
 # IF your facing a "token (///) Error" then change the next value
 # to "DISABLED" to force morpheus framework to run arp againts IPv4. 
 # accepted values are: ACTIVE or DISABLED
-----------------
+---------------
 USE_IPV6=ACTIVE
-----------------
+---------------
 
 
 
