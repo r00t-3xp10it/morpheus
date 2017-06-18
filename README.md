@@ -47,9 +47,9 @@
 
 
 > In this example we are using "<head> HTML tag" to inject an rediretion url into target request
-![morpheus v1.6-Alpha](http://2.1m.yt/-MtFyL4.png)
+![morpheus v1.6-Alpha](http://i.cubeupload.com/jn83zh.png)
 > In this example we are using 'CSS3' to trigger webpage 180º rotation
-![morpheus v1.6-Alpha](http://2.1m.yt/EGy6pvk.png)
+![morpheus v1.6-Alpha](http://i.cubeupload.com/XSWm0P.png)
 
 <br />
 
@@ -95,17 +95,7 @@
 
 ![morpheus v2.0-Alpha](http://4.1m.yt/Huj4w6p.png)
 
-![morpheus v2.0-Alpha](http://4.1m.yt/j0NjEBa.png)
-
-![morpheus v2.0-Alpha](http://4.1m.yt/iOk-kvc.png)
-
-![morpheus v2.0-Alpha](http://2.1m.yt/cbNkT8U.png)
-
-![morpheus v2.0-Alpha](http://4.1m.yt/nVm2OZV.png)
-
 ![morpheus v2.0-Alpha](http://3.1m.yt/wiWmbQ.png)
-
-![morpheus v2.0-Alpha](http://2.1m.yt/qyZ-arL.png)
 
 ![morpheus v2.0-Alpha](http://4.1m.yt/ILbgDa4.png)
 
