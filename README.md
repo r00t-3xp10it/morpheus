@@ -61,7 +61,7 @@
 
 > 4º - morpheus needs ettercap to be executed with higth privileges (uid 0 | gid 0). <br />
 > correct ettercap configuration display (running as Admin without ssl disectors active)
-![morpheus v1.6-Alpha](http://cubeupload.com/im/UJfbd2.png)
+![morpheus v1.6-Alpha](http://i.cubeupload.com/RIq2yO.png)
 
     By default morpheus (at startup) will replace the original etter.conf/etter.dns files
     provided by ettercap. On exit morpheus will revert those files to is original state.. 
