@@ -4,7 +4,7 @@
 [![AUR](https://img.shields.io/aur/license/yaourt.svg)]()
 
 # Morpheus - automated ettercap TCP/IP Hijacking tool
-![morpheus v2.0-Alpha](http://1.1m.yt/VbdDn-n.png)
+![morpheus v2.0-Alpha](http://cubeupload.com/im/jXEpKm.png)
 
     Version release: v2.0-STABLE
     Author: pedro ubuntu  [ r00t-3xp10it ]
@@ -61,7 +61,7 @@
 
 > 4º - morpheus needs ettercap to be executed with higth privileges (uid 0 | gid 0). <br />
 > correct ettercap configuration display (running as Admin without ssl disectors active)
-![morpheus v1.6-Alpha](http://4.1m.yt/78iRuER.png)
+![morpheus v1.6-Alpha](http://cubeupload.com/im/UJfbd2.png)
 
     By default morpheus (at startup) will replace the original etter.conf/etter.dns files
     provided by ettercap. On exit morpheus will revert those files to is original state.. 
@@ -93,9 +93,9 @@
                Destination ip      flow    source port     rank suspicious
 
 
-![morpheus v2.0-Alpha](http://4.1m.yt/Huj4w6p.png)
+![morpheus v2.0-Alpha](http://cubeupload.com/im/RcEfRS.png)
 
-![morpheus v2.0-Alpha](http://3.1m.yt/wiWmbQ.png)
+![morpheus v2.0-Alpha](http://cubeupload.com/im/ZxU3Jj.png)
 
 ![morpheus v2.0-Alpha](http://i.cubeupload.com/Hx0JV4.png)
 
