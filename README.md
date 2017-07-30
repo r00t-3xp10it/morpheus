@@ -93,9 +93,9 @@
                Destination ip      flow    source port     rank suspicious
 
 
-![morpheus v2.0-Alpha](https://cubeupload.com/im/RcEfRS.png)
+![morpheus v2.0-Alpha](http://i.cubeupload.com/nbgSuj.png)
 
-![morpheus v2.0-Alpha](http://cubeupload.com/im/ZxU3Jj.png)
+![morpheus v2.0-Alpha](http://i.cubeupload.com/ZxU3Jj.png)
 
 ![morpheus v2.0-Alpha](http://i.cubeupload.com/Hx0JV4.png)
 
