@@ -19,14 +19,20 @@
 IPATH=`pwd`
 interface=`netstat -r | grep "default" | awk {'print $8'}`
 modem=`route -n | grep "UG" | awk {'print $2'} | tr -d '\n'`
+#
 # parsing data
-cd .. && cd output
-rhost=`cat parse`
+#
 cd .. && cd logs
+if [ -e parse ]; then
+rhost=`cat parse`
+echo "" > $rhost.log
+rm -f parse > /dev/nul 2>&1
+fi
 if [ -e triggertwo ]; then
 secund=`cat triggertwo`
+echo "" > $secund.log
+rm -f triggertwo > /dev/nul 2>&1
 fi
-echo "" > $rhost.log
 clear
 
 
@@ -49,7 +55,7 @@ exit
 echo "[Morpheus] Loging Events in: 67/UDP(dst) .."
 echo "   * Interface : $interface"
 echo "   * Modem Ip  : $modem"
-if [ -e triggertwo ]; then
+if [ -e $secund.log ]; then
   echo "   *   status  : Filtering two targets at once [!]"
   echo "   * Device    : $rhost.lan"
   echo "   * Device    : $secund.lan"
@@ -79,21 +85,32 @@ do
     #
     printf '\a'
     sleep 0.3
-    # build logfile (logs folder)
-    echo "[Morpheus] Loging Events in: 67/UDP(dst) .." >> $rhost.log
-    echo "   * Interface : $interface" >> $rhost.log
-    echo "   * Modem Ip  : $modem" >> $rhost.log
-    echo "   * Hour/Date : $hour" >> $rhost.log
-    echo "   * Action    : Request access to local LAN" >> $rhost.log
-      if [ -e triggertwo ]; then
-        echo "   *   status  : Filtering two targets at once [!]" >> $rhost.log
-        echo "   * Device    : $rhost.lan [?]" >> $rhost.log
-        echo "   * Device    : $secund.lan [?]" >> $rhost.log
-      else
-        echo "   * Device    : $rhost.lan" >> $rhost.log
-      fi
-    echo "   * ---" >> $rhost.log
-    echo "" >> $rhost.log
+
+
+    #
+    # build logfile (in logs folder)
+    #
+    if [ -e parse.bin ]; then
+      echo "[Morpheus] Loging Events in: 67/UDP(dst) .." >> $rhost.log
+      echo "   * Interface : $interface" >> $rhost.log
+      echo "   * Modem Ip  : $modem" >> $rhost.log
+      echo "   * Hour/Date : $hour" >> $rhost.log
+      echo "   * Device    : $rhost.lan" >> $rhost.log
+      echo "   * Action    : Request access to local LAN" >> $rhost.log
+      echo "   * ---" >> $rhost.log
+      echo "" >> $rhost.log
+    fi
+
+    if [ -e triggertwo.bin ]; then
+      echo "[Morpheus] Loging Events in: 67/UDP(dst) .." >> $secund.log
+      echo "   * Interface : $interface" >> $secund.log
+      echo "   * Modem Ip  : $modem" >> $secund.log
+      echo "   * Hour/Date : $hour" >> $secund.log
+      echo "   * Device    : $secund.lan" >> $secund.log
+      echo "   * Action    : Request access to local LAN" >> $secund.log
+      echo "   * ---" >> $secund.log
+      echo "" >> $secund.log
+    fi
 
 
       #
@@ -110,6 +127,8 @@ do
     # delete .beep file to emitt another sound if the event its trigger again in the future..
     #
     rm -f beep-warning.beep > /dev/nul 2>&1
+    rm -f triggertwo.bin > /dev/nul 2>&1
+    rm -f parse.bin > /dev/nul 2>&1
   fi
 
 # end of loop funtion

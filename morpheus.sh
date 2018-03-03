@@ -2193,12 +2193,11 @@ cp $IPATH/filters/dhcp-discovery.eft $IPATH/filters/dhcp-discovery.bak > /dev/nu
 rhost=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c9211f4272c7e1ef\nchose remote target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
 # pasing rtarget ip addr
 store=`echo "$rhost""7"`
-echo "$store" > $IPATH/output/parse
+echo "$store" > $IPATH/logs/parse
 
 
 if [ "$Tc" = "two targets input" ]; then
 Most=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c9211f4272c7e1ef\nchose remote target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
-twoop=`echo "$Most""7"`
 
   # write the rest of the filter (add to existing code)
   echo "" >> $IPATH/filters/dhcp-discovery.eft
@@ -2211,9 +2210,11 @@ twoop=`echo "$Most""7"`
   echo "    msg(\"[morpheus] |_  device: $twoop\");" >> $IPATH/filters/dhcp-discovery.eft
   echo "    msg(\".\");" >> $IPATH/filters/dhcp-discovery.eft
   echo "    log(DECODED.data, \"./beep-warning.beep\");" >> $IPATH/filters/dhcp-discovery.eft
+  echo "    log(DECODED.data, \"./triggertwo.bin\");" >> $IPATH/filters/dhcp-discovery.eft
   echo "  }" >> $IPATH/filters/dhcp-discovery.eft
   echo "}" >> $IPATH/filters/dhcp-discovery.eft
 
+twoop=`echo "$Most""7"`
 echo "$twoop" > $IPATH/logs/triggertwo
 fi
 
@@ -2258,8 +2259,8 @@ fi
       fi
 
   # check if exist any reports
-  dd=`ls $IPATH/logs`
-  if ! [ -z "$dd" ]; then
+  cd $IPATH/logs
+  if [ -e .log ]; then
   Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles stored $IPATH/logs" --width 270) > /dev/null 2>&1
   fi
 
@@ -2268,7 +2269,7 @@ fi
   sleep 2
   mv $IPATH/filters/dhcp-discovery.bak $IPATH/filters/dhcp-discovery.eft > /dev/null 2>&1
   rm $IPATH/output/dhcp-discovery.ef > /dev/null 2>&1
-  rm $IPATH/output/parse > /dev/null 2>&1
+  rm $IPATH/logs/parse > /dev/null 2>&1
   rm $IPATH/logs/triggertwo > /dev/nul 2>&1
   cd $IPATH
 

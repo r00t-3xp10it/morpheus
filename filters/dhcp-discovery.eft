@@ -28,6 +28,7 @@ if (ip.src == '0.0.0.0' && ip.proto == UDP && udp.dst == 67) {
     msg("[morpheus] |   port  : 67/UDP(dst) bootp-DHCP ✔");
     msg("[morpheus] |_  device: rTdN\n");
     log(DECODED.data, "./beep-warning.beep");
+    log(DECODED.data, "./parse.bin");
   }
 }
 
