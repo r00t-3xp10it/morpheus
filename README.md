@@ -1,4 +1,4 @@
-[![Version](https://img.shields.io/badge/MORPHEUS-2.0-brightgreen.svg?maxAge=259200)]()
+[![Version](https://img.shields.io/badge/MORPHEUS-2.1-brightgreen.svg?maxAge=259200)]()
 [![Stage](https://img.shields.io/badge/Release-Stable-brightgreen.svg)]()
 [![Build](https://img.shields.io/badge/Supported_OS-Linux-orange.svg)]()
 [![AUR](https://img.shields.io/aur/license/yaourt.svg)]()
@@ -6,7 +6,7 @@
 # Morpheus - automated ettercap TCP/IP Hijacking tool
 ![morpheus v1.6-Alpha](http://i.cubeupload.com/ebsQAK.png)
 
-    Version release: v2.0-STABLE
+    Version release: v2.1-STABLE
     Author: pedro ubuntu  [ r00t-3xp10it ]
     Codename: oneiroi phobetor (The mithologic dream greek god)
     Distros Supported: Linux Ubuntu, Kali, Debian, BackBox, Parrot OS
@@ -93,15 +93,15 @@
                Destination ip      flow    source port     rank suspicious
 
 
-![morpheus v2.0-Alpha](http://i.cubeupload.com/nbgSuj.png)
+![morpheus v2.1-Alpha](http://i.cubeupload.com/nbgSuj.png)
 
-![morpheus v2.0-Alpha](http://i.cubeupload.com/ZxU3Jj.png)
+![morpheus v2.1-Alpha](http://i.cubeupload.com/ZxU3Jj.png)
 
-![morpheus v2.0-Alpha](http://i.cubeupload.com/Hx0JV4.png)
+![morpheus v2.1-Alpha](http://i.cubeupload.com/Hx0JV4.png)
 
-![morpheus v2.0-Alpha](http://i.cubeupload.com/LzqZGc.png)
+![morpheus v2.1-Alpha](http://i.cubeupload.com/LzqZGc.png)
 
-![morpheus v2.0-Alpha](http://i.cubeupload.com/z8M94O.png)
+![morpheus v2.1-Alpha](http://i.cubeupload.com/z8M94O.png)
 
 > Basically firewall filter will act like one offensive and defensive tool analyzing the
 <br />

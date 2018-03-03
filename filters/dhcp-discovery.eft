@@ -1,0 +1,48 @@
+############################################################################
+#                                                                          #
+#  HTTPS Request/Response Filter                                           #
+#  based on code from ALoR & NaGA                                          #
+#                                                                          #
+#  This program is free software; you can redistribute it and/or modify    #
+#  it under the terms of the GNU General Public License as published by    #
+#  the Free Software Foundation; either version 2 of the License, or       #
+#  (at your option) any later version.                                     #
+#                                                                          #
+############################################################################
+
+
+##
+# DHCP DISCOVER: what devices (smartphones & PCs) are anuncing is presence to modem.
+# This filter will log any UDP authentication packet beeing send to modem.
+##
+
+
+
+#
+# Log selected device auth request to access LAN
+#
+if (ip.src == '0.0.0.0' && ip.proto == UDP && udp.dst == 67) {
+  if (search(DATA.data, "rTdN")) {
+  msg("\n[morpheus] host:0.0.0.0 [ ⊶  ]  found ..");
+    msg("[morpheus] | status  : Request access to local LAN ✔");
+    msg("[morpheus] |   port  : 67/UDP(dst) bootp-DHCP ✔");
+    msg("[morpheus] |_  device: rTdN\n");
+    log(DECODED.data, "./beep-warning.beep");
+  }
+}
+
+
+
+#
+# Report port 80/443 (tcp) traffic just to make displays
+# that shows to users that filter its working fine ..
+#
+if (ip.proto == TCP && tcp.dst == 80 || tcp.src == 80) {
+    msg("[morpheus] host:modem   [ ⊶  ]  port:80 http ☆");
+}
+if (ip.proto == TCP && tcp.dst == 443 || tcp.src == 443) {
+    msg("[morpheus] host:modem   [ ⊶  ]  port:443 https ☆");
+}
+
+
+
