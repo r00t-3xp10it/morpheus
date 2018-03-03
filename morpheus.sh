@@ -2181,7 +2181,6 @@ rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "[ De
 if [ "$?" -eq "0" ]; then
 
 
-
 # chose to input one or two targets to filter
 Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "This module allow users to filter one or two targets" --radiolist --column "Pick" --column "Option" TRUE "one target input" FALSE "two targets input" --width 300 --height 180) > /dev/null 2>&1
 
@@ -2190,20 +2189,25 @@ Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "This modu
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
 sleep 1
 cp $IPATH/filters/dhcp-discovery.eft $IPATH/filters/dhcp-discovery.bak > /dev/null 2>&1
-rhost=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c9211f4272c7e1ef\nchose remote target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
-# pasing rtarget ip addr
+rhost=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c6216f4h7297e1ef\nchose remote target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+#
+# pasing rtarget ip addr (add number 7 at the end of domain-name)
+#
 store=`echo "$rhost""7"`
 echo "$store" > $IPATH/logs/parse
 
 
-if [ "$Tc" = "two targets input" ]; then
-Most=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c9211f4272c7e1ef\nchose remote target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
 
-  # parsing data
+if [ "$Tc" = "two targets input" ]; then
+Most=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c6216f4h7297e1ef\nchose remote target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+
+  #
+  # parsing data (add number 7 at the end of domain-name)
+  #
   twoop=`echo "$Most""7"`
   echo "$twoop" > $IPATH/logs/triggertwo
 
-  # write the rest of the filter (add to existing code)
+  # write the rest of the filter (injects into existing filter)
   echo "" >> $IPATH/filters/dhcp-discovery.eft
   echo "if (ip.src == '0.0.0.0' && ip.proto == UDP && udp.dst == 67) {" >> $IPATH/filters/dhcp-discovery.eft
   echo "  if (search(DATA.data, \"$twoop\")) {" >> $IPATH/filters/dhcp-discovery.eft
@@ -2260,9 +2264,8 @@ fi
         fi
       fi
 
-  # check if exist any reports
-  cd $IPATH/logs
-  if [ -e .log ]; then
+  # check if exist any reports (.log files)
+  if [ -e $IPATH/logs/$store.log ] || [ -e $IPATH/logs/$twoop.log ]; then
   Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles stored $IPATH/logs" --width 270) > /dev/null 2>&1
   fi
 
