@@ -2199,6 +2199,10 @@ echo "$store" > $IPATH/logs/parse
 if [ "$Tc" = "two targets input" ]; then
 Most=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c9211f4272c7e1ef\nchose remote target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
 
+  # parsing data
+  twoop=`echo "$Most""7"`
+  echo "$twoop" > $IPATH/logs/triggertwo
+
   # write the rest of the filter (add to existing code)
   echo "" >> $IPATH/filters/dhcp-discovery.eft
   echo "if (ip.src == '0.0.0.0' && ip.proto == UDP && udp.dst == 67) {" >> $IPATH/filters/dhcp-discovery.eft
@@ -2214,8 +2218,6 @@ Most=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c9211f
   echo "  }" >> $IPATH/filters/dhcp-discovery.eft
   echo "}" >> $IPATH/filters/dhcp-discovery.eft
 
-twoop=`echo "$Most""7"`
-echo "$twoop" > $IPATH/logs/triggertwo
 fi
 
 
