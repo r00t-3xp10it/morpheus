@@ -64,7 +64,6 @@ else
 fi
 echo "   * ---"
 echo ""
-echo ""
 
 
 
@@ -75,7 +74,7 @@ echo ""
 while :
 do
 
-  cd .. && cd logs
+  # check for .beep file existence
   if [ -e beep-warning.beep ]; then
     # store date to dislay at event trigger
     hour=`date | awk {'print $4,$5,$6'}`
@@ -124,7 +123,7 @@ do
       fi
 
     #
-    # delete .beep file to emitt another sound if the event its trigger again in the future..
+    # delete all files to emitt another sound if the event its trigger again in the future..
     #
     rm -f beep-warning.beep > /dev/nul 2>&1
     rm -f triggertwo.bin > /dev/nul 2>&1
