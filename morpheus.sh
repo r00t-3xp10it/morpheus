@@ -2086,7 +2086,7 @@ if [ "$?" -eq "0" ]; then
   # scan local lan using nmap
   nmap -sn $IP_RANGE -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Scanning local lan..." --percentage=0 --auto-close --width 290 > /dev/null 2>&1
   # strip results and print report
-  cat $IPATH/logs/lan.mop | grep "for" | awk {'print $3,$5,$6'} | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 410 --height 400 > /dev/null 2>&1
+  cat $IPATH/logs/lan.mop | grep -v "Host" | grep -v "done:" | grep -v "#" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 480 --height 430 > /dev/null 2>&1
 
     # cleanup
     echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
