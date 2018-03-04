@@ -2082,11 +2082,26 @@ if [ "$?" -eq "0" ]; then
   echo ${BlueF}[☠]${white} Scanning Local Lan${RedF}! ${Reset};
   # grab ip range + scan with nmap + zenity display results
   IP_RANGE=`ip route | grep "kernel" | awk {'print $1'}`
-  echo ${BlueF}[☠]${white} Ip Range${RedF}:${white}$IP_RANGE${RedF}! ${Reset};
+  echo ${BlueF}[☠]${white} Ip Range${RedF}:${white}$IP_RANGE ${Reset};
+
+  #
+  # agressive scan using nmap -sS -O (OS) pentesting tutorials idea ..
+  #
+  Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose the type of scan required\nRemmenber that 'stealth scans' takes longer to complete .." --radiolist --column "Pick" --column "Option" TRUE "normal default" FALSE "stealth agressive" --width 300 --height 200) > /dev/null 2>&1
+  
+
   # scan local lan using nmap
-  nmap -sn $IP_RANGE -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Scanning local lan..." --percentage=0 --auto-close --width 290 > /dev/null 2>&1
-  # strip results and print report
-  cat $IPATH/logs/lan.mop | grep -v "Host" | grep -v "done:" | grep -v "#" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 480 --height 430 > /dev/null 2>&1
+  if [ "$Tc" = "normal default" ]; then
+    nmap -sn $IP_RANGE -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Scanning local lan..." --percentage=0 --auto-close --width 290 > /dev/null 2>&1
+    # strip results and print report
+    cat $IPATH/logs/lan.mop | grep "for" | awk {'print $3,$5,$6'} | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 480 --height 390 > /dev/null 2>&1
+  else
+    echo ${GreenF}[☠]${white} Stealth scan sellected .. ${Reset};
+    nmap -sS $IP_RANGE -O -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Scanning local lan [stealth] .." --percentage=0 --auto-close --width 290 > /dev/null 2>&1
+    # strip results and print report
+    cat $IPATH/logs/lan.mop | grep -v "#" | grep -v "CPE:"| grep -v "type:" | grep -v "Distance:" | grep -v "closed" | grep -v "Too" | grep -v "No" | grep -v "latency" | grep -v "incorrect" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 570 --height 470 > /dev/null 2>&1
+  fi
+
 
     # cleanup
     echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
