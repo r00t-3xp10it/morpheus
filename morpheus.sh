@@ -2090,7 +2090,9 @@ if [ "$?" -eq "0" ]; then
   Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose the type of scan required\nRemmenber that 'stealth scans' takes longer to complete .." --radiolist --column "Pick" --column "Option" TRUE "normal default" FALSE "stealth agressive" --width 300 --height 200) > /dev/null 2>&1
   
 
+  #
   # scan local lan using nmap
+  #
   if [ "$Tc" = "normal default" ]; then
     nmap -sn $IP_RANGE -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Scanning local lan..." --percentage=0 --auto-close --width 290 > /dev/null 2>&1
     # strip results and print report
@@ -2376,7 +2378,7 @@ cat << !
     |  14    -  Modem/router login webpage      -  javascritp_keylooger |
     |  15    -  Replace website images          -  img src=http://other |
     |  16    -  Replace website text            -  replace: worlds      |
-    |  17    -  Flag device modem auth connection  (local LAN)          |
+    |  17    -  devices DHCP discovery          -  modem authentication |
     |                                                                   |
     |   W    -  Write your own filter                                   |
     |   S    -  Scan LAN for live hosts                                 |

@@ -94,8 +94,8 @@ do
       echo "   * Interface : $interface" >> $rhost.log
       echo "   * Modem Ip  : $modem" >> $rhost.log
       echo "   * Hour/Date : $hour" >> $rhost.log
-      echo "   * Action    : Request access to local LAN" >> $secund.log
       echo "   * Device    : $rhost.lan" >> $rhost.log
+      echo "   * Action    : Request access to local LAN" >> $rhost.log
       echo "   * ---" >> $rhost.log
       echo "" >> $rhost.log
     fi
@@ -105,8 +105,8 @@ do
       echo "   * Interface : $interface" >> $secund.log
       echo "   * Modem Ip  : $modem" >> $secund.log
       echo "   * Hour/Date : $hour" >> $secund.log
-      echo "   * Action    : Request access to local LAN" >> $secund.log
       echo "   * Device    : $secund.lan" >> $secund.log
+      echo "   * Action    : Request access to local LAN" >> $secund.log
       echo "   * ---" >> $secund.log
       echo "" >> $secund.log
     fi
