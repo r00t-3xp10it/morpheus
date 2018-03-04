@@ -649,7 +649,7 @@ if (ip.src == 'TaRTWO' && ip.proto == UDP && udp.dst == 67) {
     msg("\n[morpheus] host:TaRTWO  [ ⊶  ]  found...");
     msg("[morpheus] | status: DHCP request TO modem!");
     msg("[morpheus] |  port : 67/UDP(dst) bootp-DHCP ✔");
-    msg("[morpheus] |  info : android_carlos Announces is presence ✔");
+    msg("[morpheus] |  info : carlos smartphone Announces is presence ✔");
     msg("[morpheus] |_ name : android-d3d4ee5705593d227\n");
   }else{
   if (search(DATA.data, "android")) {
@@ -955,14 +955,14 @@ if (ip.dst == 'MoDeM' && ip.proto == TCP && tcp.dst == 445) {
 # IF NOT THEN YOU NEED TO COMMENT ( # ) THIS ENTIRE PARANOIC FUNTION
 #
 # DHCP DISCOVER: what devices (smartphones) are anuncing is presence to modem.
-# Its writen to identify my phones, but it will report the connection of androids too.
+# Its writen to identify my phones, but it will report the connection of androids/IOS devices.
 if (ip.src == '0.0.0.0' && ip.proto == UDP && udp.dst == 67) {
-  if (search(DATA.data, "android-40c73261dcf55d937")) {
+  if (search(DATA.data, "android-c9211f4272c7e1ef7")) {
     msg("\n[morpheus] host:0.0.0.0        [ ⊶  ]  found...");
     msg("[morpheus] | status: DHCP request TO modem!");
     msg("[morpheus] |  port : 67/UDP(dst) bootp-DHCP ✔");
-    msg("[morpheus] |  info : android_pedr0 Announces is presence ✔");
-    msg("[morpheus] |_ name : android-40c73261dcf55d937\n");
+    msg("[morpheus] |  info : pedr0 smartphone Announces is presence ✔");
+    msg("[morpheus] |_ name : android-c9211f4272c7e1ef7\n");
   }else{
   if (search(DATA.data, "android")) {
     msg("\n[morpheus] host:0.0.0.0        [ ⊶  ]  found...");
@@ -970,6 +970,22 @@ if (ip.src == '0.0.0.0' && ip.proto == UDP && udp.dst == 67) {
     msg("[morpheus] |  port : 67/UDP(dst) bootp-DHCP ✔");
     msg("[morpheus] |  info : android Announces is presence ✔");
     msg("[morpheus] |_ name : android [unknown]\n");
+  }else{
+  if (search(DATA.data, "com.apple.mobile")) {
+    msg("\n[morpheus] host:0.0.0.0        [ ⊶  ]  found...");
+    msg("[morpheus] | status: DHCP request TO modem!");
+    msg("[morpheus] |  port : 67/UDP(dst) bootp-DHCP ✔");
+    msg("[morpheus] |  info : IOS Announces is presence ✔");
+    msg("[morpheus] |_ name : APPLE/IOS [unknown]\n");
+  }else{
+  if (search(DATA.data, "Darwin")) {
+    msg("\n[morpheus] host:0.0.0.0        [ ⊶  ]  found...");
+    msg("[morpheus] | status: DHCP request TO modem!");
+    msg("[morpheus] |  port : 67/UDP(dst) bootp-DHCP ✔");
+    msg("[morpheus] |  info : IOS Announces is presence ✔");
+    msg("[morpheus] |_ name : APPLE/IOS [unknown]\n");
+    }
+    }
     }
     }
 }
