@@ -2213,6 +2213,7 @@ echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
 sleep 1
 cp $IPATH/filters/dhcp-discovery.eft $IPATH/filters/dhcp-discovery.bak > /dev/null 2>&1
 rhost=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c6216f4h7297e1ef\nchose remote target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+CeDs=$(zenity --title="☠ DEVICE DESCRIPTION ☠" --text "Give a description of the device\nexample: cellphone (pedro)" --entry --width 270) > /dev/null 2>&1
 #
 # pasing rtarget ip addr (add number 7 at the end of domain-name)
 #
@@ -2223,6 +2224,7 @@ echo "$store" > $IPATH/logs/parse
 
 if [ "$Tc" = "two targets input" ]; then
 Most=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c6216f4h7297e1ef\nchose remote target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+Desc=$(zenity --title="☠ DEVICE DESCRIPTION ☠" --text "Give a description of the device\nexample: cellphone (pedro)" --entry --width 270) > /dev/null 2>&1
 
   #
   # parsing data (add number 7 at the end of domain-name)
@@ -2238,7 +2240,7 @@ Most=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c6216f
   echo "    msg(\"[morpheus] host:0.0.0.0 [ ⊶  ]  found ..\");" >> $IPATH/filters/dhcp-discovery.eft
   echo "    msg(\"[morpheus] | status  : Request access to local LAN ✔\");" >> $IPATH/filters/dhcp-discovery.eft
   echo "    msg(\"[morpheus] |   port  : 67/UDP(dst) bootp-DHCP ✔\");" >> $IPATH/filters/dhcp-discovery.eft
-  echo "    msg(\"[morpheus] |_  device: $twoop\");" >> $IPATH/filters/dhcp-discovery.eft
+  echo "    msg(\"[morpheus] |_  device: $Desc\");" >> $IPATH/filters/dhcp-discovery.eft
   echo "    msg(\".\");" >> $IPATH/filters/dhcp-discovery.eft
   echo "    log(DECODED.data, \"./beep-warning.beep\");" >> $IPATH/filters/dhcp-discovery.eft
   echo "    log(DECODED.data, \"./triggertwo.bin\");" >> $IPATH/filters/dhcp-discovery.eft
@@ -2252,6 +2254,7 @@ fi
   # replace values in template.filter with sed bash command
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
   sed -i "s|rTdN|$store|g" dhcp-discovery.eft
+  sed -i "s|FtGh|$CeDs|g" dhcp-discovery.eft
   cd $IPATH
   zenity --info --title="☠ MORPHEUS SCRIPTING CONSOLE ☠" --text "morpheus framework now gives you\nthe oportunity to just run the filter\nOR to scripting it further...\n\n'Have fun scripting it further'..." --width 270 > /dev/null 2>&1
   xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/dhcp-discovery.eft"
