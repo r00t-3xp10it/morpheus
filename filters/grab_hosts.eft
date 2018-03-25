@@ -44,7 +44,7 @@ if (ip.proto == TCP && tcp.dst == 443 || tcp.src == 443) {
       msg("\n[morpheus] host:TaRgEt   [ ⊶  ]   found...");
       msg("[morpheus] | status: Target browsing detected ☆");
       msg("[morpheus] |  info : tcp header found, log stored ✔");
-      msg("[morpheus] |_ log  : morpheus/logs/grab_hosts.log ✔\n");
+      msg("[morpheus] |_ log  : morpheus/logs/grab_ssl_hosts.log ✔\n");
       log(DECODED.data, "./grab_ssl_hosts.log");
   }
 }
