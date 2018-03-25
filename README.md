@@ -78,6 +78,11 @@
 
 <br />
 
+# Detecting/blocking crypto currencie connections<br />
+![morpheus v2.1-Alpha](http://i.cubeupload.com/cbAoeY.png)
+
+<br />
+
 # Framework option 1 [firewall] screenshots
 
     firewall [option 1] pre-configurated filter will capture credentials from the follow services:
@@ -107,9 +112,6 @@
 <br />
 > tcp/udp data flow to report logins,suspicious traffic,brute-force,block target ip,etc.
 <br />
-
-Detecting/blocking crypto currencie connections<br />
-![morpheus v2.1-Alpha](http://i.cubeupload.com/cbAoeY.png)
 
 ---
 
