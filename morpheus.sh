@@ -2200,7 +2200,7 @@ sh_stage18 () {
 echo ""
 echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
 echo "${BlueF}    | ${YellowF}This filter will act like a firewall reporting and blocking crypto${BlueF}|"
-echo "${BlueF}    | ${YellowF}minning currencie connections inside Local Lan (selected target)  ${BlueF}|"
+echo "${BlueF}    | ${YellowF}minning currency connections inside Local Lan (selected target)   ${BlueF}|"
 echo "${BlueF}    | ${YellowF}If a connection its found on sellected machine (ip address) then  ${BlueF}|"
 echo "${BlueF}    | ${YellowF}this filter will warn framework users and drops/kill the minning  ${BlueF}|"
 echo "${BlueF}    | ${YellowF}connection (tcp/udp packets).                                     ${BlueF}|"
@@ -2219,19 +2219,19 @@ crypto=$(zenity --title="☠ DOMAIN NAME TO FILTER ☠" --text "example: coin-hi
 fil_one=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
-  cp $IPATH/filters/cryptocurrencie.eft $IPATH/filters/cryptocurrencie.rb > /dev/null 2>&1
+  cp $IPATH/filters/cryptocurrency.eft $IPATH/filters/cryptocurrency.rb > /dev/null 2>&1
   cd $IPATH/filters/
-  sed -i "s|CrYpT|$crypto|g" cryptocurrencie.eft
-  sed -i "s|TaRONE|$fil_one|g" cryptocurrencie.eft
+  sed -i "s|CrYpT|$crypto|g" cryptocurrency.eft
+  sed -i "s|TaRONE|$fil_one|g" cryptocurrency.eft
   sleep 1
 
   echo ${BlueF}[☠]${white} Edit template${RedF}!${Reset};
-  xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/cryptocurrencie.eft"
+  xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/cryptocurrency.eft"
   sleep 1
 
     # compiling template.eft to be used in ettercap
     echo ${BlueF}[☠]${white} Compiling template${RedF}!${Reset};
-    xterm -T "MORPHEUS - COMPILING" -geometry 90x26 -e "etterfilter $IPATH/filters/cryptocurrencie.eft -o $IPATH/output/cryptocurrencie.ef && sleep 3"
+    xterm -T "MORPHEUS - COMPILING" -geometry 90x26 -e "etterfilter $IPATH/filters/cryptocurrency.eft -o $IPATH/output/cryptocurrency.ef && sleep 3"
     sleep 1
     # port-forward
     # echo "1" > /proc/sys/net/ipv4/ip_forward
@@ -2244,31 +2244,44 @@ fil_one=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose ta
       if [ "$IpV" = "ACTIVE" ]; then
         if [ "$LoGs" = "NO" ]; then
         echo ${GreenF}[☠]${white} Using IPv6 settings${RedF}!${Reset};
-        ettercap -T -Q -i $InT3R -F $IPATH/output/cryptocurrencie.ef -M ARP /$rhost// /$gateway//
+        ettercap -T -Q -i $InT3R -F $IPATH/output/cryptocurrency.ef -M ARP /$rhost// /$gateway//
         else
         echo ${GreenF}[☠]${white} Using IPv6 settings${RedF}!${Reset};
-        ettercap -T -Q -i $InT3R -F $IPATH/output/cryptocurrencie.ef -L $IPATH/logs/cryptocurrencie -M ARP /$rhost// /$gateway//
+        ettercap -T -Q -i $InT3R -F $IPATH/output/cryptocurrency.ef -L $IPATH/logs/cryptocurrency -M ARP /$rhost// /$gateway//
         fi
 
       else
 
         if [ "$LoGs" = "YES" ]; then
         echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
-        ettercap -T -Q -i $InT3R -F $IPATH/output/cryptocurrencie.ef -M ARP /$rhost/ /$gateway/
+        ettercap -T -Q -i $InT3R -F $IPATH/output/cryptocurrency.ef -M ARP /$rhost/ /$gateway/
         else
         echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
-        ettercap -T -Q -i $InT3R -F $IPATH/output/cryptocurrencie.ef -L $IPATH/logs/cryptocurrencie -M ARP /$rhost/ /$gateway/
+        ettercap -T -Q -i $InT3R -F $IPATH/output/cryptocurrency.ef -L $IPATH/logs/cryptocurrency -M ARP /$rhost/ /$gateway/
         fi
       fi
     
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-  mv $IPATH/filters/cryptocurrencie.rb $IPATH/filters/cryptocurrencie.eft > /dev/null 2>&1
+  mv $IPATH/filters/cryptocurrency.rb $IPATH/filters/cryptocurrency.eft > /dev/null 2>&1
   # port-forward
   # echo "0" > /proc/sys/net/ipv4/ip_forward
   sleep 2
-  rm $IPATH/output/cryptocurrencie.ef > /dev/null 2>&1
+  rm $IPATH/output/cryptocurrency.ef > /dev/null 2>&1
+
+
+    if [ -e $IPATH/logs/crypto-currency.log ]; then
+      cd $IPATH/logs
+        # delete utf-8/non-ancii caracters from logfile
+        tr -cd '\11\12\15\40-\176' < crypto-currency.log > final.log
+        sed -i "s|www||g" final.log
+        sed -i "s|\!||g" final.log
+        sed -i "s|\+||g" final.log
+        sed -i "s|(||g" final.log
+        mv final.log crypto-currency.log > /dev/null 2>&1
+        rm final.log > /dev/null 2>&1
+    fi
   cd $IPATH
 
 else
