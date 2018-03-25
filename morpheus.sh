@@ -2064,127 +2064,6 @@ fi
 
 
 
-
-
-# ------------------------------------------------
-# NMAP FUNTION TO REPORT LIVE TARGETS IN LOCAL LAN
-# ------------------------------------------------
-sh_stageS () {
-echo ""
-echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
-echo "${BlueF}    | ${YellowF}    This module uses nmap framework to report live hosts (LAN)    ${BlueF}|"
-echo "${BlueF}    ╚───────────────────────────────────────────────────────────────────╝"
-echo ""
-sleep 2
-# run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
-if [ "$?" -eq "0" ]; then
-  echo ${BlueF}[☠]${white} Scanning Local Lan${RedF}! ${Reset};
-  # grab ip range + scan with nmap + zenity display results
-  IP_RANGE=`ip route | grep "kernel" | awk {'print $1'}`
-  echo ${BlueF}[☠]${white} Ip Range${RedF}:${white}$IP_RANGE ${Reset};
-
-  #
-  # agressive scan using nmap -sS -O (OS) pentesting tutorials idea ..
-  #
-  Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose the type of scan required\nRemmenber that 'stealth scans' takes longer to complete .." --radiolist --column "Pick" --column "Option" TRUE "normal default" FALSE "stealth agressive" --width 300 --height 200) > /dev/null 2>&1
-  
-
-  #
-  # scan local lan using nmap
-  #
-  if [ "$Tc" = "normal default" ]; then
-    nmap -sn $IP_RANGE -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Scanning local lan..." --percentage=0 --auto-close --width 290 > /dev/null 2>&1
-    # strip results and print report
-    cat $IPATH/logs/lan.mop | grep "for" | awk {'print $3,$5,$6'} | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 480 --height 390 > /dev/null 2>&1
-  else
-    echo ${GreenF}[☠]${white} Stealth scan sellected .. ${Reset};
-    nmap -sS $IP_RANGE -O -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Scanning local lan [stealth] .." --percentage=0 --auto-close --width 290 > /dev/null 2>&1
-    # strip results and print report
-    cat $IPATH/logs/lan.mop | grep -v "#" | grep -v "CPE:"| grep -v "type:" | grep -v "Distance:" | grep -v "closed" | grep -v "Too" | grep -v "No" | grep -v "latency" | grep -v "incorrect" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 570 --height 470 > /dev/null 2>&1
-  fi
-
-
-    # cleanup
-    echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-    rm $IPATH/logs/lan.mop > /dev/null 2>&1
-    sleep 2
-
-else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
-  sleep 2
-fi
-}
-
-
-
-
-
-
-#
-# easter egg: targets to test modules.
-#
-sh_stageT () {
-echo ""
-echo "${white}    Available targets For testing [HTTP] "
-echo "${BlueF}    ╔─────────────────────────────────────────────────────────────────────╗"
-echo "${BlueF}    |  ${YellowF}http://pastebin.com                          [User-Agent|cookie]${BlueF}   |"
-echo "${BlueF}    |  ${YellowF}http://eventolinux.org                       [User-Agent|cookie]${BlueF}   |"
-echo "${BlueF}    |  ${YellowF}http://predragtasevski.com                   [User-Agent capture]${BlueF}  |"
-echo "${BlueF}    |  ${YellowF}http://www.portugalpesca.com                 [User-Agent|cookie]${BlueF}   |"
-echo "${BlueF}    |  ${YellowF}http://178.21.117.152/phpmyadmin/            [http_creds]${BlueF}          |"
-echo "${BlueF}    |  ${YellowF}http://malwareforensics1.blogspot.pt         [User-Agent capture]${BlueF}  |"
-echo "${BlueF}    |  ${YellowF}http://www.portugalpesca.com/forum/login.php [User-Agent|cookie]${BlueF}   |"
-echo "${BlueF}    |  ${YellowF}telnet 216.58.214.174                        [telnet_creds]${BlueF}        |"
-echo "${BlueF}    |  ${YellowF}telnet 192.168.1.254                         [telnet_creds]${BlueF}        |"
-echo "${BlueF}    |  ${YellowF}ftp 192.168.1.254                            [ftp_creds]${BlueF}           |"
-echo "${BlueF}    |  ${YellowF}ssh 192.168.1.254                            [ssh_creds]${BlueF}           |"
-echo "${BlueF}    |  ${YellowF}ping -c 2 www.househot.com                   [mocbotIRC detection]${BlueF} |"
-echo "${BlueF}    ╠─────────────────────────────────────────────────────────────────────╝"
-sleep 1
-echo "${BlueF}    ╘ ${white}Press [${GreenF}ENTER${white}] to 'return' to main menu${RedF}!"
-read OP
-}
-
-
-
-
-
-#
-# help in scripting ;)
-#
-sh_help () {
-echo ""
-echo "${white}    Morpheus help menu${RedF}:"
-echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
-echo "${BlueF}    | ${YellowF} 1 - framework tutorials                                          ${BlueF}|"
-echo "${BlueF}    | ${YellowF} 2 - framework enhancement                                        ${BlueF}|"
-echo "${BlueF}    | ${YellowF} 3 - framework bug report/support                                 ${BlueF}|"
-echo "${BlueF}    | ${YellowF}                                                                  ${BlueF}|"
-echo "${BlueF}    | ${YellowF} R - return to main menu                                          ${BlueF}|"
-echo "${BlueF}    ╠───────────────────────────────────────────────────────────────────╝"
-echo "${BlueF}    ╘ ${white}Please chose the help required..."
-sleep 1
-echo ""
-echo -n "$PrompT"
-read choise
-case $choise in
-1) xdg-open "https://github.com/r00t-3xp10it/morpheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22framework+tutorials%22" ;;
-2) xdg-open "https://github.com/r00t-3xp10it/morpheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22framework+enhancement%22" ;;
-3) xdg-open "https://github.com/r00t-3xp10it/morpheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22bug+report%22" ;;
-R) sh_main ;;
-r) sh_main ;;
-*) echo "\"$choise\": is not a valid Option"; sleep 1; clear; sh_help ;;
-esac
-}
-
-
-
-
-
-
-
-
 # ----------------------------------------
 # DHCP DISCOVER (smartphones & PCs)
 # ----------------------------------------
@@ -2314,7 +2193,204 @@ fi
 
 
 
+# -------------------------------
+# BLOCK CRYPTOMINNING CONNECTIONS
+# -------------------------------
+sh_stage18 () {
+echo ""
+echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
+echo "${BlueF}    | ${YellowF}This filter will act like a firewall reporting and blocking crypto${BlueF}|"
+echo "${BlueF}    | ${YellowF}minning currencie connections inside Local Lan (selected target)  ${BlueF}|"
+echo "${BlueF}    | ${YellowF}If a connection its found on sellected machine (ip address) then  ${BlueF}|"
+echo "${BlueF}    | ${YellowF}this filter will warn framework users and drops/kill the minning  ${BlueF}|"
+echo "${BlueF}    | ${YellowF}connection (tcp/udp packets).                                     ${BlueF}|"
+echo "${BlueF}    ╚───────────────────────────────────────────────────────────────────╝"
+echo ""
+sleep 2
+# run module?
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+if [ "$?" -eq "0" ]; then
 
+# get user input to build filter
+echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
+rhost=$(zenity --title="☠ Enter RHOST ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
+crypto=$(zenity --title="☠ DOMAIN NAME TO FILTER ☠" --text "example: coin-hive.com\nchose the domain name to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+fil_one=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+
+  echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
+  cp $IPATH/filters/cryptocurrencie.eft $IPATH/filters/cryptocurrencie.rb > /dev/null 2>&1
+  cd $IPATH/filters/
+  sed -i "s|CrYpT|$crypto|g" cryptocurrencie.eft
+  sed -i "s|TaRONE|$fil_one|g" cryptocurrencie.eft
+  sleep 1
+
+  echo ${BlueF}[☠]${white} Edit template${RedF}!${Reset};
+  xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/cryptocurrencie.eft"
+  sleep 1
+
+    # compiling template.eft to be used in ettercap
+    echo ${BlueF}[☠]${white} Compiling template${RedF}!${Reset};
+    xterm -T "MORPHEUS - COMPILING" -geometry 90x26 -e "etterfilter $IPATH/filters/cryptocurrencie.eft -o $IPATH/output/cryptocurrencie.ef && sleep 3"
+    sleep 1
+    # port-forward
+    # echo "1" > /proc/sys/net/ipv4/ip_forward
+    cd $IPATH/logs
+
+      # run mitm+filter
+      echo ${BlueF}[☠]${white} Running ARP poison + etter filter${RedF}!${Reset};
+      echo ${YellowF}[☠]${white} Press ${YellowF}[q]${white} to quit ettercap framework${RedF}!${Reset};   
+      sleep 2
+      if [ "$IpV" = "ACTIVE" ]; then
+        if [ "$LoGs" = "NO" ]; then
+        echo ${GreenF}[☠]${white} Using IPv6 settings${RedF}!${Reset};
+        ettercap -T -Q -i $InT3R -F $IPATH/output/cryptocurrencie.ef -M ARP /$rhost// /$gateway//
+        else
+        echo ${GreenF}[☠]${white} Using IPv6 settings${RedF}!${Reset};
+        ettercap -T -Q -i $InT3R -F $IPATH/output/cryptocurrencie.ef -L $IPATH/logs/cryptocurrencie -M ARP /$rhost// /$gateway//
+        fi
+
+      else
+
+        if [ "$LoGs" = "YES" ]; then
+        echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
+        ettercap -T -Q -i $InT3R -F $IPATH/output/cryptocurrencie.ef -M ARP /$rhost/ /$gateway/
+        else
+        echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
+        ettercap -T -Q -i $InT3R -F $IPATH/output/cryptocurrencie.ef -L $IPATH/logs/cryptocurrencie -M ARP /$rhost/ /$gateway/
+        fi
+      fi
+    
+
+  # clean up
+  echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
+  mv $IPATH/filters/cryptocurrencie.rb $IPATH/filters/cryptocurrencie.eft > /dev/null 2>&1
+  # port-forward
+  # echo "0" > /proc/sys/net/ipv4/ip_forward
+  sleep 2
+  rm $IPATH/output/cryptocurrencie.ef > /dev/null 2>&1
+  cd $IPATH
+
+else
+  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  sleep 2
+fi
+}
+
+
+
+
+# ------------------------------------------------
+# NMAP FUNTION TO REPORT LIVE TARGETS IN LOCAL LAN
+# ------------------------------------------------
+sh_stageS () {
+echo ""
+echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
+echo "${BlueF}    | ${YellowF}    This module uses nmap framework to report live hosts (LAN)    ${BlueF}|"
+echo "${BlueF}    ╚───────────────────────────────────────────────────────────────────╝"
+echo ""
+sleep 2
+# run module?
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+if [ "$?" -eq "0" ]; then
+  echo ${BlueF}[☠]${white} Scanning Local Lan${RedF}! ${Reset};
+  # grab ip range + scan with nmap + zenity display results
+  IP_RANGE=`ip route | grep "kernel" | awk {'print $1'}`
+  echo ${BlueF}[☠]${white} Ip Range${RedF}:${white}$IP_RANGE ${Reset};
+
+  #
+  # agressive scan using nmap -sS -O (OS) pentesting tutorials idea ..
+  #
+  Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose the type of scan required\nRemmenber that 'stealth scans' takes longer to complete .." --radiolist --column "Pick" --column "Option" TRUE "normal default" FALSE "stealth agressive" --width 300 --height 200) > /dev/null 2>&1
+  
+
+  #
+  # scan local lan using nmap
+  #
+  if [ "$Tc" = "normal default" ]; then
+    nmap -sn $IP_RANGE -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Scanning local lan..." --percentage=0 --auto-close --width 290 > /dev/null 2>&1
+    # strip results and print report
+    cat $IPATH/logs/lan.mop | grep "for" | awk {'print $3,$5,$6'} | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 480 --height 390 > /dev/null 2>&1
+  else
+    echo ${GreenF}[☠]${white} Stealth scan sellected .. ${Reset};
+    nmap -sS $IP_RANGE -O -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Scanning local lan [stealth] .." --percentage=0 --auto-close --width 290 > /dev/null 2>&1
+    # strip results and print report
+    cat $IPATH/logs/lan.mop | grep -v "#" | grep -v "CPE:"| grep -v "type:" | grep -v "Distance:" | grep -v "closed" | grep -v "Too" | grep -v "No" | grep -v "latency" | grep -v "incorrect" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 570 --height 470 > /dev/null 2>&1
+  fi
+
+
+    # cleanup
+    echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
+    rm $IPATH/logs/lan.mop > /dev/null 2>&1
+    sleep 2
+
+else
+  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  sleep 2
+fi
+}
+
+
+
+
+
+
+#
+# easter egg: targets to test modules.
+#
+sh_stageT () {
+echo ""
+echo "${white}    Available targets For testing [HTTP] "
+echo "${BlueF}    ╔─────────────────────────────────────────────────────────────────────╗"
+echo "${BlueF}    |  ${YellowF}http://pastebin.com                          [User-Agent|cookie]${BlueF}   |"
+echo "${BlueF}    |  ${YellowF}http://eventolinux.org                       [User-Agent|cookie]${BlueF}   |"
+echo "${BlueF}    |  ${YellowF}http://predragtasevski.com                   [User-Agent capture]${BlueF}  |"
+echo "${BlueF}    |  ${YellowF}http://www.portugalpesca.com                 [User-Agent|cookie]${BlueF}   |"
+echo "${BlueF}    |  ${YellowF}http://178.21.117.152/phpmyadmin/            [http_creds]${BlueF}          |"
+echo "${BlueF}    |  ${YellowF}http://malwareforensics1.blogspot.pt         [User-Agent capture]${BlueF}  |"
+echo "${BlueF}    |  ${YellowF}http://www.portugalpesca.com/forum/login.php [User-Agent|cookie]${BlueF}   |"
+echo "${BlueF}    |  ${YellowF}telnet 216.58.214.174                        [telnet_creds]${BlueF}        |"
+echo "${BlueF}    |  ${YellowF}telnet 192.168.1.254                         [telnet_creds]${BlueF}        |"
+echo "${BlueF}    |  ${YellowF}ftp 192.168.1.254                            [ftp_creds]${BlueF}           |"
+echo "${BlueF}    |  ${YellowF}ssh 192.168.1.254                            [ssh_creds]${BlueF}           |"
+echo "${BlueF}    |  ${YellowF}ping -c 2 www.househot.com                   [mocbotIRC detection]${BlueF} |"
+echo "${BlueF}    ╠─────────────────────────────────────────────────────────────────────╝"
+sleep 1
+echo "${BlueF}    ╘ ${white}Press [${GreenF}ENTER${white}] to 'return' to main menu${RedF}!"
+read OP
+}
+
+
+
+
+
+#
+# help in scripting ;)
+#
+sh_help () {
+echo ""
+echo "${white}    Morpheus help menu${RedF}:"
+echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
+echo "${BlueF}    | ${YellowF} 1 - framework tutorials                                          ${BlueF}|"
+echo "${BlueF}    | ${YellowF} 2 - framework enhancement                                        ${BlueF}|"
+echo "${BlueF}    | ${YellowF} 3 - framework bug report/support                                 ${BlueF}|"
+echo "${BlueF}    | ${YellowF}                                                                  ${BlueF}|"
+echo "${BlueF}    | ${YellowF} R - return to main menu                                          ${BlueF}|"
+echo "${BlueF}    ╠───────────────────────────────────────────────────────────────────╝"
+echo "${BlueF}    ╘ ${white}Please chose the help required..."
+sleep 1
+echo ""
+echo -n "$PrompT"
+read choise
+case $choise in
+1) xdg-open "https://github.com/r00t-3xp10it/morpheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22framework+tutorials%22" ;;
+2) xdg-open "https://github.com/r00t-3xp10it/morpheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22framework+enhancement%22" ;;
+3) xdg-open "https://github.com/r00t-3xp10it/morpheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22bug+report%22" ;;
+R) sh_main ;;
+r) sh_main ;;
+*) echo "\"$choise\": is not a valid Option"; sleep 1; clear; sh_help ;;
+esac
+}
 
 
 
@@ -2382,6 +2458,7 @@ cat << !
     |  15    -  Replace website images          -  img src=http://other |
     |  16    -  Replace website text            -  replace: worlds      |
     |  17    -  devices DHCP discovery          -  modem authentication |
+    |  18    -  block tcp/udp cryptominning     -  drop/kill packets    |
     |                                                                   |
     |   W    -  Write your own filter                                   |
     |   S    -  Scan LAN for live hosts                                 |
@@ -2413,6 +2490,7 @@ case $choice in
 15) sh_stage15 ;;
 16) sh_stage16 ;;
 17) sh_stage17 ;;
+18) sh_stage18 ;;
 W) sh_stageW ;;
 w) sh_stageW ;;
 S) sh_stageS ;;

@@ -1,0 +1,216 @@
+############################################################################
+#                                                                          #
+#  HTTPS Request/Response Filter                                           #
+#  based on code from ALoR & NaGA                                          #
+#                                                                          #
+#  This program is free software; you can redistribute it and/or modify    #
+#  it under the terms of the GNU General Public License as published by    #
+#  the Free Software Foundation; either version 2 of the License, or       #
+#  (at your option) any later version.                                     #
+#                                                                          #
+#  use: http://string-functions.com/string-hex.aspx to decode tcp hex      #
+############################################################################
+
+
+##
+#  This filter will act like a firewall reporting and blocking crypto minning
+#  currencie connections inside Local Lan (selected target). If a connection
+#  its found on sellected machine (ip address) then this filter will warn
+#  framework users and drops/kill the minning connection (tcp/udp packets).
+##
+
+
+
+
+#
+# REPORT MONERO MINING (and drop pakets)..
+# Scan all tcp/udp ports from my pc to outside ..
+#
+if (ip.src == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
+        if (search(DATA.data, "coinhive")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible coinhive monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 68 69 76 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: coinhive.com\n");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "coin-hive")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible coin-hive monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 68 69 76 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: coin-hive.com\n");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "coin-have")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible coin-have monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 2d 68 61 76 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: coin-have.com\n");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "authedmine")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible authedmine monero (cryptomining)");
+          msg("[morpheus] |   hex  : 61 75 74 68 65 64 6d 69 6e 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: authedmine.com\n");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "webmine")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible webmine monero (cryptomining)");
+          msg("[morpheus] |   hex  : 77 65 62 6d 69 6e 65 2e 70 72 6f");
+          msg("[morpheus] |_  decoded: webmine.pro\n");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "cryptoloot")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible cryptoloot monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 72 79 70 74 6f 6c 6f 6f 74 2e 70 72 6f");
+          msg("[morpheus] |_  decoded: cryptoloot.pro\n");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "crypto-loot")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible crypto-loot monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 72 79 70 74 6f 2d 6c 6f 6f 74 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: crypto-loot.com\n");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "load.jsecoin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible load.jsecoin monero (cryptomining)");
+          msg("[morpheus] |   hex  : 6c 6f 61 64 2e 6a 73 65 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: load.jsecoin.com\n");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "CrYpT")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 68 69 76 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: CrYpT\n");
+            drop();
+            kill();
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+}
+
+
+#
+# scan all tcp/udp ports from outside to my pc ..
+#
+if (ip.dst == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
+        if (search(DATA.data, "coinhive")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible coinhive monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 68 69 76 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: coinhive.com\n");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "coin-hive")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible coin-hive monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 68 69 76 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: coin-hive.com\n");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "coin-have")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible coin-have monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 2d 68 61 76 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: coin-have.com\n");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "authedmine")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible authedmine monero (cryptomining)");
+          msg("[morpheus] |   hex  : 61 75 74 68 65 64 6d 69 6e 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: authedmine.com\n");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "webmine")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible webmine monero (cryptomining)");
+          msg("[morpheus] |   hex  : 77 65 62 6d 69 6e 65 2e 70 72 6f");
+          msg("[morpheus] |_  decoded: webmine.pro\n");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "cryptoloot")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
+          msg("[morpheus] |   info : possible cryptoloot monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 72 79 70 74 6f 6c 6f 6f 74 2e 70 72 6f");
+          msg("[morpheus] |_  decoded: cryptoloot.pro\n");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "crypto-loot.com")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible crypto-loot monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 72 79 70 74 6f 2d 6c 6f 6f 74 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: crypto-loot.com\n");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "load.jsecoin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible load.jsecoin monero (cryptomining)");
+          msg("[morpheus] |   hex  : 6c 6f 61 64 2e 6a 73 65 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: load.jsecoin.com\n");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "CrYpT")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 68 69 76 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: CrYpT\n");
+            drop();
+            kill();
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+       }
+}
+
