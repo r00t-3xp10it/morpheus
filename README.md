@@ -106,8 +106,11 @@
 > Basically firewall filter will act like one offensive and defensive tool analyzing the
 <br />
 > tcp/udp data flow to report logins,suspicious traffic,brute-force,block target ip,etc.
-
 <br />
+
+Detecting/blocking crypto currencie connections<br />
+![morpheus v2.1-Alpha](http://i.cubeupload.com/cbAoeY.png)
+
 ---
 
 
