@@ -310,7 +310,7 @@ if (ip.src == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
 if (ip.dst == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
         if (search(DATA.data, "coinhive")) {
           msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
-          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
           msg("[morpheus] |   info : possible coinhive monero (cryptomining)");
           msg("[morpheus] |   hex  : 63 6f 69 6e 68 69 76 65 2e 63 6f 6d");
           msg("[morpheus] |_  decoded: coinhive.com\n");
@@ -319,7 +319,7 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
         }else{
         if (search(DATA.data, "coin-hive")) {
           msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
-          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
           msg("[morpheus] |   info : possible coin-hive monero (cryptomining)");
           msg("[morpheus] |   hex  : 63 6f 69 6e 68 69 76 65 2e 63 6f 6d");
           msg("[morpheus] |_  decoded: coin-hive.com\n");
@@ -328,7 +328,7 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
         }else{
         if (search(DATA.data, "authedmine")) {
           msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
-          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
           msg("[morpheus] |   info : possible authedmine monero (cryptomining)");
           msg("[morpheus] |   hex  : 61 75 74 68 65 64 6d 69 6e 65 2e 63 6f 6d");
           msg("[morpheus] |_  decoded: authedmine.com\n");
@@ -337,7 +337,7 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
         }else{
         if (search(DATA.data, "webmine")) {
           msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
-          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
           msg("[morpheus] |   info : possible webmine monero (cryptomining)");
           msg("[morpheus] |   hex  : 77 65 62 6d 69 6e 65 2e 70 72 6f");
           msg("[morpheus] |_  decoded: webmine.pro\n");
@@ -346,7 +346,7 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
         }else{
         if (search(DATA.data, "cryptoloot")) {
           msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
-          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
           msg("[morpheus] |   info : possible cryptoloot monero (cryptomining)");
           msg("[morpheus] |   hex  : 63 72 79 70 74 6f 6c 6f 6f 74 2e 70 72 6f");
           msg("[morpheus] |_  decoded: cryptoloot.pro\n");
@@ -355,7 +355,7 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
         }else{
         if (search(DATA.data, "cryptoloot")) {
           msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
-          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] | action : drop TCP/UDP(dst) packet ✔");
           msg("[morpheus] |   info : possible cryptoloot monero (cryptomining)");
           msg("[morpheus] |   hex  : 63 72 79 70 74 6f 6c 6f 6f 74 2e 70 72 6f");
           msg("[morpheus] |_  decoded: cryptoloot.pro\n");
