@@ -78,7 +78,16 @@
 
 <br /><br /><br />
 
-## Detecting-blocking crypto currency connections<br />
+# Some Screenshots of version v2.1<br />
+
+<br />
+
+## Detecting DHCP requests to access local lan [option 17]<br />
+![morpheus v2.1-Alpha](http://i.cubeupload.com/EKAYLP.jpg)
+
+<br />
+
+## Detecting-blocking crypto currency connections [option 18]<br />
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/cbAoeY.png)
 
 <br />
