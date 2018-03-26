@@ -78,17 +78,17 @@
 
 <br />
 
-# Detecting/blocking crypto currencie connections<br />
+## Detecting/blocking crypto currencie connections<br />
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/cbAoeY.png)
 
 <br />
 
-# Redirect all devices in LAN to google term prank [option 19]<br />
+## Redirect all devices in LAN to google term prank [option 19]<br />
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/1JB07X.png)
 
 <br />
 
-# Framework option 1 [firewall] screenshots
+## Framework option 1 [firewall] screenshots
 
     firewall [option 1] pre-configurated filter will capture credentials from the follow services:
     http,ftp,ssh,telnet (facebook uses https/ssl :( ) report suspicious connections, report common
