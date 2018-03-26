@@ -2332,6 +2332,7 @@ fi
   cp $IPATH/bin/etter.dns etter.rb > /dev/null 2>&1 # backup
   cp $Edns /tmp/etter.dns > /dev/null 2>&1 # backup
   cp $IPATH/filters/EasterEgg.eft $IPATH/filters/EasterEgg.rb > /dev/null 2>&1 # backup
+  cp $IPATH/bin/phishing/EasterEgg.html $IPATH/bin/phishing/EasterEgg.bak > /dev/null 2>&1 # backup
   # use SED bash command to config our etter.dns
   sed -i "s|TaRgEt|$IP|g" etter.dns # NO dev/null to report file not existence :D
   sed -i "s|PrE|$PrEfI|g" etter.dns > /dev/null 2>&1
@@ -2387,6 +2388,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   mv /tmp/etter.dns $Edns > /dev/null 2>&1
   mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
   mv $IPATH/filters/EasterEgg.rb $IPATH/filters/EasterEgg.eft > /dev/null 2>&1 # backup
+  mv $IPATH/bin/phishing/EasterEgg.bak $IPATH/bin/phishing/EasterEgg.html > /dev/null 2>&1 # backup
   rm $ApachE/index.html > /dev/null 2>&1
   cd $IPATH
   # port-forward
