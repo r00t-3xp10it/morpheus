@@ -2119,6 +2119,7 @@ Desc=$(zenity --title="☠ DEVICE DESCRIPTION ☠" --text "Give a description of
   echo "    msg(\"[morpheus] host:0.0.0.0 [ ⊶  ]  found ..\");" >> $IPATH/filters/dhcp-discovery.eft
   echo "    msg(\"[morpheus] | status  : Request access to local LAN ✔\");" >> $IPATH/filters/dhcp-discovery.eft
   echo "    msg(\"[morpheus] |   port  : 67/UDP(dst) bootp-DHCP ✔\");" >> $IPATH/filters/dhcp-discovery.eft
+  echo "    msg(\"[morpheus] |   id    : $twoop ✔\");" >> $IPATH/filters/dhcp-discovery.eft
   echo "    msg(\"[morpheus] |_  device: $Desc\");" >> $IPATH/filters/dhcp-discovery.eft
   echo "    msg(\".\");" >> $IPATH/filters/dhcp-discovery.eft
   echo "    log(DECODED.data, \"./beep-warning.beep\");" >> $IPATH/filters/dhcp-discovery.eft
