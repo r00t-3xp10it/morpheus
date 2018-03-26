@@ -112,7 +112,6 @@
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/z8M94O.png)
 
 > Basically firewall filter will act like one offensive and defensive tool analyzing the
-<br />
 > tcp/udp data flow to report logins,suspicious traffic,brute-force,block target ip,etc.
 <br />
 
