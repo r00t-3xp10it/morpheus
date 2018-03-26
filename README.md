@@ -76,14 +76,14 @@
     ettercap (alor&naga) | nmap (fyodor) | apache2 (Rob McCool) | dsniff (Dug Song)
     filters: irongeek (replace img) | seannicholls (rotate 180º) | TheBlaCkCoDeR09 (ToR-Browser-0day)
 
-<br />
+<br /><br /><br />
 
 ## Detecting/blocking crypto currencie connections<br />
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/cbAoeY.png)
 
 <br />
 
-## Redirect all devices in LAN to google term prank [option 19]<br />
+## Redirect all devices in LAN to google terminal prank [option 19]<br />
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/1JB07X.png)
 
 <br />
