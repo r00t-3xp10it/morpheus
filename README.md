@@ -105,8 +105,6 @@
 
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/nbgSuj.png)
 
-![morpheus v2.1-Alpha](http://i.cubeupload.com/ZxU3Jj.png)
-
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/Hx0JV4.png)
 
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/LzqZGc.png)
