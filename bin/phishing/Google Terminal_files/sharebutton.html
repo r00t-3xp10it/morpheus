@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><!-- base href="https://apis.google.com/se/0/wm/1/" --><style>body {-webkit-font-smoothing: antialiased;}/* cyrillic-ext */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu72xKOzY.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu5mxKOzY.woff2) format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu7mxKOzY.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4WxKOzY.woff2) format('woff2');
+  unicode-range: U+0370-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu7WxKOzY.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu7GxKOzY.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxK.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfCRc4EsA.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfABc4EsA.woff2) format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfCBc4EsA.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfBxc4EsA.woff2) format('woff2');
+  unicode-range: U+0370-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfCxc4EsA.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfChc4EsA.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfBBc4.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style><script>function __sp() {try {var params = {};var el = document.getElementById('widget_bounds'), s, d, ws;s = el.style; d = s.display; ws = s.whiteSpace; s.display = 'inline-block'; s.whiteSpace = 'nowrap';var w = el.offsetWidth + 1;params['width'] = w;params['height'] = el.offsetHeight;s.display = d; s.whiteSpace = ws;params['title'] = 'G+';} catch (e) {return null}return params;}var gapi=window.gapi=window.gapi||{};(function() { var e=function(b,c){b=b.match(new RegExp(".*(\\?|#|&)"+c+"=([^&#]+)"))||[];return decodeURIComponent(b[b.length-1]||"")},r=function(b,c){f(l(),b,c)},t=function(b,c){f(!0,b,c)},f=function(b,c,g){function m(){b?(d.s=n+"/"+h+":"+n+":"+d.s,d.g=!1,g&&(d.a=g.slice(1)),a.parent.postMessage("!_"+a.JSON.stringify(d),p||"*")):a.parent.postMessage(a.JSON.stringify(d),p||"*")}var a=window,q=a.document;if(a.postMessage&&a.JSON&&a.JSON.stringify&&a!=a.parent){var h=a.name,k=a.location.href,p=function(b){if(!b.match(/^https?:\/\//))return"";
+var a=q.createElement("a");a.href=b;a.pathname=a.search=a.hash="";return a.href.replace(/\/\??#?$/,"")}(e(k,"parent")),n=e(k,"pfname"),d={s:c,f:h,r:h,t:e(k,"rpctoken"),a:g||[""],g:"ping"};q.all?a.setTimeout(m,0):m()}},u=function(b,c){f(!1,"widget-csi-tick-"+window.name,[b,null,c])},l=function(b){var c=window;return"1"===e(b||c.location.href,"usegapi")};window.gapi.inline=window.gapi.inline||{ping:r,tick:u,shouldUseGapi:l,pingGapi:t}; })();
+var sentRenderStart = false; function gapi_sendRenderStart() {if (sentRenderStart) {return}sentRenderStart = true; var sz = __sp(); if (sz) {gapi.inline.ping('_renderstart', ['', sz]);}}document.createElement('content');</script><script>var AF_initDataKeys = []
+; var AF_dataServiceRequests = {}; var AF_initDataChunkQueue = []; var AF_initDataCallback; var AF_initDataInitializeCallback; if (AF_initDataInitializeCallback) {AF_initDataInitializeCallback(AF_initDataKeys, AF_initDataChunkQueue, AF_dataServiceRequests);}if (!AF_initDataCallback) {AF_initDataCallback = function(chunk) {AF_initDataChunkQueue.push(chunk);};}</script></head><body class="kv8eNc "><div id="root"><script>var AF_initDataKeys = []
+; var AF_dataServiceRequests = {}; var AF_initDataChunkQueue = []; var AF_initDataCallback; var AF_initDataInitializeCallback; if (AF_initDataInitializeCallback) {AF_initDataInitializeCallback(AF_initDataKeys, AF_initDataChunkQueue, AF_dataServiceRequests);}if (!AF_initDataCallback) {AF_initDataCallback = function(chunk) {AF_initDataChunkQueue.push(chunk);};}</script><style>
+    .ozWidgetRioButton_ {
+        border: 1px solid #d5d5d5;
+        border: 1px solid rgba(0,0,0,.17);
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+        -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.05);
+        box-shadow: 0 1px 0 rgba(0,0,0,.05);
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-transition: background-color .218s,border-color .218s,box-shadow .218s;
+        transition: background-color .218s,border-color .218s,box-shadow .218s;
+        -webkit-user-select: none;
+        -webkit-appearance: none;
+        background-color: #fff;
+        background-image: none;
+        color: #262626;
+        cursor: pointer;
+        outline: none;
+        overflow: hidden;
+        position: relative;
+        text-align: center;
+        vertical-align: middle;
+        white-space: nowrap;
+        width: auto
+    }
+
+    .ozWidgetRioButton_:hover {
+        border: 1px solid #aaa;
+        border: 1px solid rgba(0,0,0,.25);
+        -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.1);
+        box-shadow: 0 1px 0 rgba(0,0,0,0.1)
+    }
+
+    .ozWidgetRioButton_:active {
+        background-color: #e5e5e5;
+        border: 1px solid #aaa;
+        border: 1px solid rgba(0,0,0,.25);
+        -webkit-box-shadow: inset 0 1px 0 #ddd;
+        box-shadow: inset 0 1px 0 #ddd;
+        color: #262626
+    }
+
+    .ozWidgetRioButtonIcon_ {
+        float: left
+    }
+
+    .ozWidgetRioButtonSvg_ {
+        display: block
+    }
+
+    .ozWidgetRioButtonContentWrapper_ {
+        height: 100%;
+        width: 100%
+    }
+
+    .ozWidgetRioPlusOneButton_,.ozWidgetRioPlusOneButton_:hover,.ozWidgetRioPlusOneButton_:active {
+        color: #db4437
+    }
+
+    .ozWidgetRioButtonIconImage_ {
+          fill: #db4437
+    }
+
+    .ozWidgetRioButtonContents_ {
+        font-family: Roboto,arial,sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        margin-left: 6px;
+        margin-right: 6px;
+        vertical-align: top
+    }
+
+    .ozWidgetRioButtonIconImage_ {
+        fill: #db4437
+    }
+
+    .ozWidgetRioButtonGreen_ .ozWidgetRioButtonIconImage_,.ozWidgetRioButtonRed_ .ozWidgetRioButtonIconImage_,.ozWidgetRioButtonBlue_ .ozWidgetRioButtonIconImage_,.ozWidgetRioButtonDarkGray_ .ozWidgetRioButtonIconImage_,.ozWidgetRioButtonGrayedOut_ .ozWidgetRioButtonIconImage_ {
+        fill: #fff
+    }
+
+    .ozWidgetPlusButtonHeight15_ .ozWidgetPlusButton_ {
+        font-size: 9px;
+        line-height: 10px
+    }
+
+    .ozWidgetPlusButtonHeight20_ .ozWidgetPlusButton_ {
+        font-size: 11px;
+        line-height: 14px
+    }
+
+    .ozWidgetPlusButtonHeight24_ .ozWidgetPlusButton_ {
+        font-size: 11px;
+        line-height: 14px
+    }
+
+    .ozWidgetPlusButtonHeight28_ .ozWidgetPlusButton_ {
+        font-size: 12px;
+        line-height: 16px
+    }
+
+    .ozWidgetPlusButtonHeight60_ .ozWidgetPlusButton_ {
+        font-size: 30px;
+        line-height: 32px
+    }
+
+    .ozWidgetPlusButtonHeight15_ .ozWidgetPlusButton_ {
+        padding: 1px 5px 2px 15px
+    }
+
+    .ozWidgetPlusButtonHeight20_ .ozWidgetPlusButton_ {
+        padding: 2px 8px 2px 17px
+    }
+
+    .ozWidgetPlusButtonHeight24_ .ozWidgetPlusButton_ {
+        padding: 4px 18px 4px 32px
+    }
+
+    .ozWidgetPlusButtonHeight28_ .ozWidgetPlusButton_ {
+        padding: 5px 18px 5px 32px
+    }
+
+    .ozWidgetPlusButtonHeight60_ .ozWidgetPlusButton_ {
+        padding: 13px 25px 13px 75px
+    }
+
+    .ozWidgetRioButtonSvgImageWithFallback_ {
+        background-position: top left;
+        background-repeat: no-repeat
+    }
+
+    .ozWidgetBodyTransparent_ {
+        background-color: transparent;
+        margin: 0;
+        padding: 0;
+    }
+
+    .ozWidgetBodyOpaque_ {
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 5px
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    </style><table cellspacing="0" cellpadding="0"><tbody><tr><td valign="top"><a href="https://plus.google.com/share?app=110&amp;url=http%3A%2F%2Felgoog.im%2Fterminal%2F" target="_blank" onclick="window.open(this.href,'','scrollbars=1,resizable=1,width=400,height=620');return false;"><div dir="ltr" class="ozWidgetPlusButtonHeight20_"><span id="widget_bounds" style=""><div style="height:20px;" class="ozWidgetRioButton_ ozIdPlusShareButton_" id="button" title="Share"><div class="ozWidgetRioButtonContentWrapper_"><div style="margin:2px 0 0 2px;" class="ozWidgetRioButtonIcon_"><div style="width:14px;height:14px;" class="ozWidgetRioButtonSvgImageWithFallback_ ozWidgetRioButtonIconImage_ ozWidgetRioButtonIconImage14_"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 14 14" class="ozWidgetRioButtonSvg_"><path d="M12.5,6.2V4.7h-1.1v1.5H9.8v1.1h1.5v1.5h1.1V7.3H14V6.2H12.5z"></path><path d="M4.4,6.1v1.7h2.3c-0.2,1-1.1,1.8-2.3,1.8C3,9.6,1.8,8.4,1.8,7S3,4.4,4.4,4.4C5,4.4,5.6,4.6,6,5l1.3-1.3 C6.5,3.1,5.6,2.6,4.4,2.6C2,2.6,0,4.6,0,7s2,4.4,4.4,4.4c2.5,0,4.2-1.8,4.2-4.3c0-0.3,0-0.7-0.1-1C8.5,6.1,4.4,6.1,4.4,6.1z"></path></svg></div></div><span style="font-size:10px;line-height:18px;" class="ozWidgetRioButtonContents_">Share</span></div></div></span></div></a></td></tr></tbody></table></div><script>window.__GOOGLEAPIS = {googleapis: {versions: {pos: 'v1'}}};window['__P1_BASEURL'] = 'https:\/\/apis.google.com\/se\/0\/'; window['__P1_LOCALE'] = 'en_US'; var OZ_domReady = 1;
+      var _DumpException = function(e) {
+        e['errsource'] = e['errsource'] || 'api_widget';
+        throw e;
+      }
+    window['___jsl'] = window['___jsl'] || {}; window['___jsl']['ci'] = [{"deviceType":"desktop","oauth-flow":{"authUrl":"https://accounts.google.com/o/oauth2/auth","disableOpt":true,"idpIframeUrl":"https://accounts.google.com/o/oauth2/iframe","proxyUrl":"https://accounts.google.com/o/oauth2/postmessageRelay","usegapi":false},"debug":{"host":"https://apis.google.com","reportExceptionRate":0.05,"forceIm":false,"rethrowException":false},"enableMultilogin":true,"googleapis.config":{"auth":{"useFirstPartyAuthV2":false}},"isPlusUser":false,"inline":{"css":1},"disableRealtimeCallback":false,"drive_share":{"skipInitCommand":true},"csi":{"rate":0.01},"client":{"cors":false},"isLoggedIn":false,"signInDeprecation":{"rate":0},"include_granted_scopes":true,"llang":"en","iframes":{"ytsubscribe":{"url":"https://www.youtube.com/subscribe_embed?usegapi\u003d1"},"plus_share":{"params":{"url":""},"url":":socialhost:/:session_prefix::se:_/+1/sharebutton?plusShare\u003dtrue\u0026usegapi\u003d1"},":source:":"3p","playemm":{"url":"https://play.google.com/work/embedded/search?usegapi\u003d1\u0026usegapi\u003d1"},"partnersbadge":{"url":"https://www.gstatic.com/partners/badge/templates/badge.html?usegapi\u003d1"},"dataconnector":{"url":"https://dataconnector.corp.google.com/:session_prefix:ui/widgetview?usegapi\u003d1"},"shortlists":{"url":""},"plus_followers":{"params":{"url":""},"url":":socialhost:/_/im/_/widget/render/plus/followers?usegapi\u003d1"},"post":{"params":{"url":""},"url":":socialhost:/:session_prefix::im_prefix:_/widget/render/post?usegapi\u003d1"},"signin":{"params":{"url":""},"url":":socialhost:/:session_prefix:_/widget/render/signin?usegapi\u003d1","methods":["onauth"]},"donation":{"url":"https://onetoday.google.com/home/donationWidget?usegapi\u003d1"},"plusone":{"params":{"count":"","size":"","url":""},"url":":socialhost:/:session_prefix::se:_/+1/fastbutton?usegapi\u003d1"},":im_socialhost:":"https://plus.googleapis.com","backdrop":{"url":"https://clients3.google.com/cast/chromecast/home/widget/backdrop?usegapi\u003d1"},"visibility":{"params":{"url":""},"url":":socialhost:/:session_prefix:_/widget/render/visibility?usegapi\u003d1"},"additnow":{"url":"https://apis.google.com/additnow/additnow.html?usegapi\u003d1","methods":["launchurl"]},":signuphost:":"https://plus.google.com","community":{"url":":ctx_socialhost:/:session_prefix::im_prefix:_/widget/render/community?usegapi\u003d1"},"plus":{"url":":socialhost:/:session_prefix:_/widget/render/badge?usegapi\u003d1"},"commentcount":{"url":":socialhost:/:session_prefix:_/widget/render/commentcount?usegapi\u003d1"},"zoomableimage":{"url":"https://ssl.gstatic.com/microscope/embed/"},"appfinder":{"url":"https://gsuite.google.com/:session_prefix:marketplace/appfinder?usegapi\u003d1"},"person":{"url":":socialhost:/:session_prefix:_/widget/render/person?usegapi\u003d1"},"savetodrive":{"url":"https://drive.google.com/savetodrivebutton?usegapi\u003d1","methods":["save"]},"page":{"url":":socialhost:/:session_prefix:_/widget/render/page?usegapi\u003d1"},"card":{"url":":socialhost:/:session_prefix:_/hovercard/card"},"youtube":{"params":{"location":["search","hash"]},"url":":socialhost:/:session_prefix:_/widget/render/youtube?usegapi\u003d1","methods":["scroll","openwindow"]},"plus_circle":{"params":{"url":""},"url":":socialhost:/:session_prefix::se:_/widget/plus/circle?usegapi\u003d1"},"rbr_s":{"params":{"url":""},"url":":socialhost:/:session_prefix::se:_/widget/render/recobarsimplescroller"},"udc_webconsentflow":{"params":{"url":""},"url":"https://myaccount.google.com/webconsent?usegapi\u003d1"},"savetoandroidpay":{"url":"https://androidpay.google.com/a/widget/save"},"blogger":{"params":{"location":["search","hash"]},"url":":socialhost:/:session_prefix:_/widget/render/blogger?usegapi\u003d1","methods":["scroll","openwindow"]},"evwidget":{"params":{"url":""},"url":":socialhost:/:session_prefix:_/events/widget?usegapi\u003d1"},"surveyoptin":{"url":"https://www.google.com/shopping/customerreviews/optin?usegapi\u003d1"},":socialhost:":"https://apis.google.com","hangout":{"url":"https://talkgadget.google.com/:session_prefix:talkgadget/_/widget"},":gplus_url:":"https://plus.google.com","rbr_i":{"params":{"url":""},"url":":socialhost:/:session_prefix::se:_/widget/render/recobarinvitation"},"share":{"url":":socialhost:/:session_prefix::im_prefix:_/widget/render/share?usegapi\u003d1"},"comments":{"params":{"location":["search","hash"]},"url":":socialhost:/:session_prefix:_/widget/render/comments?usegapi\u003d1","methods":["scroll","openwindow"]},"autocomplete":{"params":{"url":""},"url":":socialhost:/:session_prefix:_/widget/render/autocomplete"},"ratingbadge":{"url":"https://www.google.com/shopping/customerreviews/badge?usegapi\u003d1"},"appcirclepicker":{"url":":socialhost:/:session_prefix:_/widget/render/appcirclepicker"},"follow":{"url":":socialhost:/:session_prefix:_/widget/render/follow?usegapi\u003d1"},"sharetoclassroom":{"url":"https://www.gstatic.com/classroom/sharewidget/widget_stable.html?usegapi\u003d1"},"ytshare":{"params":{"url":""},"url":":socialhost:/:session_prefix:_/widget/render/ytshare?usegapi\u003d1"},"family_creation":{"params":{"url":""},"url":"https://families.google.com/webcreation?usegapi\u003d1\u0026usegapi\u003d1"},"configurator":{"url":":socialhost:/:session_prefix:_/plusbuttonconfigurator?usegapi\u003d1"},"savetowallet":{"url":"https://androidpay.google.com/a/widget/save"}}}];</script><script src="sharebutton_data/rsAGLTcCMpvfgYHgs56VN-05ik_fHHjzO8Cg" gapi_processed="true"></script><script>var sw = window['__sw']; if (sw) {sw();}var sz = __sp(); if (sz) {iframes.ready(sz, {'canAutoClose': function() {var f = window['__CAN_AUTOCLOSE_BUBBLE']; return f ? f() : true;}, 'showSharebox': function() {var f = window['__SHOW_SHAREBOX']; return f ? f() : false;}});}</script></body></html>
