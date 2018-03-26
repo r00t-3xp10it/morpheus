@@ -92,8 +92,8 @@
 
 <br />
 
-## Redirect all devices in LAN to google terminal prank [option 19]<br />
-![morpheus v2.1-Alpha](http://i.cubeupload.com/1JB07X.png)
+## Redirect all devices in LAN to google prank [option 19]<br />
+![morpheus v2.1-Alpha](http://i.cubeupload.com/xxmyex.png)
 
 <br />
 
