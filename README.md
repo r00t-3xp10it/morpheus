@@ -78,7 +78,7 @@
 
 <br /><br /><br />
 
-## Detecting/blocking crypto currencie connections<br />
+## Detecting-blocking crypto currency connections<br />
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/cbAoeY.png)
 
 <br />
