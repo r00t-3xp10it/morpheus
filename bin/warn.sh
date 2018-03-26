@@ -73,6 +73,12 @@ echo ""
 #
 while :
 do
+#
+# sleep time in loop funtion ..
+# increase time in old pc's to consume less resources ..
+# HINT: this value sets loop and sound warning delay time ..
+#
+sleep 1.5
 
   # check for .beep file existence
   if [ -e beep-warning.beep ]; then
@@ -125,9 +131,11 @@ do
     #
     # delete all files to emitt another sound if the event its trigger again in the future..
     #
-    rm -f beep-warning.beep > /dev/nul 2>&1
-    rm -f triggertwo.bin > /dev/nul 2>&1
-    rm -f parse.bin > /dev/nul 2>&1
+    if [ -e beep-warning.beep ]; then
+      rm -f beep-warning.beep > /dev/nul 2>&1
+      rm -f triggertwo.bin > /dev/nul 2>&1
+      rm -f parse.bin > /dev/nul 2>&1
+    fi
   fi
 
 # end of loop funtion
