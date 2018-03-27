@@ -49,6 +49,10 @@ if (ip.src == 'TaRONE' && ip.proto == UDP && udp.dst == 1900) {
   msg("\n[morpheus] host:TaRONE   [ -> ]  port:1900 ssdp ☠");
   msg("[morpheus] |_info: vulnerable to DoS attacks\n");
 }
+if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 135) {
+  msg("\n[morpheus] host:TaRONE   [ -> ]  port:135 rdc ☠");
+  msg("[morpheus] |_info: vuln to viruses, DoS attacks\n");
+}
 
 
 if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 21) {
@@ -267,22 +271,26 @@ if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 4444) {
 # [ from OUTSIDE -> ME ]
 
 if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 8080) {
-  msg("[morpheus] host:TaRONE   [ -> ]  port:8080 http-alt ☆");
+  msg("[morpheus] host:TaRONE   [ <- ]  port:8080 http-alt ☆");
 }
 if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 25) {
-  msg("[morpheus] host:TaRONE   [ -> ]  port:25 smtp ☆");
+  msg("[morpheus] host:TaRONE   [ <- ]  port:25 smtp ☆");
 }
 if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 1080) {
-  msg("\n[morpheus] host:TaRONE   [ -> ]  port:1080 socks ☠");
+  msg("\n[morpheus] host:TaRONE   [ <- ]  port:1080 socks ☠");
   msg("[morpheus] |_info: vuln to viruses, worms, and DoS attacks\n");
 }
 if (ip.dst == 'TaRONE' && ip.proto == UDP && udp.src == 161) {
-  msg("\n[morpheus] host:TaRONE   [ -> ]  port:161 snmp ☠");
+  msg("\n[morpheus] host:TaRONE   [ <- ]  port:161 snmp ☠");
   msg("[morpheus] |_info: vuln to reflected DDoS attacks\n");
 }
 if (ip.dst == 'TaRONE' && ip.proto == UDP && udp.src == 1900) {
-  msg("\n[morpheus] host:TaRONE   [ -> ]  port:1900 ssdp ☠");
+  msg("\n[morpheus] host:TaRONE   [ <- ]  port:1900 ssdp ☠");
   msg("[morpheus] |_info: vulnerable to DoS attacks\n");
+}
+if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 135) {
+  msg("\n[morpheus] host:TaRONE   [ <- ]  port:135 rdc ☠");
+  msg("[morpheus] |_info: vuln to viruses, DoS attacks\n");
 }
 
 

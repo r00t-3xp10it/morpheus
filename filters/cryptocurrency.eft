@@ -121,6 +121,66 @@ if (ip.src == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
             drop();
             kill();
         }else{
+        if (search(DATA.data, "coin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible coin.com monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: coin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "bitcoin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible bitcoin.com monero (cryptomining)");
+          msg("[morpheus] |   hex  : 62 69 74 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: bitcoin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "cryptocurrency")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible cryptocurrency.com monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 72 79 70 74 6f 63 75 72 72 65 6e 63 79 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: cryptocurrency.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "mining")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible mining.com monero (cryptomining)");
+          msg("[morpheus] |   hex  : 6d 69 6e 69 6e 67 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: mining.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "amazonethereum")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible amazonethereum.com monero (cryptomining)");
+          msg("[morpheus] |   hex  : 61 6d 61 7a 6f 6e 65 74 68 65 72 65 75 6d 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: amazonethereum.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "ElegantCoin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible ElegantCoin.com monero (cryptomining)");
+          msg("[morpheus] |   hex  : 45 6c 65 67 61 6e 74 43 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: ElegantCoin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
         if (search(DATA.data, "CrYpT")) {
           msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
           msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
@@ -139,7 +199,14 @@ if (ip.src == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
        }
        }
        }
+       }
+       }
+       }
+       }
+       }
+       }
 }
+
 
 
 #
@@ -226,6 +293,66 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
             drop();
             kill();
         }else{
+        if (search(DATA.data, "coin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible coin.com monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: coin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "bitcoin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible bitcoin.com monero (cryptomining)");
+          msg("[morpheus] |   hex  : 62 69 74 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: bitcoin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "cryptocurrency")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible cryptocurrency.com monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 72 79 70 74 6f 63 75 72 72 65 6e 63 79 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: cryptocurrency.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "mining")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible mining.com monero (cryptomining)");
+          msg("[morpheus] |   hex  : 6d 69 6e 69 6e 67 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: mining.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "amazonethereum")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible amazonethereum.com monero (cryptomining)");
+          msg("[morpheus] |   hex  : 61 6d 61 7a 6f 6e 65 74 68 65 72 65 75 6d 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: amazonethereum.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "ElegantCoin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible ElegantCoin.com monero (cryptomining)");
+          msg("[morpheus] |   hex  : 45 6c 65 67 61 6e 74 43 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: ElegantCoin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
         if (search(DATA.data, "CrYpT")) {
           msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
           msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
@@ -235,6 +362,12 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
             log(DATA.data, "./crypto-currency.log");
             drop();
             kill();
+       }
+       }
+       }
+       }
+       }
+       }
        }
        }
        }
