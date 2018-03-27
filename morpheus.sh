@@ -2071,15 +2071,21 @@ sh_stage17 () {
 
 echo ""
 echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
-echo "${BlueF}    | ${YellowF}This module poisen all local network to capture sellected 'device'${BlueF}|"
-echo "${BlueF}    | ${YellowF}   request to modem to access local lan network (packet 67/UDP)   ${BlueF}|"
-echo "${BlueF}    | ${YellowF}   and it will trigger one sound warning (BEEP) to morpheus users ${BlueF}|"
+echo "${BlueF}    | ${YellowF}This module capture sellected 'device' request to access the local${BlueF}|"
+echo "${BlueF}    | ${YellowF} LAN (bootp-dhcp 67/UDP) and it trigger one sound warning (BEEP). ${BlueF}|"
+echo "${BlueF}    | ${YellowF}                                                                  ${BlueF}|"
+echo "${BlueF}    | ${YellowF}                          -- WARNING --                           ${BlueF}|"
+echo "${BlueF}    | ${YellowF} If the input domain name (target to filter) does NOT contain any ${BlueF}|"
+echo "${BlueF}    | ${YellowF} numbers in the END of the string (eg. android-dd4e5d9sy670) then ${BlueF}|"
+echo "${BlueF}    | ${YellowF} we need to wait for 'MORPHEUS SCRIPTING CONSOLE' terminal windows${BlueF}|"
+echo "${BlueF}    | ${YellowF} to delete the nº7 from the domain name (morpheus add's nº 7 into ${BlueF}|"
+echo "${BlueF}    | ${YellowF} the end of the domain name for smartphones discovery/detection). ${BlueF}|"
 echo "${BlueF}    ╚───────────────────────────────────────────────────────────────────╝"
 echo ""
 sleep 2
 
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "[ Devices DHCP discovery ]\nthis module allow users to filter any device\n(domain name OR ip addr) thats trying to access our local lan for the first time (auth)\n\nHINT: a beep warning will sound when the filter device will try to connect to our LAN.\nExecute this module?" --width 300) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "[ Devices DHCP discovery ]\nthis module allow users to filter any device\n(domain name OR ip addr) thats trying to access our local lan for the first time (auth)\n\nExecute this module?" --width 300) > /dev/null 2>&1
 if [ "$?" -eq "0" ]; then
 
 
@@ -2204,7 +2210,7 @@ echo "${BlueF}    | ${YellowF}This filter will act like a firewall reporting and
 echo "${BlueF}    | ${YellowF}minning currency connections inside Local Lan (selected target)   ${BlueF}|"
 echo "${BlueF}    | ${YellowF}If a connection its found on sellected machine (ip address) then  ${BlueF}|"
 echo "${BlueF}    | ${YellowF}this filter will warn framework users and drops/kill the minning  ${BlueF}|"
-echo "${BlueF}    | ${YellowF}connection (tcp/udp packets).                                     ${BlueF}|"
+echo "${BlueF}    | ${YellowF}connection (tcp/udp packets) and writtes a logfile in logs folder.${BlueF}|"
 echo "${BlueF}    ╚───────────────────────────────────────────────────────────────────╝"
 echo ""
 sleep 2
@@ -2295,15 +2301,15 @@ fi
 
 
 
-# -----------------------------------------------
-# REDIRECT TARGET TRAFIC TO GOOGLE TERMINAL (prank)
-# -----------------------------------------------
+# ----------------------------------------------------
+# REDIRECT TARGET TRAFIC TO GOOGLE EASTER EGGS (prank)
+# ----------------------------------------------------
 sh_stage19 () {
 echo ""
 echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
 echo "${BlueF}    | ${YellowF}      This module will redirect target browsing surfing under     ${BlueF}|"
-echo "${BlueF}    | ${YellowF}     mitm attacks to google barrel roll website (google prank)    ${BlueF}|"
-echo "${BlueF}    | ${YellowF}          'All [.com] domains will be redirected'                 ${BlueF}|"
+echo "${BlueF}    | ${YellowF}     mitm attacks to google easter egg webpages (google prank)    ${BlueF}|"
+echo "${BlueF}    | ${YellowF}            'All [.com ] domains will be redirected'              ${BlueF}|"
 echo "${BlueF}    ╚───────────────────────────────────────────────────────────────────╝"
 echo ""
 sleep 2
@@ -2314,15 +2320,21 @@ if [ "$?" -eq "0" ]; then
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
 rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
 gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
+
+#
 # chose the easter egg to use under mitm+dns_spoof
-EGG=$(zenity --list --title "☠ GOOGLE EASTER EGGS ☠" --text "List of availables google easter eggs:" --radiolist --column "Pick" --column "Option" TRUE "Do a Barrel roll" FALSE "zerg rush" --width 310 --height 180) > /dev/null 2>&1
+#
+EGG=$(zenity --list --title "☠ GOOGLE EASTER EGGS ☠" --text "List of availables google easter eggs:" --radiolist --column "Pick" --column "Option" TRUE "Do a Barrel roll" FALSE "zerg rush" FALSE "blink html" --width 320 --height 200) > /dev/null 2>&1
+#
 # parse easter egg search string
+#
 if [ "$EGG" = "Do a Barrel roll" ]; then
   parsed="Do+a+Barrel+roll"
-else
+elif [ "$EGG" = "zerg rush" ]; then
   parsed="zerg+rush"
+else
+  parsed="Blink+HTML"
 fi
-
 
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
@@ -2339,8 +2351,8 @@ fi
   cp $IPATH/bin/etter.dns $Edns > /dev/null 2>&1
   echo ${BlueF}[☠]${white} Etter.dns configurated...${Reset};
   # using SED bash command to config redirect.eft
-  echo ${BlueF}[☠]${white} google easter egg:${GreenF} $EGG ${Reset};
   sed -i "s|IpAdR|https://www.google.im/search?q=$parsed&gws_rd=ssl|g" $IPATH/filters/EasterEgg.eft > /dev/null 2>&1
+  echo ${BlueF}[☠]${white} google easter egg:${GreenF}$parsed ${Reset};
   # copy files needed to apache2 webroot...
   cd phishing/
   sed -i "s|RePlAcE|$parsed|g" EasterEgg.html > /dev/null 2>&1
@@ -2391,8 +2403,6 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   mv $IPATH/bin/phishing/EasterEgg.bak $IPATH/bin/phishing/EasterEgg.html > /dev/null 2>&1 # backup
   rm $ApachE/index.html > /dev/null 2>&1
   cd $IPATH
-  # port-forward
-  # echo "0" > /proc/sys/net/ipv4/ip_forward
   sleep 2
 
 else
@@ -2507,9 +2517,9 @@ echo ""
 echo -n "$PrompT"
 read choise
 case $choise in
-1) xdg-open "https://github.com/r00t-3xp10it/morpheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22framework+tutorials%22" ;;
-2) xdg-open "https://github.com/r00t-3xp10it/morpheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22framework+enhancement%22" ;;
-3) xdg-open "https://github.com/r00t-3xp10it/morpheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22bug+report%22" ;;
+1) xdg-open "https://github.com/r00t-3xp10it/morpheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22framework+tutorials%22" ; clear ; sh_help ;;
+2) xdg-open "https://github.com/r00t-3xp10it/morpheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22framework+enhancement%22" ; clear ; sh_help ;;
+3) xdg-open "https://github.com/r00t-3xp10it/morpheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22bug+report%22" ; clear ; sh_help ;;
 R) sh_main ;;
 r) sh_main ;;
 *) echo "\"$choise\": is not a valid Option"; sleep 1; clear; sh_help ;;
