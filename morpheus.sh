@@ -26,7 +26,7 @@
 ###
 # Resize terminal windows size befor running the tool (gnome terminal)
 # Special thanks to h4x0r Milton@Barra for this little piece of heaven! :D
-resize -s 37 85 > /dev/null
+resize -s 37 78 > /dev/null
 # inicio
 
 
@@ -225,7 +225,7 @@ fi
 # ----------------------------------
 trap ctrl_c INT
 ctrl_c() {
-echo "${RedF}[x]${white} CTRL+C abort tasks${RedF}...${Reset}"
+echo "${RedF}[x]${white} CTRL+C Abort current tasks${RedF}...${Reset}"
 # clean logfiles folder at exit
 rm $IPATH/logs/lan.mop > /dev/null 2>&1
 rm $IPATH/output/firewall.ef > /dev/null 2>&1
@@ -350,7 +350,7 @@ fil_two=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose la
   cd $IPATH
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -462,7 +462,7 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   cd $IPATH
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -563,7 +563,7 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   # sudo pkill tcpkill > /dev/null 2>&1
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -579,9 +579,9 @@ fi
 sh_stage4 () {
 echo ""
 echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
-echo "${BlueF}    | ${YellowF}   This module will ask user to input an ip address to redirect   ${BlueF}|"
-echo "${BlueF}    | ${YellowF}     all browser surfing in target to the selected ip address.    ${BlueF}|"
-echo "${BlueF}    | ${YellowF}   'All [.com] domains will be redirected to the spoof ip addr'   ${BlueF}|"
+echo "${BlueF}    | ${YellowF}   This module will ask user to input an domain name to redirect  ${BlueF}|"
+echo "${BlueF}    | ${YellowF}     all browser surfing in target to the selected domain.        ${BlueF}|"
+echo "${BlueF}    | ${YellowF}   'All [.com] domains will be redirected to the spoof addr'      ${BlueF}|"
 echo "${BlueF}    ╚───────────────────────────────────────────────────────────────────╝"
 echo ""
 sleep 2
@@ -657,7 +657,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   sleep 2
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -754,7 +754,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   sleep 2
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -848,7 +848,7 @@ UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target
   sleep 2
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -917,7 +917,7 @@ UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target
   sleep 2
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -996,7 +996,7 @@ UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target
   sleep 2
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -1026,7 +1026,12 @@ echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
 rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
 gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
 UpL=$(zenity --title "☠ PAYLOAD TO BE UPLOADED ☠" --filename=$IPATH --file-selection --text "chose payload to be uploded\nexample:meterpreter.exe") > /dev/null 2>&1
-dIc=$(zenity --title="☠ PAYLOAD NAME ☠" --text "Enter payload to be uploaded name\nexample:meterpreter.exe" --entry --width 270) > /dev/null 2>&1
+
+echo ${BlueF}[☠]${white} Parsing agent filename data ..${Reset};
+sleep 2
+echo "$UpL" > test.txt
+dIc=`grep -oE '[^/]+$' test.txt` > /dev/null 2>&1 # payload.exe
+rm test.txt > /dev/null 2>&1
 
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
@@ -1109,7 +1114,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   sleep 2
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -1252,7 +1257,7 @@ fi
   sleep 2
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -1396,7 +1401,7 @@ fi
   sleep 2
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -1541,7 +1546,7 @@ fi
   sleep 2
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -1656,7 +1661,7 @@ Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles 
 fi
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -1791,7 +1796,7 @@ Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles 
 fi
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -1882,7 +1887,7 @@ sleep 1
   cd $IPATH
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -1974,7 +1979,7 @@ sleep 1
   cd $IPATH
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -2056,7 +2061,7 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   cd $IPATH
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -2191,7 +2196,7 @@ fi
   cd $IPATH
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -2292,7 +2297,7 @@ fil_one=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose ta
   cd $IPATH
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -2406,7 +2411,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   sleep 2
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
 }
@@ -2420,7 +2425,10 @@ fi
 sh_stageS () {
 echo ""
 echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
-echo "${BlueF}    | ${YellowF}    This module uses nmap framework to report live hosts (LAN)    ${BlueF}|"
+echo "${BlueF}    | ${YellowF}    Available nmap pre-defined scans:                             ${BlueF}|"
+echo "${BlueF}    | ${YellowF}    1º - Normal   -  nmap ip discovery                            ${BlueF}|"
+echo "${BlueF}    | ${YellowF}    2º - Stealth  -  nmap syn/ack + OS detection                  ${BlueF}|"
+echo "${BlueF}    | ${YellowF}    3º - NSE      -  nmap service detection + nse-vuln categorie  ${BlueF}|"
 echo "${BlueF}    ╚───────────────────────────────────────────────────────────────────╝"
 echo ""
 sleep 2
@@ -2430,26 +2438,35 @@ if [ "$?" -eq "0" ]; then
   echo ${BlueF}[☠]${white} Scanning Local Lan${RedF}! ${Reset};
   # grab ip range + scan with nmap + zenity display results
   IP_RANGE=`ip route | grep "kernel" | awk {'print $1'}`
-  echo ${BlueF}[☠]${white} Ip Range${RedF}:${white}$IP_RANGE ${Reset};
+  echo ${BlueF}[${GreenF}✔${BlueF}]${white} Ip Range${RedF}:${GreenF}$IP_RANGE ${Reset};
 
   #
   # agressive scan using nmap -sS -O (OS) pentesting tutorials idea ..
   #
-  Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose the type of scan required\nRemmenber that 'stealth scans' takes longer to complete .." --radiolist --column "Pick" --column "Option" TRUE "normal default" FALSE "stealth agressive" --width 300 --height 200) > /dev/null 2>&1
+  Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose the type of scan required\nRemmenber that 'stealth scans' takes longer to complete .." --radiolist --column "Pick" --column "Option" TRUE "Normal" FALSE "Stealth" FALSE "NSE" --width 300 --height 220) > /dev/null 2>&1
   
 
   #
   # scan local lan using nmap
   #
-  if [ "$Tc" = "normal default" ]; then
-    nmap -sn $IP_RANGE -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Scanning local lan..." --percentage=0 --auto-close --width 290 > /dev/null 2>&1
+  echo ${BlueF}[${GreenF}✔${BlueF}]${white} Scan sellected${RedF}:${GreenF}$Tc ${Reset};
+  dtr=`date | awk {'print $4'}`
+  sleep 1
+  if [ "$Tc" = "Normal" ]; then
+    nmap -sn $IP_RANGE -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning local lan [ Normal ].." --percentage=0 --auto-close --width 300 > /dev/null 2>&1
     # strip results and print report
     cat $IPATH/logs/lan.mop | grep "for" | awk {'print $3,$5,$6'} | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 480 --height 390 > /dev/null 2>&1
-  else
-    echo ${GreenF}[☠]${white} Stealth scan sellected .. ${Reset};
-    nmap -sS $IP_RANGE -O -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Scanning local lan [stealth] .." --percentage=0 --auto-close --width 290 > /dev/null 2>&1
+
+  elif [ "$Tc" = "Stealth" ]; then
+    nmap -sS $IP_RANGE -O -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning local lan [ Stealth ] .." --percentage=0 --auto-close --width 300 > /dev/null 2>&1
     # strip results and print report
     cat $IPATH/logs/lan.mop | grep -v "#" | grep -v "CPE:"| grep -v "type:" | grep -v "Distance:" | grep -v "closed" | grep -v "Too" | grep -v "No" | grep -v "latency" | grep -v "incorrect" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 570 --height 470 > /dev/null 2>&1
+
+  else
+
+    nmap -sV -T4 -Pn -oN $IPATH/logs/lan.mop --script vuln $IP_RANGE | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning local lan [ NSE ] .." --percentage=0 --auto-close --width 300 > /dev/null 2>&1
+    # strip results and print report
+    cat $IPATH/logs/lan.mop | grep -v "Not" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 590 --height 470 > /dev/null 2>&1
   fi
 
 
@@ -2459,39 +2476,9 @@ if [ "$?" -eq "0" ]; then
     sleep 2
 
 else
-  echo ${RedF}[x]${white} Abort task${RedF}!${Reset};
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
   sleep 2
 fi
-}
-
-
-
-
-
-
-# ------------------------------------
-# easter egg: targets to test modules.
-# ------------------------------------
-sh_stageT () {
-echo ""
-echo "${white}    Available targets For testing [HTTP] "
-echo "${BlueF}    ╔─────────────────────────────────────────────────────────────────────╗"
-echo "${BlueF}    |  ${YellowF}http://pastebin.com                          [User-Agent|cookie]${BlueF}   |"
-echo "${BlueF}    |  ${YellowF}http://eventolinux.org                       [User-Agent|cookie]${BlueF}   |"
-echo "${BlueF}    |  ${YellowF}http://predragtasevski.com                   [User-Agent capture]${BlueF}  |"
-echo "${BlueF}    |  ${YellowF}http://www.portugalpesca.com                 [User-Agent|cookie]${BlueF}   |"
-echo "${BlueF}    |  ${YellowF}http://178.21.117.152/phpmyadmin/            [http_creds]${BlueF}          |"
-echo "${BlueF}    |  ${YellowF}http://malwareforensics1.blogspot.pt         [User-Agent capture]${BlueF}  |"
-echo "${BlueF}    |  ${YellowF}http://www.portugalpesca.com/forum/login.php [User-Agent|cookie]${BlueF}   |"
-echo "${BlueF}    |  ${YellowF}telnet 216.58.214.174                        [telnet_creds]${BlueF}        |"
-echo "${BlueF}    |  ${YellowF}telnet 192.168.1.254                         [telnet_creds]${BlueF}        |"
-echo "${BlueF}    |  ${YellowF}ftp 192.168.1.254                            [ftp_creds]${BlueF}           |"
-echo "${BlueF}    |  ${YellowF}ssh 192.168.1.254                            [ssh_creds]${BlueF}           |"
-echo "${BlueF}    |  ${YellowF}ping -c 2 www.househot.com                   [mocbotIRC detection]${BlueF} |"
-echo "${BlueF}    ╠─────────────────────────────────────────────────────────────────────╝"
-sleep 1
-echo "${BlueF}    ╘ ${white}Press [${GreenF}ENTER${white}] to 'return' to main menu${RedF}!"
-read OP
 }
 
 
@@ -2503,7 +2490,7 @@ read OP
 sh_exit () {
 echo ${BlueF}[☠]${white} Exit morpheus framework...${Reset};
 sleep 1
-echo ${BlueF}[☠]${white} Revert ettercap etter.conf ${GreenF}✔${white} ${Reset};
+echo ${BlueF}[${GreenF}✔${BlueF}]${white} Revert ettercap etter.conf ${Reset};
 mv /tmp/etter.conf $Econ > /dev/null 2>&1
 mv /tmp/etter.dns $Edns > /dev/null 2>&1
 mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
@@ -2539,6 +2526,7 @@ cat << !
     ██║ ╚═╝ ██║╚██████╔╝██║  ██║██║     ██║  ██║███████╗╚██████╔╝███████║
     ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚══════╝
 !
+sleep 1
 echo ${BlueF}"    VERSION:${YellowF}$V3R${BlueF} DISTRO:${YellowF}$DiStR0${BlueF} IP:${YellowF}$IP${BlueF} INTERFACE:${YellowF}$InT3R${BlueF} IPv6:${YellowF}$IpV"${BlueF}
 cat << !
     ╔───────────────────────────────────────────────────────────────────╗
@@ -2560,7 +2548,7 @@ cat << !
     |  16    -  Replace website text            -  replace: worlds      |
     |  17    -  Devices DHCP discovery          -  devices modem auth   |
     |  18    -  Block cpu crypto-minning        -  drop/kill packets    |
-    |  19    -  Redirect browser traffic        -  to google prank      |
+    |  19    -  Redirect browser traffic        -  to google pranks     |
     |  20    -  Capture https credentials       -  sslstrip + dns2proxy |
     |                                                                   |
     |   W    -  Write your own filter                                   |
@@ -2570,7 +2558,7 @@ cat << !
 !
 echo "${YellowF}                                                       SSA_${RedF}RedTeam${YellowF}©2018${BlueF}_⌋${Reset}"
 echo ${BlueF}[☠]${white} tcp/udp hijacking tool${RedF}! ${Reset};
-sleep 1
+sleep 0.8
 echo ${BlueF}[▶]${white} Chose Your Option[filter]${RedF}: ${Reset};
 echo -n "$PrompT"
 read choice
@@ -2594,14 +2582,14 @@ case $choice in
 17) sh_stage17 ;;
 18) sh_stage18 ;;
 19) sh_stage19 ;;
+20) echo "[☠] Under Develop .."; sleep 1.5 ;;
 W) sh_stageW ;;
 w) sh_stageW ;;
 S) sh_stageS ;;
 s) sh_stageS ;;
-targets) sh_stageT ;;
 e) sh_exit ;;
 E) sh_exit ;;
-*) echo "\"$choice\": is not a valid Option"; sleep 1 ;;
+*) echo "\"$choice\": is not a valid Option"; sleep 1.3 ;;
 esac
 done
 
