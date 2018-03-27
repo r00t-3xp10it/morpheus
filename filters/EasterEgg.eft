@@ -22,7 +22,7 @@
 # that shows to users that filter its working fine ..
 #
 if (ip.proto == TCP && tcp.dst == 443 || tcp.src == 443) {
-    msg("[morpheus] host:modem   [ ⊶  ]  port:443 https ☆");
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:443 https ☆");
 }
 
 

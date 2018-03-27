@@ -53,6 +53,11 @@ if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 135) {
   msg("\n[morpheus] host:TaRONE   [ -> ]  port:135 rdc ☠");
   msg("[morpheus] |_info: vuln to viruses, DoS attacks\n");
 }
+if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 3389) {
+  msg("\n[morpheus] host:TaRONE   [ -> ]  port:3389  ☠");
+  msg("[morpheus] |_info: used by crypto-currency minning\n");
+}
+
 
 
 if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 21) {
@@ -291,6 +296,10 @@ if (ip.dst == 'TaRONE' && ip.proto == UDP && udp.src == 1900) {
 if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 135) {
   msg("\n[morpheus] host:TaRONE   [ <- ]  port:135 rdc ☠");
   msg("[morpheus] |_info: vuln to viruses, DoS attacks\n");
+}
+if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 3389) {
+  msg("\n[morpheus] host:TaRONE   [ -> ]  port:3389  ☠");
+  msg("[morpheus] |_info: used by crypto-currency minning\n");
 }
 
 

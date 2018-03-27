@@ -25,7 +25,7 @@
 # Report port 443/tcp (HTTPS) only to make terminal displays.
 #
 if (ip.proto == TCP && tcp.src == 443 || tcp.dst == 443) {
- msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:443 https ☆");
+ msg("[morpheus] host:ALL      [ ⊶  ]  port:443 https ☆");
 }
 
 
