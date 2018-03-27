@@ -16,7 +16,7 @@
 #
 # DEPENDENCIES:
 # required: ettercap, nmap, zenity, apache2
-# sub-dependencies: driftnet, dsniff (urlsnarf, tcpkill, msgsnarf)
+# sub-dependencies: driftnet, dsniff (urlsnarf, tcpkill, msgsnarf), sslstrip,dns2proxy
 # Distros Supported: Linux Ubuntu, Kali, Debian, BackBox, Parrot OS
 # Credits: alor&naga (ettercap framework)  | fyodor (nmap framework)| apache2 (Rob McCool) | dsniff (Dug Song)
 # filters: irongeek (replace img) | seannicholls (rotate 180º) | TheBlaCkCoDeR09 (ToR-Browser-0day)
@@ -747,7 +747,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   mv /tmp/etter.dns $Edns > /dev/null 2>&1
   mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
   mv $IPATH/filters/redirect.rb $IPATH/filters/redirect.eft > /dev/null 2>&1 # backup
-  rm -R $ApachE/"Google Sphere_files"
+  rm -R $ApachE/"Google Sphere_files" > /dev/null 2>&1
   cd $IPATH
   # port-forward
   # echo "0" > /proc/sys/net/ipv4/ip_forward
@@ -2469,9 +2469,9 @@ fi
 
 
 
-#
+# ------------------------------------
 # easter egg: targets to test modules.
-#
+# ------------------------------------
 sh_stageT () {
 echo ""
 echo "${white}    Available targets For testing [HTTP] "
@@ -2494,37 +2494,6 @@ echo "${BlueF}    ╘ ${white}Press [${GreenF}ENTER${white}] to 'return' to main
 read OP
 }
 
-
-
-
-
-#
-# help in scripting ;)
-#
-sh_help () {
-echo ""
-echo "${white}    Morpheus help menu${RedF}:"
-echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
-echo "${BlueF}    | ${YellowF} 1 - framework tutorials                                          ${BlueF}|"
-echo "${BlueF}    | ${YellowF} 2 - framework enhancement                                        ${BlueF}|"
-echo "${BlueF}    | ${YellowF} 3 - framework bug report/support                                 ${BlueF}|"
-echo "${BlueF}    | ${YellowF}                                                                  ${BlueF}|"
-echo "${BlueF}    | ${YellowF} R - return to main menu                                          ${BlueF}|"
-echo "${BlueF}    ╠───────────────────────────────────────────────────────────────────╝"
-echo "${BlueF}    ╘ ${white}Please chose the help required..."
-sleep 1
-echo ""
-echo -n "$PrompT"
-read choise
-case $choise in
-1) xdg-open "https://github.com/r00t-3xp10it/morpheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22framework+tutorials%22" ; clear ; sh_help ;;
-2) xdg-open "https://github.com/r00t-3xp10it/morpheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22framework+enhancement%22" ; clear ; sh_help ;;
-3) xdg-open "https://github.com/r00t-3xp10it/morpheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22bug+report%22" ; clear ; sh_help ;;
-R) sh_main ;;
-r) sh_main ;;
-*) echo "\"$choise\": is not a valid Option"; sleep 1; clear; sh_help ;;
-esac
-}
 
 
 
@@ -2572,9 +2541,7 @@ cat << !
 !
 echo ${BlueF}"    VERSION:${YellowF}$V3R${BlueF} DISTRO:${YellowF}$DiStR0${BlueF} IP:${YellowF}$IP${BlueF} INTERFACE:${YellowF}$InT3R${BlueF} IPv6:${YellowF}$IpV"${BlueF}
 cat << !
-    ╔────────╦──────────────────────────────────────────────────────────╗
-    | OPTION |                  DESCRIPTION(filters)                    |
-    ╠────────╩──────────────────────────────────────────────────────────╣
+    ╔───────────────────────────────────────────────────────────────────╗
     |   1    -  Firewall filter  (tcp/udp)      -  report/capture_creds |
     |   2    -  Capture cookies  (http/auth)    -  sidejacking attack   |
     |   3    -  Drop all packets (src/dst)      -  packets drop/kill    |
@@ -2591,13 +2558,13 @@ cat << !
     |  14    -  Modem/router login webpage      -  javascritp_keylooger |
     |  15    -  Replace website images          -  img src=http://other |
     |  16    -  Replace website text            -  replace: worlds      |
-    |  17    -  devices DHCP discovery          -  devices modem auth   |
-    |  18    -  block cpu crypto-minning        -  drop/kill packets    |
+    |  17    -  Devices DHCP discovery          -  devices modem auth   |
+    |  18    -  Block cpu crypto-minning        -  drop/kill packets    |
     |  19    -  Redirect browser traffic        -  to google prank      |
+    |  20    -  Capture https credentials       -  sslstrip + dns2proxy |
     |                                                                   |
     |   W    -  Write your own filter                                   |
     |   S    -  Scan LAN for live hosts                                 |
-    |   H    -  Morpheus github help                                    |
     |   E    -  Exit/close Morpheus                                     |
     ╚───────────────────────────────────────────────────────────────────╣
 !
@@ -2631,8 +2598,6 @@ W) sh_stageW ;;
 w) sh_stageW ;;
 S) sh_stageS ;;
 s) sh_stageS ;;
-h) sh_help ;;
-H) sh_help ;;
 targets) sh_stageT ;;
 e) sh_exit ;;
 E) sh_exit ;;
