@@ -22,8 +22,8 @@
 # Filter (drop/kill) packets from source ip addr.
 #
 if (ip.src == 'TaRgEt') {
-  msg("\n[morpheus] host:TaRgEt   [ ⊶  ]  found...");
-  msg("[morpheus] | status: block connection (src)!");
+  msg("\n[morpheus] host:TaRgEt   [ ⊶  ]  found ..");
+  msg("[morpheus] | status: block connection (src)");
   msg("[morpheus] |  info : drop target tcp/udp packet ✔");
   msg("[morpheus] |_ info : kill target tcp/udp connection ✔\n");
  drop();
@@ -35,8 +35,8 @@ kill();
 # Filter (drop/kill) packets from destination ip addr.
 #
 if (ip.dst == 'TaRgEt') {
-  msg("\n[morpheus] host:TaRgEt   [ ⊶  ]  found...");
-  msg("[morpheus] | status: block connection (dst)!");
+  msg("\n[morpheus] host:TaRgEt   [ ⊶  ]  found ..");
+  msg("[morpheus] | status: block connection (dst)");
   msg("[morpheus] |  info : drop target tcp/udp packet ✔");
   msg("[morpheus] |_ info : kill target tcp/udp connection ✔\n");
  drop();
@@ -70,8 +70,8 @@ if (ip.src == 'TaRgEt' || ip.dst == 'TaRgEt') {
 # made to OR from target ip addr (perform D0S againts ipv6 addr)
 #
 #if (eth.proto == IP6 && ipv6.src == '2001:db8::1' || ipv6.dst == '2001:db8::1') {
-# msg("[morpheus] host:2001:db8::1..   [ ⊶  ]  found...");
-# msg("[morpheus] | status: block connection (src/dst)!");
+# msg("[morpheus] host:2001:db8::1..   [ ⊶  ]  found ..");
+# msg("[morpheus] | status: block connection (src/dst)");
 # msg("[morpheus] |  info : drop target IPv6 tcp/udp packet ✔");
 # msg("[morpheus] |_ info : kill target IPv6 connection ✔\n");
 # drop();

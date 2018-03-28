@@ -56,9 +56,10 @@ if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 3389) {
 if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 1723) {
   msg("[morpheus] host:TaRONE   [ -> ]  port:1723 [tcp] pptp ☆");
 }
-
-
-
+if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 31337) {
+  msg("\n[morpheus] host:TaRONE   [ -> ]  port:31337[tcp] rdc ☠");
+  msg("[morpheus] |_info: vuln to viruses, worms\n");
+}
 if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 21) {
   msg("[morpheus] host:TaRONE   [ -> ]  port:21   [tcp] ftp ☠");
 }
@@ -199,6 +200,15 @@ if (ip.src == 'TaRONE' && ip.proto == UDP && udp.dst == 67) {
     msg("[morpheus] |_ device: hOst-PC DisTr\n");
     }
 }
+if (ip.proto == UDP && udp.dst == 67 || udp.src == 67) {
+  if (search(DATA.data, "SKYNET")) {
+    msg("\n[morpheus] host:0.0.0.0        [ ⊶  ]  found ..");
+    msg("[morpheus] | status: Request access to LAN");
+    msg("[morpheus] |  port : 67/UDP(dst) bootp-DHCP");
+    msg("[morpheus] |  info : SKYNET Announces is presence");
+    msg("[morpheus] |_ device: skynet-PC Windows10-amd64\n");
+    }
+}
 if (ip.src == 'TaRONE' && ip.proto == UDP && tcp.dst == 53) {
   msg("[morpheus] host:TaRONE   [ -> ]  port:53   [udp] dns ☆");
         if (search(DATA.data, "facebook")) {
@@ -299,6 +309,10 @@ if (ip.dst == 'TaRONE' && ip.proto == UDP && udp.src == 1900) {
 if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 135) {
   msg("\n[morpheus] host:TaRONE   [ <- ]  port:135  [tcp] rdc ☠");
   msg("[morpheus] |_info: vuln to viruses, DoS attacks\n");
+}
+if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 31337) {
+  msg("\n[morpheus] host:TaRONE   [ <- ]  port:31337[tcp] rdc ☠");
+  msg("[morpheus] |_info: vuln to viruses, worms\n");
 }
 if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 3389) {
   msg("\n[morpheus] host:TaRONE   [ <- ]  port:3389  [tcp] ☠");
@@ -468,6 +482,12 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 80) {
         }
         }
 }
+
+if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 995) {
+  msg("\n[morpheus] host:TaRONE   [ <- ]  port:995  [tcp] pop3-ssl ☠");
+  msg("[morpheus] |_info: vulnerable to viruses, worms\n");
+}
+
 if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 110) {
   msg("[morpheus] host:TaRONE   [ <- ]  port:110  [tcp] pop3 ☆");
         # log credentials into morpheus/logs/pop3_creds.log
@@ -725,8 +745,24 @@ if (ip.src == 'TaRTWO' && ip.proto == UDP && udp.dst == 67) {
     msg("[morpheus] |  port : 67/UDP(dst) bootp-DHCP");
     msg("[morpheus] |  info : smartphone Announces is presence");
     msg("[morpheus] |_ name : android [unknown]\n");
-  }
-  }
+  }else{
+  if (search(DATA.data, "com.apple.mobile")) {
+    msg("\n[morpheus] host:0.0.0.0        [ ⊶  ]  found ..");
+    msg("[morpheus] | status: Request access to LAN");
+    msg("[morpheus] |  port : 67/UDP(dst) bootp-DHCP");
+    msg("[morpheus] |  info : IOS Announces is presence");
+    msg("[morpheus] |_ device: APPLE/IOS [unknown]\n");
+  }else{
+  if (search(DATA.data, "Darwin")) {
+    msg("\n[morpheus] host:0.0.0.0        [ ⊶  ]  found ..");
+    msg("[morpheus] | status: Request access to LAN");
+    msg("[morpheus] |  port : 67/UDP(dst) bootp-DHCP");
+    msg("[morpheus] |  info : IOS Announces is presence");
+    msg("[morpheus] |_ device: APPLE/IOS [unknown]\n");
+    }
+    }
+    }
+    }
 }
 # END OF PARANOIC FUNTION ..
 

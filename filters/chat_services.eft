@@ -31,7 +31,7 @@ if (ip.proto == TCP && tcp.src == 443 || tcp.dst == 443) {
  msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:443  [tcp] https ☆");
 }
 if (ip.proto == TCP && tcp.src == 995 || tcp.dst == 995) {
- msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:995  [tcp] pop3 ☆");
+ msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:995  [tcp] pop3-ssl ☆");
  msg("[morpheus] | status: server referer found ☠");
 }
 if (ip.proto == TCP && tcp.src == 993 || tcp.dst == 993) {
