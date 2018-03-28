@@ -49,10 +49,10 @@ kill();
 #
 if (ip.src == 'TaRgEt' || ip.dst == 'TaRgEt') {
   if (ip.proto == TCP && tcp.src == 443 || tcp.dst == 443) {
-    msg("[morpheus] host:TaRgEt   [ <> ]  port:443(tcp) https ☆");
+    msg("[morpheus] host:TaRgEt   [ <> ]  port:443 [tcp] https ☆");
   }else{
   if (ip.proto == TCP && tcp.src == 80 || tcp.dst == 80) {
-    msg("[morpheus] host:TaRgEt   [ <> ]  port:80(tcp) http ☆");
+    msg("[morpheus] host:TaRgEt   [ <> ]  port:80  [tcp] http ☆");
   }
   }
 }

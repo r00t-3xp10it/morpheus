@@ -23,7 +23,7 @@
 # And warn attacker that Host value has been captured...
 #
 if (ip.proto == TCP && tcp.dst == 80 || tcp.src == 80) {
-  msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:80 http ☆");
+  msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:80   [tcp] http ☆");
     if (search(DATA.data, "Host")) {
       msg("\n[morpheus] host:TaRgEt   [ ⊶  ]   found...");
       msg("[morpheus] | status: Target browsing detected ☆");
@@ -39,7 +39,7 @@ if (ip.proto == TCP && tcp.dst == 80 || tcp.src == 80) {
 # And warn attacker that Host value has been captured...
 #
 if (ip.proto == TCP && tcp.dst == 443 || tcp.src == 443) {
-  msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:443 https ☆");
+  msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:443  [tcp] https ☆");
     if (search(DATA.data, "Host")) {
       msg("\n[morpheus] host:TaRgEt   [ ⊶  ]   found...");
       msg("[morpheus] | status: Target browsing detected ☆");

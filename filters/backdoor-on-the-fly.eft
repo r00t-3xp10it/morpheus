@@ -21,7 +21,7 @@
 ## Zap Content Encoding ##
 ##########################
 if (ip.proto == TCP && tcp.dst == 80) {
-  msg("[morpheus] host:IpAdDR   [ -> ]  port:80 http ☆");
+  msg("[morpheus] host:IpAdDR   [ -> ]  port:80   [tcp] http ☆");
   if (search(DATA.data, "Accept-Encoding")) {
   replace("Accept-Encoding", "Accept-Nothing!");
   msg("[Morpheus] | status: Encoding zapped from request ✔");

@@ -24,8 +24,8 @@
 if (ip.src == '0.0.0.0' && ip.proto == UDP && udp.dst == 67) {
   if (search(DATA.data, "rTdN")) {
   msg("\n[morpheus] host:0.0.0.0 [ ⊶  ]  found ..");
-    msg("[morpheus] | status  : Request access to local LAN ✔");
-    msg("[morpheus] |   port  : 67/UDP(dst) bootp-DHCP ✔");
+    msg("[morpheus] | status  : Request access to LAN");
+    msg("[morpheus] |   port  : 67/UDP(dst) bootp-DHCP");
     msg("[morpheus] |   id    : rTdN ✔");
     msg("[morpheus] |_  device: FtGh\n");
     log(DECODED.data, "./beep-warning.beep");
@@ -40,10 +40,10 @@ if (ip.src == '0.0.0.0' && ip.proto == UDP && udp.dst == 67) {
 # that shows to users that filter its working fine ..
 #
 if (ip.proto == TCP && tcp.dst == 80 || tcp.src == 80) {
-    msg("[morpheus] host:ALL     [ ⊶  ]  port:80 http ☆");
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:80   [tcp] http ☆");
 }
 if (ip.proto == TCP && tcp.dst == 443 || tcp.src == 443) {
-    msg("[morpheus] host:ALL     [ ⊶  ]  port:443 https ☆");
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:443  [tcp] https ☆");
 }
 
 

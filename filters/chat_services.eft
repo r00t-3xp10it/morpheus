@@ -22,22 +22,23 @@
 # Report ports comunicating only to make terminal displays.
 #
 if (ip.proto == TCP && tcp.src == 80 || tcp.dst == 80) {
- msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:80 http ☆");
+ msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:80   [tcp] http ☆");
 }
 if (ip.proto == TCP && tcp.src == 194 || tcp.dst == 194) {
- msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:194 irc ☆");
+ msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:194  [tcp] irc ☆");
 }
 if (ip.proto == TCP && tcp.src == 443 || tcp.dst == 443) {
- msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:443 https ☆");
+ msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:443  [tcp] https ☆");
 }
 if (ip.proto == TCP && tcp.src == 995 || tcp.dst == 995) {
- msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:995 pop3 ☆");
+ msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:995  [tcp] pop3 ☆");
  msg("[morpheus] | status: server referer found ☠");
 }
 if (ip.proto == TCP && tcp.src == 993 || tcp.dst == 993) {
- msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:993 imap ☆");
+ msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:993  [tcp] imap ☆");
 }
 if (ip.proto == TCP && tcp.src == 1863 || tcp.dst == 1863) {
- msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:1863 msnp ☆");
+ msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:1863 [tcp] msnp ☆");
 }
+
 
