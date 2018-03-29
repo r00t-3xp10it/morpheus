@@ -109,7 +109,7 @@ if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 23) {
         }else{
         if (regex(DECODED.data, ".*PASS.*")) {
          log(DECODED.data, "./telnet_creds.log");
-          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+          msg("\n[morpheus] host:TaRONE    [ ⊶  ]  found ..");
           msg("[morpheus] | status: TELNET login detected!");
           msg("[morpheus] |  info : credentials found, log stored ✔");
           msg("[morpheus] |_ log  : morpheus/logs/telnet_creds.log\n");
@@ -143,6 +143,17 @@ if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 80) {
         }
         }
         }
+}
+#
+# grab target url visited referer
+#
+if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 80) {
+  if (search(DATA.data, "Referer:")) {
+   log(DATA.data, "./Referer.log");
+   msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
+   msg("[morpheus] | status: packet Referer found");
+   msg("[morpheus] |_  log : morpheus/logs/Referer.log ✔\n");
+  }
 }
 if (ip.src == 'TaRONE' && ip.proto == TCP && tcp.dst == 110) {
   msg("[morpheus] host:TaRONE   [ -> ]  port:110  [tcp] pop3 ☆");
@@ -351,21 +362,21 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 21) {
        }else{
         if (regex(DECODED.data, ".*user.*")) {
          log(DECODED.data, "./ftp_creds.log");
-          msg("\n[morpheus] host:TaRONE  [ ⊶  ]  found ..");
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
           msg("[morpheus] | status: FTP login detected!");
           msg("[morpheus] |  info : credentials found, log stored ✔");
           msg("[morpheus] |_ log  : morpheus/logs/ftp_creds.log\n");
         }else{
         if (regex(DECODED.data, ".*USER.*")) {
          log(DECODED.data, "./ftp_creds.log");
-          msg("\n[morpheus] host:TaRONE  [ ⊶  ]  found ..");
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
           msg("[morpheus] | status: FTP login detected!");
           msg("[morpheus] |  info : credentials found, log stored ✔");
           msg("[morpheus] |_ log  : morpheus/logs/ftp_creds.log\n");
         }else{
         if (regex(DECODED.data, ".*USERNAME.*")) {
          log(DECODED.data, "./ftp_creds.log");
-          msg("\n[morpheus] host:TaRONE  [ ⊶  ]  found ..");
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
           msg("[morpheus] | status: FTP login detected!");
           msg("[morpheus] |  info : credentials found, log stored ✔");
           msg("[morpheus] |_ log  : morpheus/logs/ftp_creds.log\n");
@@ -406,21 +417,21 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 23) {
        }else{
         if (regex(DECODED.data, ".*user.*")) {
          log(DECODED.data, "./telnet_creds.log");
-          msg("\n[morpheus] host:TaRONE  [ ⊶  ]  found ..");
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
           msg("[morpheus] | status: TELNET login detected!");
           msg("[morpheus] |  info : credentials found, log stored ✔");
           msg("[morpheus] |_ log  : morpheus/logs/telnet_creds.log\n");
         }else{
         if (regex(DECODED.data, ".*USER.*")) {
          log(DECODED.data, "./telnet_creds.log");
-          msg("\n[morpheus] host:TaRONE  [ ⊶  ]  found ..");
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
           msg("[morpheus] | status: TELNET login detected!");
           msg("[morpheus] |  info : credentials found, log stored ✔");
           msg("[morpheus] |_ log  : morpheus/logs/telnet_creds.log\n");
         }else{
         if (regex(DECODED.data, ".*USERNAME.*")) {
          log(DECODED.data, "./telnet_creds.log");
-          msg("\n[morpheus] host:TaRONE  [ ⊶  ]  found ..");
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
           msg("[morpheus] | status: TELNET login detected!");
           msg("[morpheus] |  info : credentials found, log stored ✔");
           msg("[morpheus] |_ log  : morpheus/logs/telnet_creds.log\n");
@@ -457,21 +468,21 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 80) {
        }else{
         if (regex(DECODED.data, ".*user.*")) {
          log(DECODED.data, "./http_creds.log");
-          msg("\n[morpheus] host:TaRONE  [ ⊶  ]  found ..");
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
           msg("[morpheus] | status: HTTP login detected!");
           msg("[morpheus] |  info : credentials found, log stored ✔");
           msg("[morpheus] |_ log  : morpheus/logs/http_creds.log\n");
         }else{
         if (regex(DECODED.data, ".*USER.*")) {
          log(DECODED.data, "./http_creds.log");
-          msg("\n[morpheus] host:TaRONE  [ ⊶  ]  found ..");
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
           msg("[morpheus] | status: HTTP login detected!");
           msg("[morpheus] |  info : credentials found, log stored ✔");
           msg("[morpheus] |_ log  : morpheus/logs/http_creds.log\n");
         }else{
         if (regex(DECODED.data, ".*USERNAME.*")) {
          log(DECODED.data, "./http_creds.log");
-          msg("\n[morpheus] host:TaRONE  [ ⊶  ]  found ..");
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
           msg("[morpheus] | status: HTTP login detected!");
           msg("[morpheus] |  info : credentials found, log stored ✔");
           msg("[morpheus] |_ log  : morpheus/logs/http_creds.log\n");
@@ -514,21 +525,21 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 110) {
        }else{
         if (regex(DECODED.data, ".*user.*")) {
          log(DECODED.data, "./pop3_creds.log");
-          msg("\n[morpheus] host:TaRONE  [ ⊶  ]  found ..");
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
           msg("[morpheus] | status: POP3 login detected!");
           msg("[morpheus] |  info : credentials found, log stored ✔");
           msg("[morpheus] |_ log  : morpheus/logs/pop3_creds.log\n");
         }else{
         if (regex(DECODED.data, ".*USER.*")) {
          log(DECODED.data, "./pop3_creds.log");
-          msg("\n[morpheus] host:TaRONE  [ ⊶  ]  found ..");
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
           msg("[morpheus] | status: POP3 login detected!");
           msg("[morpheus] |  info : credentials found, log stored ✔");
           msg("[morpheus] |_ log  : morpheus/logs/pop3_creds.log\n");
         }else{
         if (regex(DECODED.data, ".*USERNAME.*")) {
          log(DECODED.data, "./pop3_creds.log");
-          msg("\n[morpheus] host:TaRONE  [ ⊶  ]  found ..");
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
           msg("[morpheus] | status: POP3 login detected!");
           msg("[morpheus] |  info : credentials found, log stored ✔");
           msg("[morpheus] |_ log  : morpheus/logs/pop3_creds.log\n");
@@ -576,21 +587,21 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 445) {
        }else{
         if (regex(DECODED.data, ".*user.*")) {
          log(DECODED.data, "./smb_creds.log");
-          msg("\n[morpheus] host:TaRONE  [ ⊶  ]  found ..");
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
           msg("[morpheus] | status: SMB login detected!");
           msg("[morpheus] |  info : credentials found, log stored ✔");
           msg("[morpheus] |_ log  : morpheus/logs/smb_creds.log\n");
         }else{
         if (regex(DECODED.data, ".*USER.*")) {
          log(DECODED.data, "./smb_creds.log");
-          msg("\n[morpheus] host:TaRONE  [ ⊶  ]  found ..");
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
           msg("[morpheus] | status: SMB login detected!");
           msg("[morpheus] |  info : credentials found, log stored ✔");
           msg("[morpheus] |_ log  : morpheus/logs/smb_creds.log\n");
         }else{
         if (regex(DECODED.data, ".*USERNAME.*")) {
          log(DECODED.data, "./smb_creds.log");
-          msg("\n[morpheus] host:TaRONE  [ ⊶  ]  found ..");
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
           msg("[morpheus] | status: SMB login detected!");
           msg("[morpheus] |  info : credentials found, log stored ✔");
           msg("[morpheus] |_ log  : morpheus/logs/smb_creds.log\n");
@@ -712,13 +723,24 @@ if (ip.src == 'TaRTWO' && ip.proto == TCP && tcp.dst == 80) {
         }
         }
 }
+#
+# grab target url visited referer
+#
+if (ip.src == 'TaRTWO' && ip.proto == TCP && tcp.dst == 80) {
+  if (search(DATA.data, "Referer:")) {
+   log(DATA.data, "./Referer.log");
+   msg("\n[morpheus] host:TaRTWO   [ ⊶  ]  found ..");
+   msg("[morpheus] | status: packet Referer found");
+   msg("[morpheus] |_  log : morpheus/logs/Referer.log ✔\n");
+  }
+}
 if (ip.src == 'TaRTWO' && ip.proto == TCP && tcp.dst == 139) {
   msg("[morpheus] host:TaRTWO   [ -> ]  port:139  [tcp] netbios ☆");
 }
 if (ip.src == 'TaRTWO' && ip.proto == TCP && tcp.dst == 443) {
   msg("[morpheus] host:TaRTWO   [ -> ]  port:443  [tcp] https ☆");
     if (search(DATA.data, "safebrowsing")) {
-      msg("\n[morpheus] host:TaRTWO  [ ⊶  ]  found ..");
+      msg("\n[morpheus] host:TaRTWO   [ ⊶  ]  found ..");
       msg("[morpheus] | status: safebrowsing googleapis query found ☆");
       msg("[morpheus] |_ info : SSL encrypted google traffic\n");
     }
@@ -733,14 +755,14 @@ if (ip.src == 'TaRTWO' && ip.proto == TCP && tcp.dst == 445) {
 # DHCP: requests, discovery ..
 if (ip.src == 'TaRTWO' && ip.proto == UDP && udp.dst == 67) {
   if (search(DATA.data, "android-d3d4ee5705593d227")) {
-    msg("\n[morpheus] host:TaRTWO  [ ⊶  ]  found ..");
+    msg("\n[morpheus] host:TaRTWO   [ ⊶  ]  found ..");
     msg("[morpheus] | status: Request access to LAN");
     msg("[morpheus] |  port : 67/UDP(dst) bootp-DHCP");
     msg("[morpheus] |  info : smartphone Announces is presence");
     msg("[morpheus] |_ name : android-d3d4ee5705593d227\n");
   }else{
   if (search(DATA.data, "android")) {
-    msg("\n[morpheus] host:TaRTWO  [ ⊶  ]  found ..");
+    msg("\n[morpheus] host:TaRTWO   [ ⊶  ]  found ..");
     msg("[morpheus] | status: Request access to LAN");
     msg("[morpheus] |  port : 67/UDP(dst) bootp-DHCP");
     msg("[morpheus] |  info : smartphone Announces is presence");
