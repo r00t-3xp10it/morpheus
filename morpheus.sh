@@ -2361,7 +2361,7 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
 #
 # chose the easter egg to use under mitm+dns_spoof
 #
-EGG=$(zenity --list --title "☠ GOOGLE EASTER EGGS ☠" --text "List of availables google easter eggs:" --radiolist --column "Pick" --column "Option" TRUE "Do a Barrel roll" FALSE "zerg rush" FALSE "blink html" --width 320 --height 230) > /dev/null 2>&1
+EGG=$(zenity --list --title "☠ GOOGLE EASTER EGGS ☠" --text "List of availables google easter eggs:" --radiolist --column "Pick" --column "Option" TRUE "Do a Barrel roll" FALSE "zerg rush" FALSE "blink html" FALSE "google 180" --width 320 --height 230) > /dev/null 2>&1
 #
 # parse easter egg search string
 #
@@ -2369,8 +2369,10 @@ if [ "$EGG" = "Do a Barrel roll" ]; then
   parsed="Do+a+Barrel+roll"
 elif [ "$EGG" = "zerg rush" ]; then
   parsed="zerg+rush"
-else
+elif [ "$EGG" = "blink html" ]; then
   parsed="Blink+HTML"
+else
+  parsed="<head><style>body{-webkit-transform:rotate(-180deg) !important;-ms-transform:rotate(-180deg) !important;-moz-transform:rotate(-180deg) !important;}</style>"
 fi
 
 
@@ -2388,15 +2390,26 @@ fi
   sed -i "s|PrE|$PrEfI|g" etter.dns > /dev/null 2>&1
   cp $IPATH/bin/etter.dns $Edns > /dev/null 2>&1
   echo ${BlueF}[☠]${white} Etter.dns configurated...${Reset};
-  # using SED bash command to config redirect.eft
-  sed -i "s|IpAdR|https://www.google.im/search?q=$parsed&gws_rd=ssl|g" $IPATH/filters/EasterEgg.eft > /dev/null 2>&1
+
+    # using SED bash command to config redirect.eft
+    if [ "$EGG" = "google 180" ]; then
+      sed -i "s|IpAdR|$parsed|g" $IPATH/filters/EasterEgg.eft > /dev/null 2>&1
+    else
+      sed -i "s|IpAdR|https://www.google.im/search?q=$parsed&gws_rd=ssl|g" $IPATH/filters/EasterEgg.eft > /dev/null 2>&1
+    fi
+
   echo ${BlueF}[☠]${white} google easter egg:${GreenF}$parsed ${Reset};
   # copy files needed to apache2 webroot...
   cd phishing/
-  sed -i "s|RePlAcE|$parsed|g" EasterEgg.html > /dev/null 2>&1
-  cp $IPATH/bin/phishing/EasterEgg.html $ApachE/index.html > /dev/null 2>&1
-  cd $IPATH
-  sleep 1
+  if [ "$EGG" = "google 180" ]; then
+    cp $IPATH/bin/phishing/Google_prank_180/googlelogo_color_272x92dp.png $ApachE/googlelogo_color_272x92dp.png > /dev/null 2>&1
+    cp $IPATH/bin/phishing/Google_prank_180/Google.html $ApachE/index.html > /dev/null 2>&1
+  else
+    sed -i "s|RePlAcE|$parsed|g" EasterEgg.html > /dev/null 2>&1
+    cp $IPATH/bin/phishing/EasterEgg.html $ApachE/index.html > /dev/null 2>&1
+  fi
+cd $IPATH
+sleep 1
 
 # compiling packet_drop.eft to be used in ettercap
 xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/EasterEgg.eft"
@@ -2440,6 +2453,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   mv $IPATH/filters/EasterEgg.rb $IPATH/filters/EasterEgg.eft > /dev/null 2>&1 # backup
   mv $IPATH/bin/phishing/EasterEgg.bak $IPATH/bin/phishing/EasterEgg.html > /dev/null 2>&1 # backup
   rm $ApachE/index.html > /dev/null 2>&1
+  rm $ApachE/googlelogo_color_272x92dp.png > /dev/null 2>&1
   cd $IPATH
   sleep 2
 

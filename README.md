@@ -93,6 +93,7 @@
 <br />
 
 ## Redirect all devices in LAN to google prank [option 19]<br />
+![morpheus v2.1-Alpha](http://i.cubeupload.com/ZE4Cy5.png)
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/xxmyex.png)
 `HINT: This module depends of .im domain not beeing redirected`<br />
 
