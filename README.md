@@ -93,9 +93,12 @@
 
       [ improvements ]
       warn.sh (sound a beep warning when event its trigger)
-      All filters detection rules updated
       nmap local LAN scans improved (NSE scan added)
+      All filters detection rules updated
 
+      [ backend applications ]
+      morpheus/bin/sslstrip-0.9
+      morpheus/bin/dns2proxy
 
 ---
 
