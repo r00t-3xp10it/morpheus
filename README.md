@@ -71,7 +71,7 @@
 
 # Dependencies
     required: ettercap, nmap, zenity, apache2
-    sub-dependencies: driftnet, dsniff (urlsnarf,tcpkill,msgsnarf), sslstrip, dns2proxy
+    sub-dependencies: driftnet, dsniff (urlsnarf,tcpkill,msgsnarf), sslstrip-0.9, dns2proxy
 
 # Credits
     ettercap (alor&naga) | nmap (fyodor) | apache2 (Rob McCool) | dsniff (Dug Song)
@@ -85,7 +85,7 @@
 
 
       [ new modules ]
-      Devices DHCP discovery  (be alerted when sellect device enters LAN)
+      Devices DHCP discovery    (be alerted when sellect device enters LAN)
       Block cpu crypto-minning  (drop/kill crypto-mining traffic)
       Google easter egg prank   (redirect target traffic)
       Capture https credentials (sslstrip + dns2proxy)
@@ -116,7 +116,7 @@
 
 <br />
 
-## Framework option 1 [firewall] screenshots
+## firewall filter screenshots<br />
 
     firewall [option 1] pre-configurated filter will capture credentials from the follow services:
     http,ftp,ssh,telnet (facebook uses https/ssl :( ) report suspicious connections, report common
