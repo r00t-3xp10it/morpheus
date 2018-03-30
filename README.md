@@ -106,7 +106,7 @@
 <br /><br />
 
 ## Nmap scans available [option S]<br />
-![morpheus v2.1-Alpha](http://i.cubeupload.com/ZZSxvL.png)
+![morpheus v2.1-Alpha](http://i.cubeupload.com/O2h9Hd.png)
 
 <br />
 
