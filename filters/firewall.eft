@@ -332,7 +332,7 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 3389) {
   msg("[morpheus] |_ info : used by crypto-currency minning\n");
 }
 if (ip.dst == 'TaRONE' && ip.proto == TCP && tcp.src == 1723) {
-  msg("[morpheus] host:TaRONE   [ <- ]  port:1723 pptp ☆");
+  msg("[morpheus] host:TaRONE   [ <- ]  port:1723 [tcp] pptp ☆");
 }
 
 
