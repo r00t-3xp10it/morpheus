@@ -2466,6 +2466,113 @@ fi
 
 
 
+# ----------------------------------------------------------------
+# CAPTURE HTTPS CREDENTIALS (dns2proxy|sslstrip|ettercap|iptables)
+# REF: https://www.guiadoti.com/2017/09/sslstrip-2-0-hsts-bypass/
+# VID: http://www.youtube.com/watch?v=uGBjxfizy48
+# ----------------------------------------------------------------
+sh_stage20 () {
+echo ""
+echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
+echo "${BlueF}    | ${YellowF}This module uses dns2proxy + sslstrip + ettercap + iptables to be ${BlueF}|"
+echo "${BlueF}    | ${YellowF} able to capture https (ssl) credentials over mitm + dns_spoofing ${BlueF}|"
+echo "${BlueF}    | ${YellowF}         ( by downgrade packets from HTTPS to HTTP )              ${BlueF}|"
+echo "${BlueF}    ╚───────────────────────────────────────────────────────────────────╝"
+echo ""
+sleep 2
+# run module?
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+if [ "$?" -eq "0" ]; then
+echo ${BlueF}[☠]${white} checking module dependencies ..${Reset};
+sleep 2
+
+
+#
+# check dependencies (backend appl)
+#
+c=`dpkg -l python-twisted-web`
+if [ "$?" -eq "0" ]; then
+  echo ${BlueF}[${GreenF}✔${BlueF}]${white} python-twisted-web${RedF}:${GreenF} found .. ${Reset};
+  sleep 1
+else
+  Fail="YES"
+  echo ${BlueF}[${RedF}x${BlueF}]${white} python-twisted-web${RedF}:${GreenF} not found .. ${Reset};
+  sleep 1
+  echo ""
+  apt-get install python-twisted-web
+  echo ""
+fi
+
+
+t=`which sslstrip`
+if [ "$?" -eq "0" ]; then
+  echo ${BlueF}[${GreenF}✔${BlueF}]${white} sslstrip-0.9${RedF}:${GreenF} found .. ${Reset};
+  sleep 1
+else
+  Fail="YES"
+  echo ${BlueF}[${RedF}x${BlueF}]${white} sslstrip-0.9${RedF}:${RedF} not found .. ${Reset};
+  sleep 1
+  cd $IPATH/bin/sslstrip-0.9
+  echo ""
+  python setup.py build & python setup.py install
+  echo ""
+  cd $IPATH/
+fi
+
+
+if [ -e "$IPATH/bin/dns2proxy/dns2proxy.py" ]; then
+  echo ${BlueF}[${GreenF}✔${BlueF}]${white} dns2proxy${RedF}:${GreenF} found .. ${Reset};
+  sleep 1
+else
+  Fail="YES"
+  echo ${BlueF}[${RedF}x${BlueF}]${white} dns2proxy${RedF}:${RedF} not found .. ${Reset};
+  sleep 1
+fi
+
+
+c=`pip install dnspython`
+if [ "$?" -eq "0" ]; then
+  echo ${BlueF}[${GreenF}✔${BlueF}]${white} dnspython${RedF}:${GreenF} found .. ${Reset};
+  sleep 1
+else
+  Fail="YES"
+  echo ${BlueF}[${RedF}x${BlueF}]${white} dnspython${RedF}:${GreenF} not found .. ${Reset};
+  sleep 1
+  echo ""
+  pip install dnspython
+  echo ""
+fi
+
+
+
+#
+# Restart tool after installing missing dependencies
+#
+if [ "$Fail" = "YES" ]; then
+  echo ${BlueF}[${RedF}x${BlueF}]${white} restarting morpheus to finish installs ..${Reset};
+  sleep 3
+  exit
+fi
+
+
+
+
+#
+# start of module funtions ..
+#
+echo ""
+echo ${RedF}[x]${white} Please wait, Module under develop ..${Reset};
+sleep 7
+
+
+else
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
+  sleep 2
+fi
+}
+
+
+
 # ------------------------------------------------
 # NMAP FUNTION TO REPORT LIVE TARGETS IN LOCAL LAN
 # ------------------------------------------------
@@ -2476,6 +2583,7 @@ echo "${BlueF}    | ${YellowF}    Available nmap pre-defined scans:             
 echo "${BlueF}    | ${YellowF}    1º - Normal   -  nmap ip discovery                            ${BlueF}|"
 echo "${BlueF}    | ${YellowF}    2º - Stealth  -  nmap syn/ack + OS detection                  ${BlueF}|"
 echo "${BlueF}    | ${YellowF}    3º - NSE      -  nmap service detection + nse-vuln categorie  ${BlueF}|"
+echo "${BlueF}    | ${YellowF}    4º - Target   -  nmap sealth + nse-vuln categorie             ${BlueF}|"
 echo "${BlueF}    ╚───────────────────────────────────────────────────────────────────╝"
 echo ""
 sleep 2
@@ -2490,7 +2598,7 @@ if [ "$?" -eq "0" ]; then
   #
   # agressive scan using nmap -sS -O (OS) pentesting tutorials idea ..
   #
-  Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose the type of scan required\nRemmenber that 'stealth scans' takes longer to complete .." --radiolist --column "Pick" --column "Option" TRUE "Normal" FALSE "Stealth" FALSE "NSE" --width 300 --height 220) > /dev/null 2>&1
+  Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose the type of scan required\nRemmenber that 'stealth scans' takes longer to complete .." --radiolist --column "Pick" --column "Option" TRUE "Normal" FALSE "Stealth" FALSE "NSE" FALSE "Target" --width 300 --height 250) > /dev/null 2>&1
   
 
   #
@@ -2509,9 +2617,15 @@ if [ "$?" -eq "0" ]; then
     # strip results and print report
     cat $IPATH/logs/lan.mop | grep -v "#" | grep -v "CPE:"| grep -v "type:" | grep -v "Distance:" | grep -v "closed" | grep -v "Too" | grep -v "No" | grep -v "latency" | grep -v "incorrect" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 570 --height 470 > /dev/null 2>&1
 
+  elif [ "$Tc" = "NSE" ]; then
+    nmap -sV -T4 -Pn -oN $IPATH/logs/lan.mop --script vuln $IP_RANGE | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning local lan [ NSE ] .." --percentage=0 --auto-close --width 300 > /dev/null 2>&1
+    # strip results and print report
+    cat $IPATH/logs/lan.mop | grep -v "Not" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 590 --height 470 > /dev/null 2>&1
+
   else
 
-    nmap -sV -T4 -Pn -oN $IPATH/logs/lan.mop --script vuln $IP_RANGE | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning local lan [ NSE ] .." --percentage=0 --auto-close --width 300 > /dev/null 2>&1
+    target=$(zenity --title="☠ Enter  RHOST ☠" --text "example: $IP" --entry --width 270) > /dev/null 2>&1
+    nmap -sS -Pn --reason -oN $IPATH/logs/lan.mop --script vuln $target | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning: $target [ NSE ] .." --percentage=0 --auto-close --width 320 > /dev/null 2>&1
     # strip results and print report
     cat $IPATH/logs/lan.mop | grep -v "Not" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 590 --height 470 > /dev/null 2>&1
   fi
@@ -2629,7 +2743,7 @@ case $choice in
 17) sh_stage17 ;;
 18) sh_stage18 ;;
 19) sh_stage19 ;;
-20) echo "[☠] Under Develop .."; sleep 1.5 ;;
+20) sh_stage20 ;;
 W) sh_stageW ;;
 w) sh_stageW ;;
 S) sh_stageS ;;

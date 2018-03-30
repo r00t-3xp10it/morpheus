@@ -1,4 +1,4 @@
-[![Version](https://img.shields.io/badge/MORPHEUS-2.1-brightgreen.svg?maxAge=259200)]()
+[![Version](https://img.shields.io/badge/MORPHEUS-2.1-orange.svg?maxAge=259200)]()
 [![Stage](https://img.shields.io/badge/Release-BETA-orange.svg)]()
 [![Build](https://img.shields.io/badge/Supported_OS-Linux-orange.svg)]()
 [![AUR](https://img.shields.io/aur/license/yaourt.svg)]()
@@ -93,7 +93,8 @@
 
       [ improvements ]
       warn.sh (sound a beep warning when event its trigger)
-      nmap local LAN scans improved (NSE scan added)
+      nmap local LAN scans improved (local LAN NSE scan added)
+      nmap local LAN scans improved (single target NSE scan added)
       All filters detection rules updated
 
       [ backend applications ]
@@ -103,6 +104,11 @@
 ---
 
 <br /><br />
+
+## Nmap scans available [option S]<br />
+![morpheus v2.1-Alpha](http://i.cubeupload.com/ZZSxvL.png)
+
+<br />
 
 ## Detecting DHCP requests to access local lan [option 17]<br />
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/EKAYLP.jpg)
