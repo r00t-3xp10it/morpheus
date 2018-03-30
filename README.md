@@ -116,7 +116,7 @@
 
 <br />
 
-## firewall filter screenshots<br />
+## firewall filter screenshots [option 1]<br />
 
     firewall [option 1] pre-configurated filter will capture credentials from the follow services:
     http,ftp,ssh,telnet (facebook uses https/ssl :( ) report suspicious connections, report common
