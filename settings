@@ -49,7 +49,8 @@ USE_IPV6=ACTIVE
 ### REDIRECT DOMAINS (etter.dns)
 # by default morpheus will redirect all .com prefixed
 # domains and another one (user choice) the next field
-# allow you to config the 2º domain name to be redirected. 
+# allow you to config the 2º domain name to be redirected.
+# WARNING: dont use .im because option[19] use it as spoof domain
 # accepted values are: pt | org | ir | etc..   
 ---------
 PREFIX=pt
