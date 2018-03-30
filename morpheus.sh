@@ -260,6 +260,7 @@ rm -r $IPATH/logs/capture > /dev/null 2>&1
 rm $ApachE/index.html > /dev/null 2>&1
 rm $ApachE/cssbanner.js > /dev/null 2>&1
 rm -R $ApachE/"Google Sphere_files" > /dev/null 2>&1
+mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
 # revert ettercap conf files to default stage
 if [ -e $Edns ]; then
 mv /tmp/etter.dns $Edns > /dev/null 2>&1
@@ -2653,10 +2654,11 @@ echo ${BlueF}[☠]${white} Exit morpheus framework...${Reset};
 sleep 1
 echo ${BlueF}[${GreenF}✔${BlueF}]${white} Revert ettercap etter.conf ${Reset};
 mv /tmp/etter.conf $Econ > /dev/null 2>&1
+sleep 1
+echo ${BlueF}[${GreenF}✔${BlueF}]${white} Revert ettercap etter.dns ${Reset};
 mv /tmp/etter.dns $Edns > /dev/null 2>&1
+sleep 1
 mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
-mv $IPATH/filters/UserAgent.rb $IPATH/filters/UserAgent.eft > /dev/null 2>&1 # backup
-rm $IPATH/output/UserAgent.ef > /dev/null 2>&1
 rm $ApachE/index.html > /dev/null 2>&1
 sleep 2
 clear
@@ -2664,6 +2666,8 @@ echo ${RedF}codename${white}::${RedF}oneiroi_phobetor'(The mithologic dream gree
 echo ${RedF}Morpheus${white}©::${RedF}v$V3R${white}::${RedF}SuspiciousShellActivity${white}©::${RedF}RedTeam${white}::${RedF}2018  ${Reset};
 exit
 }
+
+
 
 sh_main () {
 echo "nothing" > /dev/null 2>&1
@@ -2743,7 +2747,7 @@ case $choice in
 17) sh_stage17 ;;
 18) sh_stage18 ;;
 19) sh_stage19 ;;
-20) echo "Please Wait, under develop .."; sleep 3 ;;
+20) sh_stage20 ;;
 W) sh_stageW ;;
 w) sh_stageW ;;
 S) sh_stageS ;;
