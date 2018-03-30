@@ -2747,7 +2747,8 @@ case $choice in
 17) sh_stage17 ;;
 18) sh_stage18 ;;
 19) sh_stage19 ;;
-20) sh_stage20 ;;
+# 20) sh_stage20 ;;
+20) echo "[x] Please Wait, Under develop .."; sleep 1.3 ;;
 W) sh_stageW ;;
 w) sh_stageW ;;
 S) sh_stageS ;;
