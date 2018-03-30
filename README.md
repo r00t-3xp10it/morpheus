@@ -92,6 +92,7 @@
       Capture https credentials (sslstrip + dns2proxy)
 
       [ improvements ]
+      warn.sh (sound a beep warning when event its trigger)
       All filters detection rules updated
       nmap local LAN scans improved (NSE scan added)
 
