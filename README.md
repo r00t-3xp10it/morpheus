@@ -4,7 +4,7 @@
 [![AUR](https://img.shields.io/aur/license/yaourt.svg)]()
 
 # Morpheus - automated ettercap TCP/IP Hijacking tool
-![morpheus v1.6-Alpha](http://i.cubeupload.com/ebsQAK.png)
+![morpheus v2.1-BETA](http://i.cubeupload.com/71dAGs.png)
 
     Version release: v2.1-BETA
     Author: pedro ubuntu  [ r00t-3xp10it ]
