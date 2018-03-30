@@ -1,16 +1,16 @@
 [![Version](https://img.shields.io/badge/MORPHEUS-2.1-brightgreen.svg?maxAge=259200)]()
-[![Stage](https://img.shields.io/badge/Release-Stable-brightgreen.svg)]()
+[![Stage](https://img.shields.io/badge/Release-BETA-orange.svg)]()
 [![Build](https://img.shields.io/badge/Supported_OS-Linux-orange.svg)]()
 [![AUR](https://img.shields.io/aur/license/yaourt.svg)]()
 
 # Morpheus - automated ettercap TCP/IP Hijacking tool
 ![morpheus v1.6-Alpha](http://i.cubeupload.com/ebsQAK.png)
 
-    Version release: v2.1-STABLE
+    Version release: v2.1-BETA
     Author: pedro ubuntu  [ r00t-3xp10it ]
     Codename: oneiroi phobetor (The mithologic dream greek god)
     Distros Supported: Linux Ubuntu, Kali, Debian, BackBox, Parrot OS
-    Suspicious-Shell-Activity© (SSA) RedTeam develop @2017
+    Suspicious-Shell-Activity© (SSA) RedTeam develop @2018
 
 <br />
 
@@ -64,13 +64,14 @@
 ![morpheus v1.6-Alpha](http://i.cubeupload.com/RIq2yO.png)
 
     By default morpheus (at startup) will replace the original etter.conf/etter.dns files
-    provided by ettercap. On exit morpheus will revert those files to is original state.. 
+    provided by ettercap. On exit morpheus will revert those files to is original state..
+    [ ITS IMPORTANTE TO EXIT THE TOOL PROPER TO REVERT THE CHANGES MADE (press 'E' to exit) ]
 
 <br />
 
 # Dependencies
     required: ettercap, nmap, zenity, apache2
-    sub-dependencies: driftnet, dsniff (urlsnarf,tcpkill,msgsnarf)
+    sub-dependencies: driftnet, dsniff (urlsnarf,tcpkill,msgsnarf), sslstrip, dns2proxy
 
 # Credits
     ettercap (alor&naga) | nmap (fyodor) | apache2 (Rob McCool) | dsniff (Dug Song)
@@ -78,9 +79,25 @@
 
 <br /><br /><br />
 
-# Some Screenshots of version v2.1<br />
+---
 
-<br />
+# morpheus v2.1 changelog<br />
+
+
+      [ new modules ]
+      Devices DHCP discovery  (be alerted when sellect device enters LAN)
+      Block cpu crypto-minning  (drop/kill crypto-mining traffic)
+      Google easter egg prank   (redirect target traffic)
+      Capture https credentials (sslstrip + dns2proxy)
+
+      [ improvements ]
+      All filters detection rules updated
+      nmap local LAN scans improved (NSE scan added)
+
+
+---
+
+<br /><br />
 
 ## Detecting DHCP requests to access local lan [option 17]<br />
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/EKAYLP.jpg)
