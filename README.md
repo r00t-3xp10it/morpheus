@@ -33,6 +33,7 @@
     HINT: morpheus allow you to improve filters in 2 diferent ways
     1º - Edit filter before runing morpheus and the 'changes' will be permanent
     2º - Edit filter using 'morpheus scripting console' and the changes are active only once
+    "Remmenber: morpheus gives is users the ability to 'add more rules' to filters befor execution"
 
 <br />
 
