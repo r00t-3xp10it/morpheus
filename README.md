@@ -78,6 +78,14 @@
     ettercap (alor&naga) | nmap (fyodor) | apache2 (Rob McCool) | dsniff (Dug Song)
     filters: irongeek (replace img) | seannicholls (rotate 180º) | TheBlaCkCoDeR09 (ToR-Browser-0day)
 
+<br />
+
+# Download/Install
+      1º - git clone https://github.com/r00t-3xp10it/morpheus.git
+      2º - cd morpheus && sudo chmod +x *.sh
+      3º - nano settings
+      4º - sudo ./morpheus.sh
+
 <br /><br /><br />
 
 ---
@@ -92,14 +100,15 @@
       Capture https credentials (sslstrip + dns2proxy)
 
       [ improvements ]
+      DebugMe.sh (debug script of morpheus main tool)
       warn.sh (sound a beep warning when event its trigger)
       nmap local LAN scans improved (local LAN NSE scan added)
       nmap local LAN scans improved (single target NSE scan added)
       All filters detection rules updated
 
       [ backend applications ]
-      morpheus/bin/sslstrip-0.9
-      morpheus/bin/dns2proxy
+      morpheus/bin/Utils/sslstrip-0.9
+      morpheus/bin/Utils/dns2proxy
 
 ---
 
