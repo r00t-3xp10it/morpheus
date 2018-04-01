@@ -120,9 +120,9 @@
 ## Nmap scans available [option S]<br />
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/O2h9Hd.png)
 
-      Morpheus v2.1 allows is users to scan with nmap sending one fake User_Agent
+      Morpheus v2.1 allows is users to scan with nmap sending one fake User_Agent [ IPhone ]
       Activate this special funtion in [ settings ] file under morpheus main folder.
-      HINT: This setting its only available in morpheus Nmap module [ my http.lua lib ]
+      HINT: This setting its only available in morpheus [ scan LAN for live hosts ]
 
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/hp9r2u.png)
 
