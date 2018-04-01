@@ -72,6 +72,8 @@ MsGnA=`cat $IPATH/settings | egrep -m 1 "MSG_SNARF" | cut -d '=' -f2` > /dev/nul
 PrEfI=`cat $IPATH/settings | egrep -m 1 "PREFIX" | cut -d '=' -f2` > /dev/null 2>&1
 DrIn=`cat $IPATH/settings | egrep -m 1 "DRI_NET" | cut -d '=' -f2` > /dev/null 2>&1
 RbUdB=`cat $IPATH/settings | egrep -m 1 "REBUILD_DB" | cut -d '=' -f2` > /dev/null 2>&1
+IPH_UA=`cat $IPATH/settings | egrep -m 1 "IPHONE_USERAGENT" | cut -d '=' -f2` > /dev/null 2>&1
+LUA_PATH=`cat $IPATH/settings | egrep -m 1 "LIB_PATH" | cut -d '=' -f2` > /dev/null 2>&1
 
 
 
@@ -2589,8 +2591,29 @@ echo "${BlueF}    ╚───────────────────�
 echo ""
 sleep 2
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 320) > /dev/null 2>&1
 if [ "$?" -eq "0" ]; then
+
+
+#
+# Fake User_Agent funtion
+#
+if [ "$IPH_UA" = "YES" ]; then
+    echo ${BlueF}[☠] Please wait, Replacing http.lua nmap lib ..${Reset};
+    sleep 2
+      # check if we are in the rigth path
+      if [ -e $LUA_PATH/nselib/http.lua ]; then
+        cp $LUA_PATH/nselib/http.lua $IPATH/output/http.lua > /dev/null 2>&1
+        cp $IPATH/bin/http.lua $LUA_PATH/nselib/http.lua > /dev/null 2>&1
+        nmap --script-updatedb > /dev/null 2>&1
+      else
+        echo ${RedF}[x]${white} http.lua NOT found under sellected path ..${Reset};
+        echo ${RedF}[x]${white} edit [ settings ] and config [ LIB_PATH= ] ${Reset};
+        sleep 1
+        exit
+      fi
+fi
+
   echo ${BlueF}[☠]${white} Scanning Local Lan${RedF}! ${Reset};
   # grab ip range + scan with nmap + zenity display results
   IP_RANGE=`ip route | grep "kernel" | awk {'print $1'}`
@@ -2600,7 +2623,7 @@ if [ "$?" -eq "0" ]; then
   # agressive scan using nmap -sS -O (OS) pentesting tutorials idea ..
   #
   Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose the type of scan required\nRemmenber that 'stealth scans' takes longer to complete .." --radiolist --column "Pick" --column "Option" TRUE "Normal" FALSE "Stealth" FALSE "NSE" FALSE "Target" --width 300 --height 250) > /dev/null 2>&1
-  
+
 
   #
   # scan local lan using nmap
@@ -2608,6 +2631,14 @@ if [ "$?" -eq "0" ]; then
   echo ${BlueF}[${GreenF}✔${BlueF}]${white} Scan sellected${RedF}:${GreenF}$Tc ${Reset};
   dtr=`date | awk {'print $4'}`
   sleep 1
+  #
+  # Fake User_Agent funtion
+  #
+  if [ "$IPH_UA" = "YES" ]; then
+    echo ${BlueF}[${GreenF}✔${BlueF}]${white} Faking User_Agent${RedF}:${GreenF}IPhone${Reset};
+  fi
+
+
   if [ "$Tc" = "Normal" ]; then
     nmap -sn $IP_RANGE -oN $IPATH/logs/lan.mop | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning local lan [ Normal ].." --percentage=0 --auto-close --width 300 > /dev/null 2>&1
     # strip results and print report
@@ -2636,6 +2667,13 @@ if [ "$?" -eq "0" ]; then
     echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
     rm $IPATH/logs/lan.mop > /dev/null 2>&1
     sleep 2
+    if [ "$IPH_UA" = "YES" ]; then
+      echo ${BlueF}[${GreenF}✔${BlueF}]${white} Reverting nmap http.lua lib ..${Reset};
+      sleep 2
+      mv $IPATH/output/http.lua $LUA_PATH/nselib/http.lua > /dev/null 2>&1
+      nmap --script-updatedb > /dev/null 2>&1
+    fi
+
 
 else
   echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};

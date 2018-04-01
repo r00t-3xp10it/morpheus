@@ -102,6 +102,7 @@
 --
 -- TODO
 -- Implement cache system for http pipelines
+-- USER-AGENT default string changed in http.lua
 --
 
 

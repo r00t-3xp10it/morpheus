@@ -34,10 +34,10 @@ WRITE_LOGFILES=NO
 
 
 
-### ENABLE IPv6 ARP POISON? (etter.conf)
+### DISABLE IPv6 ARP POISON? (etter.conf)
 # by default morpheus lunch arp poison againt IPv6 protocol
 # IF your facing a "token (///) Error" then change the next value
-# to "DISABLED" to force morpheus framework to run arp againts IPv4. 
+# to "DISABLED" to force morpheus framework to run using IPv4 proto. 
 # accepted values are: ACTIVE or DISABLED
 ---------------
 USE_IPV6=ACTIVE
@@ -50,7 +50,7 @@ USE_IPV6=ACTIVE
 # by default morpheus will redirect all .com prefixed
 # domains and another one (user choice) the next field
 # allow you to config the 2º domain name to be redirected.
-# WARNING: dont use .im because option[19] use it as spoof domain
+# WARNING: dont use .im because option[19] use it as internal_domain
 # accepted values are: pt | org | ir | etc..   
 ---------
 PREFIX=pt
@@ -59,10 +59,23 @@ PREFIX=pt
 
 
 
+### NMAP LOCAL LAN SCANS (http.lua)
+# This setting IF active will replace nmap default http.lua lib by
+# morpheus http.lua lib that is modified to send in the offending packet
+# one fake IPhone:User_Agent (minimize fingerprints related to attacker)
+# accepted values are: YES or NO
+-------------------
+IPHONE_USERAGENT=NO
+LIB_PATH=/usr/share/nmap
+------------------------
+
+
+
+
 ### ETTERCAP INSTALL PATH
 # just change the next values to point
 # to your ettercap install folders.
--------------------------------------------
+---------------------------------
 ETTER_DNS=/etc/ettercap/etter.dns
 ETTER_CONF=/etc/ettercap/etter.conf
 ETTER_FIEL=/usr/share/ettercap/etter.fields
@@ -84,12 +97,12 @@ AP_PATH=/var/www/html
 ### DSNIFF SUITE (PATH)
 # just change the next values to point
 # to your dsniff packet install folders.
-----------------------------
+--------------------------
 TCP_KILL=/usr/sbin/tcpkill
 URL_SNARF=/usr/sbin/urlsnarf
 MSG_SNARF=/usr/sbin/msgsnarf
 DRI_NET=/usr/bin/driftnet
-----------------------------
+-------------------------
 
 
 

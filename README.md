@@ -104,6 +104,7 @@
       warn.sh (sound a beep warning when event its trigger)
       nmap local LAN scans improved (local LAN NSE scan added)
       nmap local LAN scans improved (single target NSE scan added)
+      nmap local LAN scans improved (scan using a fake User_Agent)
       All filters detection rules updated
 
       [ backend applications ]
@@ -116,6 +117,13 @@
 
 ## Nmap scans available [option S]<br />
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/O2h9Hd.png)
+
+      Morpheus v2.1 allows is users to scan with nmap sending one fake User_Agent
+      Activate this special funtion in [ settings ] file under morpheus main folder.
+      HINT: This setting its only available in morpheus Nmap module [ my http.lua ]
+
+![morpheus v2.1-Alpha](http://i.cubeupload.com/hp9r2u.png)
+![morpheus v2.1-Alpha](http://i.cubeupload.com/v1aIGd.png)
 
 <br />
 
