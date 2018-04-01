@@ -33,7 +33,7 @@
     HINT: morpheus allow you to improve filters in 2 diferent ways
     1º - Edit filter before runing morpheus and the 'changes' will be permanent
     2º - Edit filter using 'morpheus scripting console' and the changes are active only once
-    "Remmenber: morpheus gives is users the ability to 'add more rules' to filters befor execution"
+
 
 <br />
 
@@ -82,9 +82,11 @@
 
 # Download/Install
       1º - git clone https://github.com/r00t-3xp10it/morpheus.git
-      2º - cd morpheus && sudo chmod +x *.sh
-      3º - nano settings
-      4º - sudo ./morpheus.sh
+      2º - cd morpheus
+      3º - chmod -R +x *.sh
+      4º - chmod -R +x *.py
+      5º - nano settings
+      6º - sudo ./morpheus.sh
 
 <br /><br /><br />
 
@@ -120,9 +122,13 @@
 
       Morpheus v2.1 allows is users to scan with nmap sending one fake User_Agent
       Activate this special funtion in [ settings ] file under morpheus main folder.
-      HINT: This setting its only available in morpheus Nmap module [ my http.lua ]
+      HINT: This setting its only available in morpheus Nmap module [ my http.lua lib ]
 
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/hp9r2u.png)
+
+      HINT: My http.lua lib modified allows also diferent user_agent inputs using:
+      nmap -sV --script-args http.useragent="Apache-HttpClient/4.0.3 (java 1.5)" Target-Ip
+
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/v1aIGd.png)
 
 <br />
