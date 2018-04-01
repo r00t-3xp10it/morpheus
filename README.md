@@ -126,7 +126,7 @@
 
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/hp9r2u.png)
 
-      HINT: My http.lua lib modified allows also diferent user_agent inputs using:
+      HINT: My http.lua lib modified allows also diferent user_agent inputs like:
       nmap -sV --script-args http.useragent="Apache-HttpClient/4.0.3 (java 1.5)" Target-Ip
 
 ![morpheus v2.1-Alpha](http://i.cubeupload.com/v1aIGd.png)
