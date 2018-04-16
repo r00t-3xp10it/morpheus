@@ -102,6 +102,7 @@
       Capture https credentials (sslstrip + dns2proxy)
 
       [ improvements ]
+      option [14] alternative phishing webpage added
       DebugMe.sh (debug script of morpheus main tool)
       warn.sh (sound a beep warning when event its trigger)
       nmap local LAN scans improved (local LAN NSE scan added)
