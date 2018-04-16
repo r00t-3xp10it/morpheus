@@ -47,7 +47,17 @@ Reset="${Escape}[0m";
 }
 
 
-
+###
+# DEBUG SCRIPT OF MORPHEUS
+###
+Colors;
+if [ -e morpheus.sh ]; then
+ :
+else
+echo ${RedF}[x]${white} Copy [${GreenF} me ${white}] to morpheus main folder and execute [${GreenF} me ${white}] from there ..${Reset};
+echo ${RedF}[x]${white} Also remmenber to config the settings File to store logfiles ..${Reset};
+exit
+fi
 
 # ---------------------
 # Variable declarations
