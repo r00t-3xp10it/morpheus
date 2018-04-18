@@ -1,0 +1,358 @@
+
+<!-- saved from url=(0019)http://192.168.1.1/ -->
+<!--  GatWa | DiSpt  -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>TL-WR840N</title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="wed, 26 Feb 1997 08:21:57 GMT">
+<script language="javascript" type="text/javascript"><!--
+//--></script>
+<script language="javascript" type="text/javascript">
+var httpAutErrorArray = new Array(
+3, 1, "http://192.168.1.1", 0,0 );
+</script>
+
+<script language="javascript" type="text/javascript">
+if(window.parent != window)
+{
+	document.cookie = "Authorization=;path=/";	
+	window.parent.location.href = httpAutErrorArray[2];
+}
+</script>
+<script type="text/javascript" src="./TPLink/encrypt.js.download"></script>
+<style type="text/css">
+body{
+	font-family:Arial, sans-serief;
+	background-color:#E5E5E5;
+	margin:0px;
+	padding:0px;
+}
+div.loginBox
+{
+	display: block;
+	position:relative;
+	margin-top:10%;	
+	text-align:center;
+}
+.noteDiv{
+	color:gray;
+	font-family:Arial;
+	width:395px;
+	text-align:left;
+	margin:0px auto;
+	font-size:14px;
+}
+#note{
+	display:inline-block;
+	vertical-align:top;
+	_display:inline;
+	_zoom:1;
+	width:50px;
+	font-weight:bold;
+}
+#tip{
+	display:inline-block;
+	vertical-align:top;
+	_display:inline;
+	_zoom:1;
+	width:340px;
+	font-weight:bold;
+}
+div.panelThre{
+	margin-top:10px;
+}
+div.picDiv{
+	width:395px;
+	height:276px;
+	background:url(../login/loginbg.png);
+	position:relative;
+}
+input.pcPassword{
+	width:300px;
+	height:50px;
+	line-height:50px;
+	padding-left:20px;
+}
+div.PCBtnDiv{
+	position:relative;
+	margin-top:20px;
+}
+img.logoPic{
+	width:100%;
+}
+#copyright{
+	-webkit-text-size-adjust:none;
+	font-size:8px;
+	color:#6a6969;
+	font-family:"Verdana";
+	font-weight:normal;
+	margin-top:40px;
+	display:inline-block;
+}
+.topLogo{
+	background:url(../login/top_bg.jpg);
+	height:90px;
+}
+.style1 {
+	font-family: "Arial";
+	color: #FFFFFF;
+	font-size: 16px;
+	padding-right: 50;
+	text-align: right;
+	font-weight: bold;
+	white-space: nowrap;
+}
+.style2 {
+	font-size: 12px;
+	font-family: "Arial";
+	font-weight: bold;
+	padding-right: 50;
+	text-align: right;
+	white-space: nowrap;
+	color: #FFFFFF;
+}
+ul{
+	padding:60px 0px 0px 0px;
+	margin:0px;
+	list-style:none;
+}
+ul li{
+	height:34px;
+	width:222px;
+}
+li.unLi{
+	background:url(../login/loginUser.png);
+}
+li.pwLi{
+	background:url(../login/loginPwd.png);
+}
+li.blank{
+	height:15px;
+}
+input.text{
+	border:0px;
+	height:26px;
+	line-height:26px;
+	width:175px;
+	padding:0px;
+	margin:4px 0px 0px 40px;
+	font-size:14px;
+	color:#6a6969;
+	font-family:"Verdana","Arial";
+	font-weight:normal;
+}
+label.loginBtn{
+	height:34px;
+	display:inline-block;
+	width:113px;
+	margin-top:30px;
+	background:url(../login/loginBtn.png);
+	cursor:pointer;
+}
+</style>
+<script type="text/javascript">
+function CheckUserPswChars(szValue)
+{
+	var reg = /^[\x21-\x7e]+$/;	
+	if((szValue.length > 0) && reg.test(szValue))
+	{
+		return true;
+	}	
+	return false;
+}
+
+function CheckUserPswInvalid()
+{
+	var userName = $("userName");
+	var pcPassword = $("pcPassword");	
+	
+	if(!CheckUserPswChars(userName.value))
+	{
+		userName.select();
+		userName.focus();
+		return false;	
+	}
+	
+	if(!CheckUserPswChars(pcPassword.value))
+	{
+		pcPassword.select();
+		pcPassword.focus();
+		return false;	
+	}
+	
+	return true;
+}
+
+function ResetUserPsw(elementName)
+{
+	$(elementName).value = "";
+	$(elementName).focus();
+}
+
+function PCWin(event)
+{	
+	if (event.keyCode == 13)
+	{
+		PCSubWin();
+	}
+}
+
+function PCSubWin()
+{
+	if((httpAutErrorArray[0] == 2) || (httpAutErrorArray[0] == 3))
+	{
+		if(true == CheckUserPswInvalid())
+		{
+			var username = $("userName").value;				
+			var password = $("pcPassword").value;	
+			if(httpAutErrorArray[1] == 1)
+			{
+				password = hex_md5($("pcPassword").value);	
+			}			
+			var auth = "Basic "+ Base64Encoding(username + ":" + password);
+			document.cookie = "Authorization="+escape(auth)+";path=/";
+			//location.href ="/userRpm/LoginRpm.htm?Save=Save";
+			$("loginForm").submit();
+			return true;
+		}
+		else
+		{
+			$("note").innerHTML = "NOTE:";
+			$("tip").innerHTML = "Username and password can contain between 1 - 15 characters and may not include spaces.";	
+		}
+	}
+	return false;
+}
+
+function w(str)
+{
+	document.write(str);
+}
+
+function $(id)
+{
+	return document.getElementById(id);
+}
+
+function setElementStyle(bShow)
+{
+	var unLi = $("unLi");
+	var pwLi = $("pwLi");
+	var userName = $("userName");
+	var pcPassword = $("pcPassword");
+	var loginBtn = $("loginBtn");	
+	
+	if(bShow)
+	{
+		$("userName").style.display = "";
+		$("pcPassword").style.display = "";		
+		
+		pcPassword.onfocus = function(){
+			pwLi.style.background = "url(../login/loginPwdH.png)";
+		};
+		pcPassword.onblur = function(){
+			pwLi.style.background = "url(../login/loginPwd.png)";
+		};
+		
+		userName.onfocus = function(){
+			unLi.style.background = "url(../login/loginUserH.png)";
+		};
+		userName.onblur = function(){
+			unLi.style.background = "url(../login/loginUser.png)";
+		};
+		
+		loginBtn.onmouseover = function(){
+			loginBtn.style.background = "url(../login/loginBtnH.png)";
+		};
+		loginBtn.onmouseout = function(){
+			loginBtn.style.background = "url(../login/loginBtn.png)";
+		};
+		
+		$("userName").focus();
+	}
+	else
+	{
+		$("userName").style.display = "none";
+		$("pcPassword").style.display = "none";		
+	}
+}
+
+function pageLoad()
+{
+	var count = 14, tip = $("tip"), note = $("note");	
+	var min = 0, sec = 0;
+	document.cookie = "Authorization=;path=/";	
+		
+	if(window.parent != window)
+	{
+		window.parent.location.reload();
+	}
+	var ErrNum = httpAutErrorArray[0]; 
+	switch(ErrNum)
+	{
+		case 0:
+			note.innerHTML = "NOTE:";
+			tip.innerHTML = "The router allows only one administrator to login at the same time, please try again later.";	
+			setElementStyle(false);
+		break;
+		case 1:	
+			note.innerHTML = "NOTE:";
+			tip.innerHTML = "You have exceeded ten attempts, please try again in two hours.";	
+			setElementStyle(false);
+		break;
+		case 2:
+			note.innerHTML = "NOTE:";
+			tip.innerHTML = "The username or password is incorrect, please input again.";
+			setElementStyle(true);
+		break;
+		case 3:
+		default:
+			tip.innerHTML = "";
+			note.innerHTML = "";
+			setElementStyle(true);
+		break;
+	}
+}
+</script>
+<style></style></head>
+<body onkeypress="PCWin(event)" onload="pageLoad()">
+	<div class="topLogo">
+		<table cellpadding="0" cellspacing="0" width="100%">
+			<tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tbody><tr><td><a href="http://www.tp-link.com/" target="blank"><img src="./TPLink/top1_1.jpg" border="0" style="cursor:pointer"></a></td>
+				<td width="490" align="right" background="./TPLink/top1_2.jpg" style="padding-top:23">
+					<table>
+						<tbody><tr><td class="style1">300M Wireless N Gigabit Router</td></tr>
+						<tr><td class="style2">Model No. TL-WR840N </td></tr>
+					</tbody></table>
+				</td>
+			</tr>
+			</tbody></table></td></tr>
+		<tr><td><img height="3" src="./TPLink/top2.jpg" width="100%" align="top" border="0"></td></tr>
+		</tbody></table>
+	</div>
+	<div class="loginBox">	
+		<div class="noteDiv">
+			<span id="note"></span>
+			<span id="tip"></span>
+		</div>
+		<div class="panelThre" align="center">
+			<div align="center" class="picDiv">
+				<ul>
+					<li id="unLi" class="unLi" style="background: url(&quot;../login/loginUser.png&quot;);"><input class="text" id="userName" type="text" maxlength="15"></li>
+					<li class="blank"></li>
+					<li id="pwLi" class="pwLi" style="background: url(&quot;../login/loginPwd.png&quot;);"><input class="text" id="pcPassword" type="password" maxlength="15"></li>
+				</ul>
+				<label id="loginBtn" class="loginBtn" onclick="PCSubWin()"></label>
+				<div>
+				<label id="copyright">Copyright © 2018 TP-LINK Technologies Co., Ltd. All rights reserved. </label>			
+				</div>
+			</div>
+		</div>
+	</div>
+	<form action="http://www.google.im" method="get" id="loginForm" enctype="multipart/form-data">
+		<input type="hidden" value="Save" name="Save">
+	</form>
+
+<iframe frameborder="0" scrolling="no" style="background-color: transparent; border: 0px; display: none;" src="./TPlink/saved_resource.html"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}" style="display: none;"></div></body></html>

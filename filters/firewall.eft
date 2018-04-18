@@ -267,7 +267,7 @@ if (ip.src == 'TaRONE' && ip.proto == UDP && tcp.dst == 53) {
         if (search(DATA.data, "arpa")) {
           msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");
           msg("[morpheus] | status: DNS possible arpa query found!");
-          msg("[morpheus] |  info : normal connection? scan-type? arp-poison?");
+          msg("[morpheus] |  info : normal connection? scan-type? icmp?");
           msg("[morpheus] |  hex  : 64 64 62 04 61 72 70 61");
           msg("[morpheus] |_ decoded: ddr.arpa\n");
        }
