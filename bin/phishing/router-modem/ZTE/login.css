@@ -1,0 +1,154 @@
+* {
+    margin: 0 0 0 0;
+    padding: 0;
+}
+#container {
+    margin: 0 auto;
+    width: 778px;
+    text-align: left;
+    position: relative;
+    min-height: 100%; /* For Modern Browsers */
+    height: auto !important; /* For Modern Browsers */
+    height: 100%; /* For IE */ 
+}
+#head {
+    width:778px; 
+}
+#banner {
+    width:778px; 
+    height:60px; 
+ }
+#content {
+    width:776px;
+    padding-bottom:20px;
+    min-height: 270px; /* For Modern Browsers */
+    height: auto !important; /* For Modern Browsers */
+    height: 50%; /* For IE */ 	
+    border-left:1px solid #B1B1B1;
+    border-right:1px solid #B1B1B1;
+}
+#content:after {
+    clear: both;
+    display: block;
+    font: 1px/0px serif;
+    content: ".";
+    height: 0;
+    visibility: hidden;
+}
+#content li {
+    list-style:none;
+    display:block;
+}
+#bottom {
+    width: 776px;
+    height: 28px;
+
+    border-left:1px solid #B1B1B1;
+    border-right:1px solid #B1B1B1;
+}
+#bottom li {
+    list-style:none;
+    float:left;
+    height: 28px;
+}
+#bottom a {
+    display:block;
+    height:28px;
+}
+#bottom a.b1 {
+    position:absolute;
+    left:1px;
+    width:156px;
+}
+#bottom a.b2 {
+    width:54px;
+    margin-right:2px;
+    position:absolute;
+    left:157px;	
+}
+#bottom a.b2 ul {
+    text-align:right;
+    padding-top:5px;
+}
+#bottom a.b3 {
+    width:564px;
+    height:28px;
+    position:absolute;
+    left:211px;
+    background-color:#81d549;
+    margin-right:2px;
+				text-align:right;
+}
+.copyright {height:16px;width:776px; padding-top:10px; border-left:1px solid #B1B1B1; border-right:1px solid #B1B1B1; text-align:center;}
+.bottom_line {background-color:#5aa929;height:8px; width:778px;}
+.submit {padding-top:2px;}
+#bottomx {
+    width: 100%;
+    position: absolute;
+    bottom: 0 !important;
+    bottom: -1px; /* For Certain IE widths */
+    height: 1px;
+}
+
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:active { text-decoration: none; }
+a:hover { text-decoration:none; }
+
+#loginArea { width:778px;height:389px;background-color:#f7f7f7; }
+.login_frame { width:380px;height:108px;position:absolute;top:155px;left:200px; }
+.login_title { width:380px;height:19px;background-color:#69ce28;list-style:none; }
+.login_title_left { width:4px;height:19px;float:left;}
+.login_title_center { width:286px;height:15px;float:left;padding:4px 0 0 5px;color:#ffffff;font-weight: bold;}
+.login_title_center2 { width:75px;height:19px;float:left;background:url(../img/push_2.gif) no-repeat left top;color:#ffffff;font-weight: bold;}
+.login_title_centeren { width:75px;height:19px;float:left;color:#ffffff;font-weight: bold;}
+.login_title_centerch { width:75px;height:19px;float:left;color:#ffffff;font-weight: bold;}
+.language_div { width:60px;height:15px;padding:4px 0 0 15px; }
+.login_title_right { width:4px;height:19px;float:left; }
+.login_content { width:378px;height:87px;background-color:#f8fff3;list-style:none;border:1px solid #69ce28; }
+.login_blank { width:337px;height:14px;list-style:none;padding-left: 10px }
+.login_ul_1 { width:337px;height:20px;list-style:none;padding-left: 10px }
+.login_li_1 { width:120px;height:17px;float:left;text-align:right;padding-top:3px; }
+.login_li_2 { width:135px;height:20px;float:left;padding-left:4px; }
+.login_li_3 { width:78px;height:20px;float:left; }
+
+.language_1 { color:#FFFFFF;font-weight: bold;}
+.language_1 a:link { color: #ffffff;font-weight: bold; text-decoration: none; }
+.language_1 a:visited { color: #ffffff;font-weight: bold; text-decoration: none; }
+.language_1 a:active { color: #ffffff;font-weight: bold; text-decoration: none; }
+.language_1 a:hover { color: #ffffff;font-weight: bold; text-decoration: none; }
+.type{ position:absolute;top:32px;right:25px;font:20px Arial,sans-serif;color:#fff;z-index:999; }
+
+html, body {
+    height: 100%; /* Required */
+    font-size: 12px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    min-height:101%;
+    background-color:#fff; /* 613000551662 - style unifys in case window color changes */
+}
+
+
+.username,.password {
+    width:120px;
+    height:18px;
+    border:1px solid #7F9DB7;
+    font-size: 12px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    vertical-align:middle;
+    text-align:left;
+}
+
+
+.login {
+    height:22px;
+    width:80px;
+    vertical-align:middle;
+    text-align:center;
+    font-size: 12px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+.note{
+font-size: 12px;
+font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+color:#FFFF00;
+}
