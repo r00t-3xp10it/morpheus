@@ -1089,7 +1089,7 @@ if (ip.src == '0.0.0.0' && ip.proto == UDP && udp.dst == 67) {
     msg("\n[morpheus] host:0.0.0.0        [ ⊶  ]  found ..");
     msg("[morpheus] | status: Request access to LAN");
     msg("[morpheus] |  port : 67/UDP(dst) bootp-DHCP");
-    msg("[morpheus] |  info : smartphone Announces is presence");
+    msg("[morpheus] |  info : pedro smartphone (samsung)");
     msg("[morpheus] |_ device: android-c9211f4272c7e1ef7\n");
   }else{
   if (search(DATA.data, "android")) {
