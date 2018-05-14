@@ -119,8 +119,8 @@ LOG_MSF=/root/.msf4/loot
 
 
 ### METASPLOIT DATABASE LOAD
-# option [12] and [13] requires metasploit.
-# In some ocasions we need to rebuild msfdb
+# option [12] and [13] and [21] requires metasploit.
+# In some ocasions we need to rebuild the msfdb
 # to allow msfdb to connect to postgresql.
 # set the next value to YES to force msfdb rebuild
 -------------
