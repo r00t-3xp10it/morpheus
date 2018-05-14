@@ -1,12 +1,12 @@
-[![Version](https://img.shields.io/badge/MORPHEUS-2.1-orange.svg?maxAge=259200)]()
+[![Version](https://img.shields.io/badge/MORPHEUS-2.2-orange.svg?maxAge=259200)]()
 [![Stage](https://img.shields.io/badge/Release-BETA-orange.svg)]()
 [![Build](https://img.shields.io/badge/Supported_OS-Linux-orange.svg)]()
 [![AUR](https://img.shields.io/aur/license/yaourt.svg)]()
 
 # Morpheus - automated ettercap TCP/IP Hijacking tool
-![morpheus v2.1-BETA](http://i.cubeupload.com/71dAGs.png)
+![morpheus v2.2-BETA](http://i.cubeupload.com/71dAGs.png)
 
-    Version release: v2.1-BETA
+    Version release: v2.2-BETA
     Author: pedro ubuntu  [ r00t-3xp10it ]
     Codename: oneiroi phobetor (The mithologic dream greek god)
     Distros Supported: Linux Ubuntu, Kali, Debian, BackBox, Parrot OS
@@ -92,7 +92,7 @@
 
 ---
 
-# morpheus v2.1 changelog<br />
+# morpheus v2.2 changelog<br />
 
 
       [ new modules ]
@@ -100,6 +100,7 @@
       Block cpu crypto-minning  (drop/kill crypto-mining traffic)
       Google easter egg prank   (redirect target traffic)
       Capture https credentials (sslstrip + dns2proxy)
+      SmbRelay lateral movement (smbrelay C&C exploit)
 
       [ improvements ]
       option [14] alternative phishing webpage added
@@ -111,6 +112,7 @@
       All filters detection rules updated
 
       [ backend applications ]
+      morpheus/bin/Utils/smbrelayx.py
       morpheus/bin/Utils/sslstrip-0.9
       morpheus/bin/Utils/dns2proxy
 
@@ -119,36 +121,36 @@
 <br /><br />
 
 ## Nmap scans available [option S]<br />
-![morpheus v2.1-Alpha](http://i.cubeupload.com/O2h9Hd.png)
+![morpheus v2.2-Alpha](http://i.cubeupload.com/O2h9Hd.png)
 
-      Morpheus v2.1 allows is users to scan with nmap sending one fake User_Agent [ IPhone ]
+      Morpheus v2.2 allows is users to scan with nmap sending one fake User_Agent [ IPhone ]
       Activate this special funtion in [ settings ] file under morpheus main folder.
       HINT: This setting its only available in morpheus [ scan LAN for live hosts ]
 
-![morpheus v2.1-Alpha](http://i.cubeupload.com/hp9r2u.png)
+![morpheus v2.2-Alpha](http://i.cubeupload.com/hp9r2u.png)
 
       HINT: we can edit morpheus http.lua lib and input other user_agent,before run the tool.
       HINT: My http.lua lib modified also allows diferent user_agent inputs at run-time like:
       nmap -sV --script-args http.useragent="Apache-HttpClient/4.0.3 (java 1.5)" Target-Ip
 
 
-![morpheus v2.1-Alpha](http://i.cubeupload.com/v1aIGd.png)
+![morpheus v2.2-Alpha](http://i.cubeupload.com/v1aIGd.png)
 
 <br />
 
 ## Detecting DHCP requests to access local lan [option 17]<br />
-![morpheus v2.1-Alpha](http://i.cubeupload.com/EKAYLP.jpg)
+![morpheus v2.2-Alpha](http://i.cubeupload.com/EKAYLP.jpg)
 
 <br />
 
 ## Detecting-blocking crypto currency connections [option 18]<br />
-![morpheus v2.1-Alpha](http://i.cubeupload.com/cbAoeY.png)
+![morpheus v2.2-Alpha](http://i.cubeupload.com/cbAoeY.png)
 
 <br />
 
 ## Redirect all devices in LAN to google prank [option 19]<br />
-![morpheus v2.1-Alpha](http://i.cubeupload.com/ZE4Cy5.png)
-![morpheus v2.1-Alpha](http://i.cubeupload.com/xxmyex.png)
+![morpheus v2.2-Alpha](http://i.cubeupload.com/ZE4Cy5.png)
+![morpheus v2.2-Alpha](http://i.cubeupload.com/xxmyex.png)
 `HINT: This module depends of .im domain not beeing redirected`<br />
 
 <br />
@@ -168,13 +170,13 @@
                Destination ip      flow    source port     rank suspicious
 
 
-![morpheus v2.1-Alpha](http://i.cubeupload.com/nbgSuj.png)
+![morpheus v2.2-Alpha](http://i.cubeupload.com/nbgSuj.png)
 
-![morpheus v2.1-Alpha](http://i.cubeupload.com/Hx0JV4.png)
+![morpheus v2.2-Alpha](http://i.cubeupload.com/Hx0JV4.png)
 
-![morpheus v2.1-Alpha](http://i.cubeupload.com/LzqZGc.png)
+![morpheus v2.2-Alpha](http://i.cubeupload.com/LzqZGc.png)
 
-![morpheus v2.1-Alpha](http://i.cubeupload.com/z8M94O.png)
+![morpheus v2.2-Alpha](http://i.cubeupload.com/z8M94O.png)
 
 > Basically firewall filter will act like one offensive and defensive tool analyzing the
 > tcp/udp data flow to report logins,suspicious traffic,brute-force,block target ip,etc.
