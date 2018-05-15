@@ -1,12 +1,12 @@
-[![Version](https://img.shields.io/badge/MORPHEUS-2.2-orange.svg?maxAge=259200)]()
-[![Stage](https://img.shields.io/badge/Release-BETA-orange.svg)]()
+[![Version](https://img.shields.io/badge/MORPHEUS-2.2-brightgreen.svg?maxAge=259200)]()
+[![Stage](https://img.shields.io/badge/Release-STABLE-brightgreen.svg)]()
 [![Build](https://img.shields.io/badge/Supported_OS-Linux-orange.svg)]()
 [![AUR](https://img.shields.io/aur/license/yaourt.svg)]()
 
 # Morpheus - automated ettercap TCP/IP Hijacking tool
 ![morpheus v2.2-BETA](http://i.cubeupload.com/SpNvM5.png)
 
-    Version release: v2.2-BETA
+    Version release: v2.2 - STABLE
     Author: pedro ubuntu  [ r00t-3xp10it ]
     Codename: oneiroi phobetor (The mithologic dream greek god)
     Distros Supported: Linux Ubuntu, Kali, Debian, BackBox, Parrot OS
