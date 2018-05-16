@@ -27,12 +27,15 @@ if [ -e parse ]; then
 rhost=`cat parse`
 echo "" > $rhost.log
 rm -f parse > /dev/nul 2>&1
+else
+external="YES"
 fi
 if [ -e triggertwo ]; then
 secund=`cat triggertwo`
 echo "" > $secund.log
 rm -f triggertwo > /dev/nul 2>&1
 fi
+hour=`date | awk {'print $4,$5,$6'}`
 clear
 
 
@@ -42,7 +45,7 @@ clear
 trap ctrl_c INT
 ctrl_c() {
   echo ""
-  echo "[Morpheus] Abort module execution        .."
+  echo "[Morpheus] Abort module execution .."
   sleep 2
 exit
 }
@@ -52,18 +55,28 @@ exit
 #
 # first terminal message
 #
-echo "[Morpheus] Loging Events in: 67/UDP(dst) .."
-echo "   * Interface : $interface"
-echo "   * Modem Ip  : $modem"
-if [ -e $secund.log ]; then
-  echo "   *   status  : Filtering two targets at once [!]"
-  echo "   * Device    : $rhost.lan"
-  echo "   * Device    : $secund.lan"
+if [ "$external" = "YES" ]; then
+  echo "[Morpheus] Loging TCP/UDP Events .."
+  echo "   * Interface : $interface"
+  echo "   * Modem Ip  : $modem"
+  echo "   * Date/Time : $hour"
+  echo "   * ---"
+  echo ""
 else
-  echo "   * Device    : $rhost.lan"
+  echo "[Morpheus] Loging Events in: 67/UDP(dst) .."
+  echo "   * Interface : $interface"
+  echo "   * Modem Ip  : $modem"
+  echo "   * Date/Time : $hour"
+    if [ -e $secund.log ]; then
+      echo "   *   status  : Filtering two targets at once [!]"
+      echo "   * Device    : $rhost.lan"
+      echo "   * Device    : $secund.lan"
+    else
+      echo "   * Device    : $rhost.lan"
+    fi
+  echo "   * ---"
+  echo ""
 fi
-echo "   * ---"
-echo ""
 
 
 
@@ -115,6 +128,15 @@ sleep 1.5
       echo "   * Action    : Request access to local LAN" >> $secund.log
       echo "   * ---" >> $secund.log
       echo "" >> $secund.log
+    fi
+
+    if [ "$external" = "YES" ]; then
+      echo "[Morpheus] Loging Events .." >> warn.log
+      echo "   * Interface : $interface" >> warn.log
+      echo "   * Modem Ip  : $modem" >> warn.log
+      echo "   * Hour/Date : $hour" >> warn.log
+      echo "   * ---" >> warn.log
+      echo "" >> warn.log
     fi
 
 
