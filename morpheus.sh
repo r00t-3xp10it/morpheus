@@ -2146,7 +2146,7 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
       #
       # execute warn.sh (BEEP) script ?
       #
-      warnme=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute warn.sh script?" --width 270) > /dev/null 2>&1
+      warnme=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute warn.sh script?\n\nWARNING: your filter must contain\nthe follow rule to trigger BEEP sounds:\nlog(DATA.data, \"./beep-warning.beep\");" --width 290) > /dev/null 2>&1
       if [ "$?" -eq "0" ]; then
         xterm -T "MORPHEUS - warn.sh" -geometry 108x24 -e "cd $IPATH/bin && ./warn.sh" &
       fi
