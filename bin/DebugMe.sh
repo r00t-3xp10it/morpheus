@@ -2749,9 +2749,8 @@ scnt=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "\nChose
 if [ "$scnt" = "Scan LAN for active shares" ];then
   dtr=`date | awk {'print $4'}`
   ip_range=`ip route | grep "kernel" | awk {'print $1'}`
-  nmap -sS -Pn -T4 -f --open --script smb-enum-shares.nse,smb-os-discovery.nse -p 445 $IP_RANGE -oN $IPATH/logs/lan.txt | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning local lan for shares" --percentage=0 --auto-close --width 300
-  cat $IPATH/logs/lan.txt | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 570 --height 470
-  rm $IPATH/logs/lan.txt
+  nmap -sS -Pn -T4 -f --script smb-enum-shares.nse,smb-os-discovery.nse -p 445 $IP_RANGE -oN $IPATH/logs/SMBrelay.report | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning local lan for shares" --percentage=0 --auto-close --width 300
+  cat $IPATH/logs/SMBrelay.report | grep -v "RTTVAR" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 570 --height 470
   rhost=$(zenity --title="☠ Enter  target RHOST ☠" --text "example: 192.168.1.100" --entry --width 270)
   shr=$(zenity --title="☠ Sellect $rhost share ☠" --text "example: ADMIN$ or C$ or IPC$" --entry --width 270)
 else

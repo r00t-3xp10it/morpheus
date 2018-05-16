@@ -29,6 +29,7 @@ echo "" > $rhost.log
 rm -f parse > /dev/nul 2>&1
 else
 external="YES"
+echo "" > warn.log
 fi
 if [ -e triggertwo ]; then
 secund=`cat triggertwo`
