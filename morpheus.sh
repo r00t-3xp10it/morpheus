@@ -2142,6 +2142,17 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
       echo ${BlueF}[☠]${white} Running ARP poison + etter filter${RedF}!${Reset};
       echo ${YellowF}[☠]${white} Press ${YellowF}[q]${white} to quit ettercap framework${RedF}!${Reset};   
       sleep 2
+
+      #
+      # execute warn.sh (BEEP) script ?
+      #
+      warnme=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute warn.sh script?" --width 270) > /dev/null 2>&1
+      if [ "$?" -eq "0" ]; then
+        cd $IPATH/bin
+        xterm -T "MORPHEUS - warn.sh" -geometry 108x24 -e "./warn.sh" &
+      fi
+
+      cd $IPATH/logs
       if [ "$IpV" = "ACTIVE" ]; then
         if [ "$LoGs" = "NO" ]; then
         echo ${GreenF}[☠]${white} Using IPv6 settings${RedF}!${Reset};
