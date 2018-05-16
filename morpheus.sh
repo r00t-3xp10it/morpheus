@@ -2148,8 +2148,7 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
       #
       warnme=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute warn.sh script?" --width 270) > /dev/null 2>&1
       if [ "$?" -eq "0" ]; then
-        cd $IPATH/bin
-        xterm -T "MORPHEUS - warn.sh" -geometry 108x24 -e "./warn.sh" &
+        xterm -T "MORPHEUS - warn.sh" -geometry 108x24 -e "cd $IPATH/bin && ./warn.sh" &
       fi
 
       cd $IPATH/logs
@@ -2176,11 +2175,13 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-  mv $IPATH/filters/template.rb $IPATH/filters/template.eft > /dev/null 2>&1
-  # port-forward
-  # echo "0" > /proc/sys/net/ipv4/ip_forward
   sleep 2
+  mv $IPATH/filters/template.rb $IPATH/filters/template.eft > /dev/null 2>&1
   rm $IPATH/output/template.ef > /dev/null 2>&1
+  # HINT: warn.sh script will run in backgroud if we dont kill the process ..
+  if [ "$warnme" = "execute warn.sh" ]; then
+    killall warn.sh > dev/null 2>&1
+  fi
   cd $IPATH
 
 else
