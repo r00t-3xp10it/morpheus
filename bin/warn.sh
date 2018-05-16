@@ -57,17 +57,17 @@ exit
 # first terminal message
 #
 if [ "$external" = "YES" ]; then
-  echo "[Morpheus] Loging TCP/UDP Events .."
+  echo "[Morpheus] Beeping/Loging TCP/UDP Events .."
   echo "   * Interface : $interface"
   echo "   * Modem Ip  : $modem"
-  echo "   * Date/Time : $hour"
+  echo "   * Hour/Date : $hour"
   echo "   * ---"
   echo ""
 else
-  echo "[Morpheus] Loging Events in: 67/UDP(dst) .."
+  echo "[Morpheus] Beeping/Loging Events in: 67/UDP(dst) .."
   echo "   * Interface : $interface"
   echo "   * Modem Ip  : $modem"
-  echo "   * Date/Time : $hour"
+  echo "   * Hour/Date : $hour"
     if [ -e $secund.log ]; then
       echo "   *   status  : Filtering two targets at once [!]"
       echo "   * Device    : $rhost.lan"
@@ -161,8 +161,33 @@ sleep 1.5
     fi
   fi
 
+
 # end of loop funtion
 done
+
+
+#
+# delete ANCII chars from logfiles
+#
+cd .. && cd logs
+if [ -e $rhost.log ]; then
+tr -cd '\11\12\15\40-\176' < $rhost.log > clean.log
+mv clean.log $rhost.log > dev/null 2>&1
+rm clean.log > dev/null 2>&1
+fi
+
+if [ -e $secund.log ]; then
+tr -cd '\11\12\15\40-\176' < $secund.log > clean2.log
+mv clean2.log $secund.log > dev/null 2>&1
+rm clean2.log > dev/null 2>&1
+fi
+
+if [ -e warn.log ]; then
+tr -cd '\11\12\15\40-\176' < warn.log > clean3.log
+mv clean3.log warn.log > dev/null 2>&1
+rm clean3.log > dev/null 2>&1
+fi
+
 
 cd ..
 # exit script execution

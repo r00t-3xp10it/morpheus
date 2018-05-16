@@ -2869,6 +2869,7 @@ rm trigger.bat > /dev/null 2>&1
 rm chars.raw > /dev/null 2>&1
 
 
+
 #
 # abort button pressed ..
 #
