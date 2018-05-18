@@ -20,6 +20,18 @@ IPATH=`pwd`
 interface=`netstat -r | grep "default" | awk {'print $8'}`
 modem=`route -n | grep "UG" | awk {'print $2'} | tr -d '\n'`
 #
+# sellect warn.sh alert sound to use ..
+#
+if [ -e warn.ogg ]; then
+  sound="warn.ogg"
+  found="ogg"
+else
+  sound="printf '\a'"
+  found="sys"
+fi
+
+
+#
 # parsing data
 #
 cd .. && cd logs
@@ -102,9 +114,13 @@ sleep 1.5
     #
     # emitt one warning sound (BEEP)
     #
-    printf '\a'
-    sleep 0.3
-
+    if [ "$found" = "ogg" ]; then
+      cd .. && cd bin && paplay $sound
+      cd .. && cd logs
+    else
+      $sound
+      sleep 0.3
+    fi
 
     #
     # build logfile (in logs folder)
@@ -144,11 +160,13 @@ sleep 1.5
       #
       # emmit more than one beep just to users to hear it proper ..
       #
-      if [ -e beep-warning.beep ]; then
-        for i in `seq 1 7`; do
-          printf '\a'
-          sleep 0.1
-        done
+      if [ "$found" = "sys" ]; then
+        if [ -e beep-warning.beep ]; then
+          for i in `seq 1 7`; do
+            printf '\a'
+            sleep 0.1
+          done
+        fi
       fi
 
     #
