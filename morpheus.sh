@@ -266,13 +266,16 @@ mv $IPATH/bin/etter.rb $IPATH/bin/etter.dns > /dev/null 2>&1
 # revert ettercap conf files to default stage
 if [ -e $Edns ]; then
 mv /tmp/etter.dns $Edns > /dev/null 2>&1
+echo ${BlueF}[${GreenF}✔${BlueF}]${white} Revert ettercap etter.dns ${Reset};
 fi
 if [ -e $Econ ]; then
+echo ${BlueF}[${GreenF}✔${BlueF}]${white} Revert ettercap etter.conf ${Reset};
 mv /tmp/etter.conf $Econ > /dev/null 2>&1
 fi
 sleep 2
 exit
 }
+
 
 
 
