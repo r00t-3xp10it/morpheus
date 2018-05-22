@@ -1,0 +1,61 @@
+############################################################################
+#                                                                          #
+#  HTTPS Request/Response Filter                                           #
+#  based on code from ALoR & NaGA                                          #
+#                                                                          #
+#  This program is free software; you can redistribute it and/or modify    #
+#  it under the terms of the GNU General Public License as published by    #
+#  the Free Software Foundation; either version 2 of the License, or       #
+#  (at your option) any later version.                                     #
+#                                                                          #
+############################################################################
+
+
+##
+# LAN TRAFFIC DEMO FILTER: It will display ALL LAN devices
+# connections to (dst) or from (src) based on port number.
+# Port(s): 21, 25, 80, 110, 137, 139, 161, 443, 445, 1080
+# 1900, 8080, 194
+##
+
+
+
+if (ip.proto == TCP && tcp.dst == 21 || tcp.src == 21) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:21   [tcp] ftp ☆");
+}
+if (ip.proto == TCP && tcp.dst == 25 || tcp.src == 25) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:25   [tcp] smtp ☆");
+}
+if (ip.proto == TCP && tcp.dst == 80 || tcp.src == 80) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:80   [tcp] http ☆");
+}
+if (ip.proto == TCP && tcp.dst == 110 || tcp.src == 110) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:110  [tcp] pop3 ☆");
+}
+if (ip.proto == TCP && tcp.dst == 137 || tcp.src == 137) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:137  [tcp] netbios ☠");
+}
+if (ip.proto == TCP && tcp.dst == 139 || tcp.src == 139) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:139  [tcp] netbios ☠");
+}
+if (ip.proto == TCP && tcp.dst == 161 || tcp.src == 161) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:161  [tcp] snmp ☆");
+}
+if (ip.proto == TCP && tcp.dst == 194 || tcp.src == 194) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:194  [tcp] irc ☆");
+}
+if (ip.proto == TCP && tcp.dst == 443 || tcp.src == 443) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:443  [tcp] https ☆");
+}
+if (ip.proto == TCP && tcp.dst == 445 || tcp.src == 445) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:445  [tcp] netbios ☠");
+}
+if (ip.proto == TCP && tcp.dst == 1080 || tcp.src == 1080) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:1080 [tcp] socks ☠");
+}
+if (ip.proto == TCP && tcp.dst == 1900 || tcp.src == 1900) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:1900 [tcp] ssdp ☆");
+}
+if (ip.proto == TCP && tcp.dst == 8080 || tcp.src == 8080) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:8080 [tcp] http-alt ☆");
+}
