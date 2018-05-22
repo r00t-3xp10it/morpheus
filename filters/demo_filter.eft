@@ -14,12 +14,14 @@
 ##
 # LAN TRAFFIC DEMO FILTER: It will display ALL LAN devices
 # connections to (dst) or from (src) based on port number.
-# Port(s): 21, 25, 80, 110, 137, 139, 161, 443, 445, 1080
-# 1900, 8080, 194
+# Port(s): 21, 25, 53, 67, 80, 110, 137, 138, 139, 143, 161, 194
+# 443, 445, 990, 992, 1025, 1080, 1433, 1900, 3389, 5900, 8080
 ##
 
 
-
+#
+# TCP traffic
+#
 if (ip.proto == TCP && tcp.dst == 21 || tcp.src == 21) {
     msg("[morpheus] host:ALL     [ ⊶  ]  port:21   [tcp] ftp ☆");
 }
@@ -35,8 +37,14 @@ if (ip.proto == TCP && tcp.dst == 110 || tcp.src == 110) {
 if (ip.proto == TCP && tcp.dst == 137 || tcp.src == 137) {
     msg("[morpheus] host:ALL     [ ⊶  ]  port:137  [tcp] netbios ☠");
 }
+if (ip.proto == TCP && tcp.dst == 138 || tcp.src == 138) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:138  [tcp] netbios-dgm ☠");
+}
 if (ip.proto == TCP && tcp.dst == 139 || tcp.src == 139) {
     msg("[morpheus] host:ALL     [ ⊶  ]  port:139  [tcp] netbios ☠");
+}
+if (ip.proto == TCP && tcp.dst == 143 || tcp.src == 143) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:143  [tcp] imap ☆");
 }
 if (ip.proto == TCP && tcp.dst == 161 || tcp.src == 161) {
     msg("[morpheus] host:ALL     [ ⊶  ]  port:161  [tcp] snmp ☆");
@@ -50,12 +58,42 @@ if (ip.proto == TCP && tcp.dst == 443 || tcp.src == 443) {
 if (ip.proto == TCP && tcp.dst == 445 || tcp.src == 445) {
     msg("[morpheus] host:ALL     [ ⊶  ]  port:445  [tcp] netbios ☠");
 }
+if (ip.proto == TCP && tcp.dst == 990 || tcp.src == 990) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:990  [tcp] ftps ☠");
+}
+if (ip.proto == TCP && tcp.dst == 992 || tcp.src == 992) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:992  [tcp] telnets ☠");
+}
+if (ip.proto == TCP && tcp.dst == 1025 || tcp.src == 1025) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:1025 [tcp] win-rpc ☠");
+}
 if (ip.proto == TCP && tcp.dst == 1080 || tcp.src == 1080) {
     msg("[morpheus] host:ALL     [ ⊶  ]  port:1080 [tcp] socks ☠");
+}
+if (ip.proto == TCP && tcp.dst == 1433 || tcp.src == 1433) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:1433 [tcp] ms-sql-s ☆");
 }
 if (ip.proto == TCP && tcp.dst == 1900 || tcp.src == 1900) {
     msg("[morpheus] host:ALL     [ ⊶  ]  port:1900 [tcp] ssdp ☆");
 }
+if (ip.proto == TCP && tcp.dst == 3389 || tcp.src == 3389) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:3389 [tcp] ms-term ☠");
+}
+if (ip.proto == TCP && tcp.dst == 5900 || tcp.src == 5900) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:5900 [tcp] vnc ☆");
+}
 if (ip.proto == TCP && tcp.dst == 8080 || tcp.src == 8080) {
     msg("[morpheus] host:ALL     [ ⊶  ]  port:8080 [tcp] http-alt ☆");
+}
+
+
+
+#
+# UDP traffic
+#
+if (ip.proto == UDP && udp.dst == 67 || udp.src == 67) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:67   [udp] bootp-DHCP ☆");
+}
+if (ip.proto == UDP && udp.dst == 53 || udp.src == 53) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:53   [udp] dns ☆");
 }
