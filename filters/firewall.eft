@@ -220,7 +220,7 @@ if (ip.proto == UDP && udp.dst == 67 || udp.src == 67) {
     msg("[morpheus] |_ device: skynet-PC Windows10-amd64\n");
     }
 }
-if (ip.src == 'TaRONE' && ip.proto == UDP && tcp.dst == 53) {
+if (ip.src == 'TaRONE' && ip.proto == UDP && udp.dst == 53) {
   msg("[morpheus] host:TaRONE   [ -> ]  port:53   [udp] dns ☆");
         if (search(DATA.data, "facebook")) {
           msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ..");

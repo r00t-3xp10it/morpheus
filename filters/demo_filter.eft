@@ -14,8 +14,9 @@
 ##
 # LAN TRAFFIC DEMO FILTER: It will display ALL LAN devices
 # connections to (dst) or from (src) based on port number.
-# Port(s): 21, 25, 53, 67, 80, 110, 137, 138, 139, 143, 161, 194
-# 443, 445, 990, 992, 1025, 1080, 1433, 1900, 3389, 5900, 8080
+# Port(s): 21, 25, 53, 67, 80, 110, 137, 138, 139, 143, 161
+# 194, 443, 445, 512, 513, 990, 992, 1025, 1080, 1433, 1900
+# 3389, 5900, 8080
 ##
 
 
@@ -57,6 +58,12 @@ if (ip.proto == TCP && tcp.dst == 443 || tcp.src == 443) {
 }
 if (ip.proto == TCP && tcp.dst == 445 || tcp.src == 445) {
     msg("[morpheus] host:ALL     [ ⊶  ]  port:445  [tcp] netbios ☠");
+}
+if (ip.proto == TCP && tcp.dst == 512 || tcp.src == 512) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:512  [tcp] rlogin ☠");
+}
+if (ip.proto == TCP && tcp.dst == 513 || tcp.src == 513) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:513  [tcp] rlogin ☠");
 }
 if (ip.proto == TCP && tcp.dst == 990 || tcp.src == 990) {
     msg("[morpheus] host:ALL     [ ⊶  ]  port:990  [tcp] ftps ☠");
