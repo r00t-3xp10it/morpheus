@@ -221,6 +221,46 @@ if (ip.src == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
             drop();
             kill();
         }else{
+        if (search(DATA.data, "slushpool")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 73 6c 75 73 68 70 6f 6f 6c 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: slushpool.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "antpool")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 61 6e 74 70 6f 6f 6c 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: antpool.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "pool.btc")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 70 6f 6f 6c 2e 62 74 63 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: pool.btc.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "f2pool")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 66 32 70 6f 6f 6c 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: f2pool.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
         if (search(DATA.data, "CrYpT")) {
           msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
           msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
@@ -230,6 +270,10 @@ if (ip.src == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
             log(DATA.data, "./crypto-currency.log");
             drop();
             kill();
+       }
+       }
+       }
+       }
        }
        }
        }
@@ -437,6 +481,46 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
             drop();
             kill();
         }else{
+        if (search(DATA.data, "slushpool")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 73 6c 75 73 68 70 6f 6f 6c 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: slushpool.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "antpool")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 61 6e 74 70 6f 6f 6c 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: antpool.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "pool.btc")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 70 6f 6f 6c 2e 62 74 63 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: pool.btc.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "f2pool")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 66 32 70 6f 6f 6c 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: f2pool.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
         if (search(DATA.data, "CrYpT")) {
           msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
           msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
@@ -446,6 +530,10 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
             log(DATA.data, "./crypto-currency.log");
             drop();
             kill();
+       }
+       }
+       }
+       }
        }
        }
        }
