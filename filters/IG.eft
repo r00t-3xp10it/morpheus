@@ -1,0 +1,187 @@
+############################################################################
+#                                                                          #
+#  HTTP Request/Response Filter                                            #
+#  based on code from ALoR & NaGA                                          #
+#                                                                          #
+#  This program is free software; you can redistribute it and/or modify    #
+#  it under the terms of the GNU General Public License as published by    #
+#  the Free Software Foundation; either version 2 of the License, or       #
+#  (at your option) any later version.                                     #
+#                                                                          #
+############################################################################
+
+
+##
+# This filter will regex search target captured tcp headers (mitm)
+# to gather information about target system browser settings.
+# Special Thanks: shanty damayanti
+##
+
+
+
+#
+# Report port 443 (tcp) traffic just to make displays
+# that shows to users that filter its working fine ..
+#
+if (ip.proto == TCP && tcp.dst == 443 || tcp.src == 443) {
+    msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:443  [tcp] https ☆");
+}
+
+
+
+#
+# Report port 80 (tcp-http) traffic
+# regex search headers, write logfile.
+#
+
+if (ip.src == 'TaRgEt') {
+  if (ip.proto == TCP && tcp.dst == 80 || tcp.src == 80) {
+    msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:80   [tcp] http ☆");
+      if (regex(DECODED.data, ".*Host.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : Host string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*DNT.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : DNT string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*Tk.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : Tk string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*From.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : From string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*Referer.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : Referer string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*Forwarded.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : Forwarded string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*Connection.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : Connection string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*X-Forwarded-Host.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : X-Forwarded-Host string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*X-XSS-Protection.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : X-XSS-Protection string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*Content-Encoding.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : Content-Encoding string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*Content-Type.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : Content-Type string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*Cache-Control.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : Cache-Control string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*Server.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : Server string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*Content-Language.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : Content-Language string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*Accepted-Language.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : Accepted-Language string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*Strict-Transport-Security.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : Strict-Transport-Security string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*Set-Cookie.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : Set-Cookie string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*Access-Control-Allow-Methods.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : Access-Control-Allow-Methods string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*User-Agent.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : User-Agent string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*Accept-Charset.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : Accept-Charset string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
+      if (regex(DECODED.data, ".*Authorization.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : Authorization string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }
+      }
+      }
+      }
+      }
+      }
+      }
+      }
+      }
+      }
+      }
+      }
+      }
+      }
+      }
+      }
+      }
+      }
+      }
+      }
+    }
+  }
+}

