@@ -261,6 +261,76 @@ if (ip.src == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
             drop();
             kill();
         }else{
+        if (search(DATA.data, "ripple")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 72 69 70 70 6c 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: ripple.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "ethereum")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 65 74 68 65 72 65 75 6d 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: ethereum.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "atomicwallet")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 61 74 6f 6d 69 63 77 61 6c 6c 65 74 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: atomicwallet.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "litecoin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 6c 69 74 65 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: litecoin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "getmonero")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 67 65 74 6d 6f 6e 65 72 6f 2e 6f 72 67");
+          msg("[morpheus] |_  decoded: getmonero.org\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "digibyte")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 64 69 67 69 62 79 74 65 2e 69 6f");
+          msg("[morpheus] |_  decoded: digibyte.io\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "chain")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 68 61 69 6e 2e 6c 69 6e 6b");
+          msg("[morpheus] |_  decoded: chain.link\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
         if (search(DATA.data, "CrYpT")) {
           msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
           msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
@@ -270,6 +340,12 @@ if (ip.src == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
             log(DATA.data, "./crypto-currency.log");
             drop();
             kill();
+       }
+       }
+       }
+       }
+       }
+       }
        }
        }
        }
@@ -521,6 +597,76 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
             drop();
             kill();
         }else{
+        if (search(DATA.data, "ripple")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 72 69 70 70 6c 65 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: ripple.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "ethereum")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 65 74 68 65 72 65 75 6d 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: ethereum.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "atomicwallet")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 61 74 6f 6d 69 63 77 61 6c 6c 65 74 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: atomicwallet.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "litecoin")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 6c 69 74 65 63 6f 69 6e 2e 63 6f 6d");
+          msg("[morpheus] |_  decoded: litecoin.com\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "getmonero")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 67 65 74 6d 6f 6e 65 72 6f 2e 6f 72 67");
+          msg("[morpheus] |_  decoded: getmonero.org\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "digibyte")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 64 69 67 69 62 79 74 65 2e 69 6f");
+          msg("[morpheus] |_  decoded: digibyte.io\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
+        if (search(DATA.data, "chain")) {
+          msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
+          msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
+          msg("[morpheus] |   info : possible CrYpT monero (cryptomining)");
+          msg("[morpheus] |   hex  : 63 68 61 69 6e 2e 6c 69 6e 6b");
+          msg("[morpheus] |_  decoded: chain.link\n");
+            log(DATA.data, "./crypto-currency.log");
+            drop();
+            kill();
+        }else{
         if (search(DATA.data, "CrYpT")) {
           msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found...");
           msg("[morpheus] | action : drop TCP/UDP(src) packet ✔");
@@ -530,6 +676,12 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
             log(DATA.data, "./crypto-currency.log");
             drop();
             kill();
+       }
+       }
+       }
+       }
+       }
+       }
        }
        }
        }
