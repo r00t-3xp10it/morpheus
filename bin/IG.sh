@@ -6,7 +6,7 @@
 # capture is network communications and extract juice info for tcp headers.
 # Special Thanks: shanty damayanti
 ##
-resize -s 27 109 > /dev/null
+# resize -s 27 109 > /dev/null
 
 
 
