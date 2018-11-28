@@ -34,7 +34,7 @@ if (ip.proto == TCP && tcp.dst == 443 || tcp.src == 443) {
 # regex search headers, write logfile.
 #
 
-if (ip.src == 'TaRgEt') {
+RepLaCe
   if (ip.proto == TCP && tcp.dst == 80 || tcp.src == 80) {
     msg("[morpheus] host:TaRgEt   [ ⊶  ]  port:80   [tcp] http ☆");
       if (regex(DECODED.data, ".*Host.*")) {
