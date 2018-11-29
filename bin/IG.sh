@@ -76,23 +76,23 @@ do
       DNT=`cat logs/IG.log | egrep -m 1 "DNT:" | awk {'print $2'}` > /dev/nul 2>&1
       HST=`cat logs/IG.log | egrep -m 1 "Host:" | awk {'print $2'}` > /dev/nul 2>&1
       FEM=`cat logs/IG.log | egrep -m 1 "From:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
-      RFR=`cat logs/IG.log | egrep -m 1 "Referer:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
+      RFR=`cat logs/IG.log | egrep -m 1 "Referer:" | awk {'print $2,$3'}` > /dev/nul 2>&1
+      SER=`cat logs/IG.log | egrep -m 1 "Server:" | awk {'print $2,$3,$4,$5'}` > /dev/nul 2>&1
       FWR=`cat logs/IG.log | egrep -m 1 "Forwarded:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
+      CON=`cat logs/IG.log | egrep -m 1 "Connection:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
+      CTT=`cat logs/IG.log | egrep -m 1 "Content-Type:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
       AUT=`cat logs/IG.log | egrep -m 1 "Authorization:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
-      CON=`cat logs/IG.log | egrep -m 1 "Connection:" | awk {'print $2,$3,$4,$5'}` > /dev/nul 2>&1
-      CTT=`cat logs/IG.log | egrep -m 1 "Content-Type:" | awk {'print $2,$3,$4,$5'}` > /dev/nul 2>&1
+      XSS=`cat logs/IG.log | egrep -m 1 "X-XSS-Protection:" | awk {'print $2,$3'}` > /dev/nul 2>&1
       CHC=`cat logs/IG.log | egrep -m 1 "Cache-Control:" | awk {'print $2,$3,$4,$5'}` > /dev/nul 2>&1
       XFH=`cat logs/IG.log | egrep -m 1 "X-Forwarded-Host:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
-      XSS=`cat logs/IG.log | egrep -m 1 "X-XSS-Protection:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
       CEN=`cat logs/IG.log | egrep -m 1 "Content-Encoding:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
       ACS=`cat logs/IG.log | egrep -m 1 "Accept-Charset:" | awk {'print $2,$3,$4,$5'}` > /dev/nul 2>&1
-      SER=`cat logs/IG.log | egrep -m 1 "Server:" | awk {'print $2,$3,$4,$5,$6,$7,$8'}` > /dev/nul 2>&1
       CTL=`cat logs/IG.log | egrep -m 1 "Content-Language:" | awk {'print $2,$3,$4,$5'}` > /dev/nul 2>&1
+      STC=`cat logs/IG.log | egrep -m 1 "Set-Cookie:" | awk {'print $2,$3,$4,$5,$6,$7'}` > /dev/nul 2>&1
       LGA=`cat logs/IG.log | egrep -m 1 "Accepted-Language:" | awk {'print $2,$3,$4,$5'}` > /dev/nul 2>&1
       HSTS=`cat logs/IG.log | egrep -m 1 "Strict-Transport-Security:" | awk {'print $2,$3,$4,$5'}` > /dev/nul 2>&1
-      STC=`cat logs/IG.log | egrep -m 1 "Set-Cookie:" | awk {'print $2,$3,$4,$5,$6,$7,$8,$9,$10'}` > /dev/nul 2>&1
       ACAM=`cat logs/IG.log | egrep -m 1 "Access-Control-Allow-Methods:" | awk {'print $2,$3,$4,$5,$6'}` > /dev/nul 2>&1
-      TUA=`cat logs/IG.log | egrep -m 1 "User-Agent:" | awk {'print $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18'}` > /dev/nul 2>&1
+      TUA=`cat logs/IG.log | egrep -m 1 "User-Agent:" | awk {'print $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14'}` > /dev/nul 2>&1
 
 
       #
