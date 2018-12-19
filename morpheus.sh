@@ -1963,7 +1963,7 @@ sleep 1
       # HINT: irongeek nao usou UID 0 e SSL active...
 
 
-      echo ${BlueF}[☠]${white} access this url to test${RedF}:${GreenF} https://nhm.org/site/${Reset};
+      echo ${BlueF}[☠]${white} access this url to test${RedF}:${GreenF} http://antt.dglab.gov.pt/${Reset};
       echo ${BlueF}[☠]${white} Remenber that this kind of attack works better againts Internet Explorer${Reset};
       sleep 2
       echo ${BlueF}[☠]${white} Running ARP poison + etter filter${RedF}!${Reset};
