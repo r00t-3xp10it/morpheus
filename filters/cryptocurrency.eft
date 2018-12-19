@@ -369,6 +369,7 @@ if (ip.src == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
        }
        }
        }
+       }
 }
 
 
@@ -676,6 +677,7 @@ if (ip.dst == 'TaRONE' && ip.proto == TCP || ip.proto == UDP) {
             log(DATA.data, "./crypto-currency.log");
             drop();
             kill();
+       }
        }
        }
        }
