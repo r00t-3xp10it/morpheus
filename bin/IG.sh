@@ -83,6 +83,7 @@ do
       CTT=`cat logs/IG.log | egrep -m 1 "Content-Type:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
       AUT=`cat logs/IG.log | egrep -m 1 "Authorization:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
       XSS=`cat logs/IG.log | egrep -m 1 "X-XSS-Protection:" | awk {'print $2,$3'}` > /dev/nul 2>&1
+      XCO=`cat logs/IG.log | egrep -m 1 "X-Content-Type-Options:" | awk {'print $2'}` > /dev/nul 2>&1
       CHC=`cat logs/IG.log | egrep -m 1 "Cache-Control:" | awk {'print $2,$3,$4,$5'}` > /dev/nul 2>&1
       XFH=`cat logs/IG.log | egrep -m 1 "X-Forwarded-Host:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
       CEN=`cat logs/IG.log | egrep -m 1 "Content-Encoding:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
@@ -113,6 +114,7 @@ do
       echo "Allow-Methods       : $ACAM"
       echo "Cache-Control       : $CHC"
       echo "X-Forwarded-Host    : $XFH"
+      echo "X-Content-Type-Opt  : $XCO"
       echo "Accept-Charset      : $ACS"
       echo "Content-Type        : $CTT"
       echo "HSTS                : $HSTS"
@@ -148,6 +150,7 @@ do
         echo "Allow-Methods       : $ACAM" >> logs/$rhost-header_capture.log
         echo "Cache-Control       : $CHC" >> logs/$rhost-header_capture.log
         echo "X-Forwarded-Host    : $XFH" >> logs/$rhost-header_capture.log
+        echo "X-Content-Type-Opt  : $XCO" >> logs/$rhost-header_capture.log
         echo "Accept-Charset      : $ACS" >> logs/$rhost-header_capture.log
         echo "Content-Type        : $CTT" >> logs/$rhost-header_capture.log
         echo "HSTS                : $HSTS" >> logs/$rhost-header_capture.log
