@@ -163,11 +163,18 @@ RepLaCe
         msg("[morpheus] |_ header : X-Content-Type-Options string found ✔\n");
         log(DECODED.data, "./IG.log");
       }else{
+      if (regex(DECODED.data, ".*X-Frame-Options.*")) {
+        msg("\n[morpheus] host:TaRgEt   header:found");
+        msg("[morpheus] | status  : Target tcp header detected");
+        msg("[morpheus] |_ header : X-Frame-Options string found ✔\n");
+        log(DECODED.data, "./IG.log");
+      }else{
       if (regex(DECODED.data, ".*Authorization.*")) {
         msg("\n[morpheus] host:TaRgEt   header:found");
         msg("[morpheus] | status  : Target tcp header detected");
         msg("[morpheus] |_ header : Authorization string found ✔\n");
         log(DECODED.data, "./IG.log");
+      }
       }
       }
       }

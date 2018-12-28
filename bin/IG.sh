@@ -79,6 +79,7 @@ do
       RFR=`cat logs/IG.log | egrep -m 1 "Referer:" | awk {'print $2,$3'}` > /dev/nul 2>&1
       SER=`cat logs/IG.log | egrep -m 1 "Server:" | awk {'print $2,$3,$4,$5'}` > /dev/nul 2>&1
       FWR=`cat logs/IG.log | egrep -m 1 "Forwarded:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
+      XFO=`cat logs/IG.log | egrep -m 1 "X-Frame-Options:" | awk {'print $2'}` > /dev/nul 2>&1
       CON=`cat logs/IG.log | egrep -m 1 "Connection:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
       CTT=`cat logs/IG.log | egrep -m 1 "Content-Type:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
       AUT=`cat logs/IG.log | egrep -m 1 "Authorization:" | awk {'print $2,$3,$4'}` > /dev/nul 2>&1
@@ -115,6 +116,7 @@ do
       echo "Cache-Control       : $CHC"
       echo "X-Forwarded-Host    : $XFH"
       echo "X-Content-Type-Opt  : $XCO"
+      echo "X-Frame-Options     : $XFO"
       echo "Accept-Charset      : $ACS"
       echo "Content-Type        : $CTT"
       echo "HSTS                : $HSTS"
@@ -151,6 +153,7 @@ do
         echo "Cache-Control       : $CHC" >> logs/$rhost-header_capture.log
         echo "X-Forwarded-Host    : $XFH" >> logs/$rhost-header_capture.log
         echo "X-Content-Type-Opt  : $XCO" >> logs/$rhost-header_capture.log
+        echo "X-Frame-Options     : $XFO" >> logs/$rhost-header_capture.log
         echo "Accept-Charset      : $ACS" >> logs/$rhost-header_capture.log
         echo "Content-Type        : $CTT" >> logs/$rhost-header_capture.log
         echo "HSTS                : $HSTS" >> logs/$rhost-header_capture.log
